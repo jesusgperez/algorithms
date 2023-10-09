@@ -130,9 +130,25 @@ class RBinaryTree:
         if left_depth > right_depth:
             return left_depth
         elif right_depth > left_depth:
-            return left_depth
+            return right_depth
 
         return left_depth
+
+    def search(self, item: int) -> Optional[TreeNode]:
+        return self._search_recursive(tree=self.root, item=item)
+
+    def _search_recursive(
+        self,
+        tree: Optional[TreeNode],
+        item: int
+    ) -> Optional[TreeNode]:
+        if not tree or tree.item == item:
+            return tree
+
+        if item < tree.item:
+            return self._search_recursive(tree=tree.left, item=item)
+
+        return self._search_recursive(tree=tree.right, item=item)
 
 
 class BinaryTree:
