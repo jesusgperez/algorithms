@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List, Tuple
 from pydantic import BaseModel
 from enum import Enum
 
@@ -149,6 +149,24 @@ class RBinaryTree:
             return self._search_recursive(tree=tree.left, item=item)
 
         return self._search_recursive(tree=tree.right, item=item)
+
+    def find_swapped(self) -> List[TreeNode]:
+        traverse = self.traverse(TreeTraversal.INORDER)
+        swapped: List[str] = []
+        count: int = 0
+
+        for i in range(1, len(traverse)):
+            if int(traverse[i]) < int(traverse[i-1]):
+                count += 1
+                if count == 1:
+                    swapped.append(int(traverse[i-1]))
+                else:
+                    swapped.append(int(traverse[i]))
+
+            if count == 2:
+                break
+
+        return swapped
 
 
 class BinaryTree:

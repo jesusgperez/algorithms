@@ -1,5 +1,7 @@
 from unittest import TestCase
+from typing import List
 from pyfiles.binary_tree import (
+    TreeNode,
     RBinaryTree,
     TreeTraversal
 )
@@ -16,6 +18,7 @@ def get_basic_tree() -> RBinaryTree:
     rtree.insert(8)
 
     return rtree
+
 
 def get_depth_tree() -> RBinaryTree:
     rtree = RBinaryTree()
@@ -71,3 +74,14 @@ class TestBinaryTree(TestCase):
 
         self.assertEqual(tree_node.item, SEARCH_ITEM)
         self.assertEqual(tree_node.parent.item, 7)
+
+    def test__swapped_items__successful(self):
+        rtree = get_basic_tree()
+        rtree.root.left.right.item = 6
+        rtree.root.right.left.item = 4
+
+        swapped: List[TreeNode] = rtree.find_swapped()
+
+        self.assertEqual(len(swapped), 2)
+        self.assertEqual(swapped[0], 6)
+        self.assertEqual(swapped[1], 4)
