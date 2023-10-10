@@ -1,18 +1,7 @@
 from unittest import TestCase
 from pyfiles.binary_tree import RBinaryTree
 from pyfiles.interaction import merge_two_binary_search_trees
-
-def get_basic_tree() -> RBinaryTree:
-    rtree = RBinaryTree()
-    rtree.insert(5)
-    rtree.insert(3)
-    rtree.insert(7)
-    rtree.insert(4)
-    rtree.insert(2)
-    rtree.insert(6)
-    rtree.insert(8)
-
-    return rtree
+from test_binary_tree import get_basic_tree
 
 def get_second_basic_tree() -> RBinaryTree:
     rtree = RBinaryTree()
