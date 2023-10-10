@@ -1,6 +1,7 @@
-from typing import Optional, List, Tuple
+from typing import Optional, List
 from pydantic import BaseModel
 from enum import Enum
+from pyfiles.double_linked_list import DLinkedList
 
 
 class TreeTraversal(Enum):
@@ -150,7 +151,7 @@ class RBinaryTree:
 
         return self._search_recursive(tree=tree.right, item=item)
 
-    def find_swapped(self) -> List[TreeNode]:
+    def find_swapped(self) -> List[str]:
         traverse = self.traverse(TreeTraversal.INORDER)
         swapped: List[str] = []
         count: int = 0
@@ -159,14 +160,45 @@ class RBinaryTree:
             if int(traverse[i]) < int(traverse[i-1]):
                 count += 1
                 if count == 1:
-                    swapped.append(int(traverse[i-1]))
+                    swapped.append(traverse[i-1])
                 else:
-                    swapped.append(int(traverse[i]))
+                    swapped.append(traverse[i])
 
             if count == 2:
                 break
 
         return swapped
+
+    def to_list(self) -> DLinkedList:
+        dlist = DLinkedList()
+        return self._to_list_recursive(
+            tree=self.root,
+            dlist=dlist
+        )
+    
+    def _to_list_recursive(
+        self,
+        tree: Optional[TreeNode],
+        dlist: DLinkedList
+    ) -> Optional[DLinkedList]:
+        if not tree:
+            return None
+
+        dlist.extend(
+            dlist=self._to_list_recursive(
+                tree=tree.left,
+                dlist=dlist
+            )
+        )
+        dlist.insert(tree.item)
+        dlist.extend(
+            dlist=self._to_list_recursive(
+                tree=tree.right,
+                dlist=dlist
+            )
+        )
+
+        return dlist
 
 
 class BinaryTree:

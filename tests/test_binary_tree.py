@@ -85,3 +85,10 @@ class TestBinaryTree(TestCase):
         self.assertEqual(len(swapped), 2)
         self.assertEqual(swapped[0], 6)
         self.assertEqual(swapped[1], 4)
+
+    def test__to_list__successful(self):
+        rtree = get_basic_tree()
+        dlist = rtree.to_list()
+
+        self.assertEqual(dlist.head.item, 2)
+        self.assertEqual(dlist.tail.item, 8)
