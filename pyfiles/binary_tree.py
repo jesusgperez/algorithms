@@ -169,32 +169,26 @@ class RBinaryTree:
 
         return swapped
 
-    def to_list(self) -> DLinkedList:
-        dlist = DLinkedList()
-        return self._to_list_recursive(
-            tree=self.root,
-            dlist=dlist
-        )
-    
+    def to_list(self) -> Optional[DLinkedList]:
+        return self._to_list_recursive(tree=self.root)
+
     def _to_list_recursive(
         self,
-        tree: Optional[TreeNode],
-        dlist: DLinkedList
+        tree: Optional[TreeNode]
     ) -> Optional[DLinkedList]:
+        dlist = DLinkedList()
         if not tree:
             return None
 
         dlist.extend(
             dlist=self._to_list_recursive(
-                tree=tree.left,
-                dlist=dlist
+                tree=tree.left
             )
         )
         dlist.insert(tree.item)
         dlist.extend(
             dlist=self._to_list_recursive(
-                tree=tree.right,
-                dlist=dlist
+                tree=tree.right
             )
         )
 
