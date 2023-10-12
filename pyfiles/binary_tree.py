@@ -2,7 +2,7 @@ from typing import Optional, List
 from pydantic import BaseModel
 from enum import Enum
 from pyfiles.double_linked_list import DLinkedList
-#from pyfiles.utils.utils import measure_time
+from pyfiles.utils.utils import measure_time
 
 
 class TreeTraversal(Enum):
@@ -170,7 +170,7 @@ class RBinaryTree:
 
         return swapped
 
-    #@measure_time
+    @measure_time
     def to_list(self) -> Optional[DLinkedList]:
         return self._to_list_recursive(tree=self.root)
 

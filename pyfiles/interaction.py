@@ -1,5 +1,5 @@
-from binary_tree import RBinaryTree
-from double_linked_list import DLinkedList
+from pyfiles.binary_tree import RBinaryTree
+from pyfiles.double_linked_list import DLinkedList
 
 
 def merge_two_binary_search_trees(

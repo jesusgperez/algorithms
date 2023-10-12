@@ -2,36 +2,12 @@ from unittest import TestCase
 from typing import List
 from pyfiles.binary_tree import (
     TreeNode,
-    RBinaryTree,
     TreeTraversal
 )
-
-
-def get_basic_tree() -> RBinaryTree:
-    rtree = RBinaryTree()
-    rtree.insert(5)
-    rtree.insert(3)
-    rtree.insert(7)
-    rtree.insert(4)
-    rtree.insert(2)
-    rtree.insert(6)
-    rtree.insert(8)
-
-    return rtree
-
-
-def get_depth_tree() -> RBinaryTree:
-    rtree = RBinaryTree()
-    rtree.insert(7)
-    rtree.insert(8)
-    rtree.insert(3)
-    rtree.insert(4)
-    rtree.insert(2)
-    rtree.insert(5)
-    rtree.insert(6)
-
-    return rtree
-
+from utils import(
+    get_basic_tree,
+    get_depth_tree
+)
 
 class TestBinaryTree(TestCase):
 
