@@ -21,7 +21,7 @@ def merge_two_binary_search_trees(
         else:
             linked_list.insert(second_current.item)
             second_current = second_current.next
-    
+
     if not first_current and not second_current:
         return linked_list
 

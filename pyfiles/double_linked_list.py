@@ -14,7 +14,7 @@ class DLinkedList:
         self.tail: Optional[Node] = None
         self.n: int = 0
 
-    def insert(self, item: int) -> None:
+    def append(self, item: int) -> None:
         if not self.head or not self.tail:
             self.head = Node(item=item)
             self.tail = self.head
@@ -25,9 +25,9 @@ class DLinkedList:
         self.tail = self.tail.next
         self.n += 1
         return
-    
+
     def extend(
-        self, 
+        self,
         dlist: Optional['DLinkedList']
     ) -> None:
         if not dlist:
@@ -39,7 +39,7 @@ class DLinkedList:
         current = dlist.head
 
         while current:
-            self.insert(current.item)
+            self.append(current.item)
             current = current.next
 
         return

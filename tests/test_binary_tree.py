@@ -2,7 +2,11 @@ from unittest import TestCase
 from typing import List
 from pyfiles.binary_tree import (
     TreeNode,
-    TreeTraversal
+    TreeTraversal,
+    ListOptions
+)
+from pyfiles.double_linked_list import (
+    DLinkedList
 )
 from utils import(
     get_basic_tree,
@@ -69,16 +73,26 @@ class TestBinaryTree(TestCase):
 
         self.assertEqual(dlist.head.item, 2)
         self.assertEqual(dlist.tail.item, 8)
+        self.assertEqual(type(dlist), DLinkedList)
+
+        dlist = rtree.to_list(list_option=ListOptions.ARRAY)
+
+        self.assertEqual(dlist[0], 2)
+        self.assertEqual(dlist[-1], 8)
+        self.assertEqual(type(dlist), list)
 
     def test__is_balanced__successful(self):
         rtree = get_basic_tree()
-
         balanced = rtree.is_balanced()
 
         self.assertTrue(balanced)
 
         rtree = get_unbalanced_tree()
+        balanced = rtree.is_balanced()
 
+        self.assertFalse(balanced)
+
+        rtree = get_depth_tree()
         balanced = rtree.is_balanced()
 
         self.assertFalse(balanced)

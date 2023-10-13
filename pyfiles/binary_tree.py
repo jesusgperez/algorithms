@@ -1,8 +1,13 @@
-from typing import Optional, List, Tuple
+from typing import Optional, List, Tuple, Union
 from pydantic import BaseModel
 from enum import Enum
 from pyfiles.double_linked_list import DLinkedList
 from pyfiles.utils.utils import measure_time
+
+
+class ListOptions(Enum):
+    DLINKEDLIST = 'double_linked_list'
+    ARRAY = 'array'
 
 
 class TreeTraversal(Enum):
@@ -21,7 +26,8 @@ class TreeNode(BaseModel):
         parent_content = self.parent if not self.parent else self.parent.item
         right_content = self.right if not self.right else self.right.item
         left_content = self.left if not self.left else self.left.item
-        return f'TreeNode(item={self.item}, parent={parent_content}, left={left_content}, right={right_content})'
+        return (f'TreeNode(item={self.item}, parent={parent_content}'
+                f', left={left_content}, right={right_content})')
 
     def __str__(self) -> str:
         return self.__repr__()
@@ -33,13 +39,13 @@ class RBinaryTree:
         self.n: int = 0
 
     def insert(self, new_item: int) -> Optional[TreeNode]:
-        if type(new_item) != int:
+        if type(new_item) is int:
             return None
 
         self.n += 1
 
         return self._insert_recursive(new_item=new_item, tree=self.root)
-    
+
     def _insert_recursive(
         self,
         new_item: int,
@@ -177,31 +183,46 @@ class RBinaryTree:
         return swapped
 
     @measure_time
-    def to_list(self) -> Optional[DLinkedList]:
-        return self._to_list_recursive(tree=self.root)
+    def to_list(
+        self,
+        list_option: ListOptions = ListOptions.DLINKEDLIST
+    ) -> Union[DLinkedList, List, None]:
+        if list_option == ListOptions.DLINKEDLIST:
+            return self._to_list_recursive(tree=self.root)
+
+        return self._to_array_recursive(tree=self.root)
 
     def _to_list_recursive(
         self,
-        tree: Optional[TreeNode]
+        tree: Optional[TreeNode],
     ) -> Optional[DLinkedList]:
         dlist = DLinkedList()
+
         if not tree:
             return None
 
-        dlist.extend(
-            dlist=self._to_list_recursive(
-                tree=tree.left
-            )
-        )
-        dlist.insert(tree.item)
-        dlist.extend(
-            dlist=self._to_list_recursive(
-                tree=tree.right
-            )
-        )
+        dlist.extend(dlist=self._to_list_recursive(tree=tree.left))
+        dlist.append(tree.item)
+        dlist.extend(dlist=self._to_list_recursive(tree=tree.right))
 
         return dlist
 
+    def _to_array_recursive(
+        self,
+        tree: Optional[TreeNode]
+    ) -> List[int]:
+        array: List[int] = []
+
+        if not tree:
+            return array
+
+        array.extend(self._to_array_recursive(tree=tree.left))
+        array.append(tree.item)
+        array.extend(self._to_array_recursive(tree=tree.right))
+
+        return array
+
+    @measure_time
     def is_balanced(self) -> bool:
         balanced, _ = self._is_balanced_recursive(self.root)
         return balanced
@@ -224,7 +245,6 @@ class RBinaryTree:
 
         if not left_balance or not right_balance:
             return left_balance and right_balance, height
-
 
         if abs(left_height - right_height) > 1:
             return False, height
@@ -252,13 +272,13 @@ class BinaryTree:
                 current = current.right
 
         new_node = TreeNode(item=new_item, parent=parent)
-        
+
         if parent and new_item < parent.item:
             parent.left = new_node
         elif parent:
             parent.right = new_node
 
         return str(new_node)
-    
+
     def traverse(self):
         pass

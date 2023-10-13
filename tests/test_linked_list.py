@@ -6,11 +6,11 @@ from pyfiles.double_linked_list import (
 
 class TestLinkedList(TestCase):
 
-    def test__insert_double_linked_list__success(self):
+    def test__append_double_linked_list__success(self):
         linked_list = DLinkedList()
 
         for i in range(1, 11):
-            linked_list.insert(i)
+            linked_list.append(i)
 
         self.assertEqual(linked_list.head.item, 1)
         self.assertEqual(linked_list.tail.item, 10)
@@ -19,7 +19,7 @@ class TestLinkedList(TestCase):
         linked_list = DLinkedList()
 
         for i in range(1, 11):
-            linked_list.insert(i)
+            linked_list.append(i)
 
         result = linked_list.print()
 
@@ -30,9 +30,9 @@ class TestLinkedList(TestCase):
 
         for i in range(1, 21):
             if i < 11:
-                first_list.insert(i)
+                first_list.append(i)
                 continue
-            second_list.insert(i)
+            second_list.append(i)
 
         first_list.extend(dlist=second_list)
 
