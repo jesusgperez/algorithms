@@ -39,7 +39,7 @@ class RBinaryTree:
         self.n: int = 0
 
     def insert(self, new_item: int) -> Optional[TreeNode]:
-        if type(new_item) is int:
+        if type(new_item) is not int:
             return None
 
         self.n += 1
