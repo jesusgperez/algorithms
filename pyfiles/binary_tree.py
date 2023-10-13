@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Tuple
 from pydantic import BaseModel
 from enum import Enum
 from pyfiles.double_linked_list import DLinkedList
@@ -30,8 +30,14 @@ class TreeNode(BaseModel):
 class RBinaryTree:
     def __init__(self) -> None:
         self.root: Optional[TreeNode] = None
+        self.n: int = 0
 
-    def insert(self, new_item: int) -> TreeNode:
+    def insert(self, new_item: int) -> Optional[TreeNode]:
+        if type(new_item) != int:
+            return None
+
+        self.n += 1
+
         return self._insert_recursive(new_item=new_item, tree=self.root)
     
     def _insert_recursive(
@@ -195,6 +201,35 @@ class RBinaryTree:
         )
 
         return dlist
+
+    def is_balanced(self) -> bool:
+        balanced, _ = self._is_balanced_recursive(self.root)
+        return balanced
+
+    def _is_balanced_recursive(
+        self,
+        tree: Optional[TreeNode]
+    ) -> Tuple[bool, int]:
+        if not tree:
+            return True, 0
+
+        left_balance, left_height = self._is_balanced_recursive(
+            tree=tree.left
+        )
+        right_balance, right_height = self._is_balanced_recursive(
+            tree=tree.right
+        )
+
+        height = max(left_height, right_height) + 1
+
+        if not left_balance or not right_balance:
+            return left_balance and right_balance, height
+
+
+        if abs(left_height - right_height) > 1:
+            return False, height
+
+        return True, height
 
 
 class BinaryTree:

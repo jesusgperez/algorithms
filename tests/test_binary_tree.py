@@ -6,7 +6,8 @@ from pyfiles.binary_tree import (
 )
 from utils import(
     get_basic_tree,
-    get_depth_tree
+    get_depth_tree,
+    get_unbalanced_tree
 )
 
 class TestBinaryTree(TestCase):
@@ -68,3 +69,16 @@ class TestBinaryTree(TestCase):
 
         self.assertEqual(dlist.head.item, 2)
         self.assertEqual(dlist.tail.item, 8)
+
+    def test__is_balanced__successful(self):
+        rtree = get_basic_tree()
+
+        balanced = rtree.is_balanced()
+
+        self.assertTrue(balanced)
+
+        rtree = get_unbalanced_tree()
+
+        balanced = rtree.is_balanced()
+
+        self.assertFalse(balanced)

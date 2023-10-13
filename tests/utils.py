@@ -37,3 +37,11 @@ def get_second_basic_tree() -> RBinaryTree:
     rtree.insert(18)
 
     return rtree
+
+def get_unbalanced_tree(n: int = 6) -> RBinaryTree:
+    rtree = RBinaryTree()
+
+    for i in range(1, n + 1):
+        rtree.insert(i)
+
+    return rtree
