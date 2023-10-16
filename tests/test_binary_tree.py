@@ -2,8 +2,8 @@ from unittest import TestCase
 from typing import List
 from pyfiles.binary_tree import (
     TreeNode,
-    TreeTraversal,
-    ListOptions
+    ListOptions,
+    TreeTraversal
 )
 from pyfiles.double_linked_list import (
     DLinkedList
@@ -11,6 +11,7 @@ from pyfiles.double_linked_list import (
 from utils import(
     get_basic_tree,
     get_depth_tree,
+    get_balanced_tree,
     get_unbalanced_tree
 )
 
@@ -64,8 +65,8 @@ class TestBinaryTree(TestCase):
         swapped: List[TreeNode] = rtree.find_swapped()
 
         self.assertEqual(len(swapped), 2)
-        self.assertEqual(swapped[0], 6)
-        self.assertEqual(swapped[1], 4)
+        self.assertEqual(swapped[0], '6')
+        self.assertEqual(swapped[1], '4')
 
     def test__to_list__successful(self):
         rtree = get_basic_tree()
@@ -96,3 +97,10 @@ class TestBinaryTree(TestCase):
         balanced = rtree.is_balanced()
 
         self.assertFalse(balanced)
+
+    def test__balanced_tree(self):
+        rtree = get_balanced_tree()
+        self.assertEqual(rtree.root.item, 8)
+
+        rtree = get_balanced_tree(n=32)
+        self.assertEqual(rtree.root.item, 17)

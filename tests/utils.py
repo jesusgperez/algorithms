@@ -1,4 +1,5 @@
 from pyfiles.binary_tree import RBinaryTree
+from pyfiles.interaction import _create_balance_bst_recursive
 
 
 def get_basic_tree() -> RBinaryTree:
@@ -38,6 +39,7 @@ def get_second_basic_tree() -> RBinaryTree:
 
     return rtree
 
+
 def get_unbalanced_tree(n: int = 6) -> RBinaryTree:
     rtree = RBinaryTree()
 
@@ -45,3 +47,9 @@ def get_unbalanced_tree(n: int = 6) -> RBinaryTree:
         rtree.insert(i)
 
     return rtree
+
+
+def get_balanced_tree(n: int = 15) -> RBinaryTree:
+    balanced_tree = RBinaryTree()
+    balanced_tree.root = _create_balance_bst_recursive(list(range(1, n+1)))
+    return balanced_tree

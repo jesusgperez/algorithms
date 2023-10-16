@@ -42,17 +42,14 @@ def merge_two_binary_search_trees(
 def balance_binary_search_tree(tree: RBinaryTree) -> RBinaryTree:
     array = tree.to_list(list_option=ListOptions.ARRAY)
     balanced_tree = RBinaryTree()
-    balanced_tree.root = _balance_bst_recursive(
-        array=array,
-        parent=None
-    )
+    balanced_tree.root = _create_balance_bst_recursive(array=array)
 
     return balanced_tree
 
 
-def _balance_bst_recursive(
+def _create_balance_bst_recursive(
     array: List[int],
-    parent: Optional[TreeNode]
+    parent: Optional[TreeNode]=None
 ) -> Optional[TreeNode]:
     if not array:
         return None
@@ -62,7 +59,7 @@ def _balance_bst_recursive(
     root = TreeNode(item=array[mid])
     root.parent = parent
 
-    root.left = _balance_bst_recursive(array=array[:mid], parent=root)
-    root.right = _balance_bst_recursive(array=array[mid+1:], parent=root)
+    root.left = _create_balance_bst_recursive(array=array[:mid], parent=root)
+    root.right = _create_balance_bst_recursive(array=array[mid+1:], parent=root)
 
     return root
