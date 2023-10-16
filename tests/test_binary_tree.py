@@ -104,3 +104,20 @@ class TestBinaryTree(TestCase):
 
         rtree = get_balanced_tree(n=32)
         self.assertEqual(rtree.root.item, 17)
+
+    def test__get_successor__successful(self):
+        rtree = get_balanced_tree()
+        successor10 = rtree.get_successor(item=10)
+
+        self.assertEqual(successor10.item, 11)
+
+        successor11 = rtree.get_successor(item=11)
+
+        self.assertEqual(successor11.item, 12)
+
+    def test__get_predecessor__successful(self):
+        rtree = get_balanced_tree(n=32)
+
+        predecessor20 = rtree.get_predecessor(item=20)
+
+        self.assertEqual(predecessor20.item, 19)

@@ -251,6 +251,50 @@ class RBinaryTree:
 
         return True, height
 
+    def get_successor(self, item: int) -> Optional[TreeNode]:
+        node = self.search(item=item)
+        if not node:
+            return None
+
+        if node.right:
+            return self.find_minimum(node=node.right)
+        
+        parent = node.parent
+
+        while parent and node == parent.right:
+            node = parent
+            parent = node.parent
+
+        return parent
+
+    def get_predecessor(self, item: int) -> Optional[TreeNode]:
+        node = self.search(item=item)
+        if not node:
+            return None
+        
+        if node.left:
+            return self.find_maximum(node=node.left)
+        
+        parent = node.parent
+
+        while parent and node == parent.left:
+            node = parent
+            parent = node.parent
+
+        return parent
+
+    def find_minimum(self, node: TreeNode) -> Optional[TreeNode]:
+        while node.left:
+            node = node.left
+
+        return node
+
+    def find_maximum(self, node: TreeNode) -> Optional[TreeNode]:
+        while node.right:
+            node = node.right
+        
+        return node
+
 
 class BinaryTree:
     def __init__(self) -> None:
