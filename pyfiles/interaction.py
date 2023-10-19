@@ -63,3 +63,13 @@ def _create_balance_bst_recursive(
     root.right = _create_balance_bst_recursive(array=array[mid+1:], parent=root)
 
     return root
+
+
+def concatenate_binary_search_tree(
+    first_tree: RBinaryTree,
+    second_tree: RBinaryTree
+) -> RBinaryTree:
+    if not first_tree or not second_tree:
+        return None
+
+    
