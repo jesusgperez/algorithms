@@ -52,6 +52,6 @@ def get_unbalanced_tree(n: int = 6) -> RBinaryTree:
 def get_balanced_tree(start: int = 1, n: int = 15) -> RBinaryTree:
     balanced_tree = RBinaryTree()
     balanced_tree.root = _create_balance_bst_recursive(
-        start=list(range(start, n+1))
+        array=list(range(start, n+1))
     )
     return balanced_tree

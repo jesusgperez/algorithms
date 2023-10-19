@@ -121,3 +121,19 @@ class TestBinaryTree(TestCase):
         predecessor20 = rtree.get_predecessor(item=20)
 
         self.assertEqual(predecessor20.item, 19)
+
+    def test__insert_node__successful(self):
+        rtree = get_balanced_tree(start=4, n=19)
+
+        new_node = TreeNode(item=2)
+
+        rtree.insert_node(new_node=new_node)
+
+        self.assertEqual(rtree.find_minimum().item, 2)
+
+        new_node = TreeNode(item=1)
+        new_node.left = TreeNode(item=0, parent=new_node)
+
+        rtree.insert_node(new_node=new_node)
+
+        self.assertEqual(rtree.find_minimum().item, 0)

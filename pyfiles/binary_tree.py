@@ -58,11 +58,48 @@ class RBinaryTree:
 
         if not tree:
             return TreeNode(item=new_item, parent=parent)
+
+        if new_item < tree.item:
+            tree.left = self._insert_recursive(new_item, tree.left, tree)
+
+        tree.right = self._insert_recursive(new_item, tree.right, tree)
+
+        return tree
+
+    def insert_node(self, new_node: TreeNode) -> Optional[TreeNode]:
+        if type(new_node) is not TreeNode:
+            return None
+        
+        self.n += 1
+
+        return self._insert_recursive_node(new_node=new_node, tree=self.root)
+
+    def _insert_recursive_node(
+        self,
+        new_node: TreeNode,
+        tree: Optional[TreeNode],
+        parent: Optional[TreeNode] = None 
+    ) -> TreeNode:
+        if not self.root:
+            self.root = new_node
+            return self.root
+
+        if not tree:
+            new_node.parent = parent
+            return new_node
+    
+        if new_node.item < tree.item:
+            tree.left = self._insert_recursive_node(
+                new_node=new_node,
+                tree=tree.left,
+                parent=tree
+            )
         else:
-            if new_item < tree.item:
-                tree.left = self._insert_recursive(new_item, tree.left, tree)
-            else:
-                tree.right = self._insert_recursive(new_item, tree.right, tree)
+            tree.right = self._insert_recursive_node(
+                new_node=new_node,
+                tree=tree.right,
+                parent=tree
+            )
 
         return tree
 
@@ -283,13 +320,19 @@ class RBinaryTree:
 
         return parent
 
-    def find_minimum(self, node: TreeNode) -> Optional[TreeNode]:
+    def find_minimum(self, node: TreeNode = None) -> Optional[TreeNode]:
+        if not node:
+            node = self.root
+
         while node.left:
             node = node.left
 
         return node
 
-    def find_maximum(self, node: TreeNode) -> Optional[TreeNode]:
+    def find_maximum(self, node: TreeNode = None) -> Optional[TreeNode]:
+        if not node:
+            node = self.root
+
         while node.right:
             node = node.right
         

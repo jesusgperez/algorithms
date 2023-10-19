@@ -69,7 +69,13 @@ def concatenate_binary_search_tree(
     first_tree: RBinaryTree,
     second_tree: RBinaryTree
 ) -> RBinaryTree:
+    """
+        first_tree: all elements should be less than all second tree elements
+        second_tree: all elements should be greater than all first tree elements
+    """
     if not first_tree or not second_tree:
         return None
 
-    
+    second_tree.insert_node(first_tree.root)
+
+    return second_tree
