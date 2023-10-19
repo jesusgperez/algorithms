@@ -338,6 +338,10 @@ class RBinaryTree:
         
         return node
 
+    def get_median(self) -> int:
+        traverse = self.traverse(traverse=TreeTraversal.INORDER)
+        return int(traverse[self.n//2 - 1])
+
 
 class BinaryTree:
     def __init__(self) -> None:

@@ -41,7 +41,7 @@ class TestInteraction(TestCase):
 
     def test__concatenate_binary_search_tree__successful(self):
         first_tree = get_balanced_tree()
-        second_tree = get_balanced_tree(start=16, n=31)
+        second_tree = get_balanced_tree(start=16, n=15)
 
         concat_tree = concatenate_binary_search_tree(
             first_tree=first_tree,

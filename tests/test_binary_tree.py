@@ -123,7 +123,7 @@ class TestBinaryTree(TestCase):
         self.assertEqual(predecessor20.item, 19)
 
     def test__insert_node__successful(self):
-        rtree = get_balanced_tree(start=4, n=19)
+        rtree = get_balanced_tree(start=4, n=15)
 
         new_node = TreeNode(item=2)
 
@@ -137,3 +137,10 @@ class TestBinaryTree(TestCase):
         rtree.insert_node(new_node=new_node)
 
         self.assertEqual(rtree.find_minimum().item, 0)
+
+    def test__get_median__successful(self):
+        rtree = get_balanced_tree()
+
+        median = rtree.get_median()
+
+        self.assertEqual(median, 7)
