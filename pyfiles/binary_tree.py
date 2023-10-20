@@ -1,36 +1,11 @@
+from pyfiles.domain import (
+    TreeNode,
+    ListOptions,
+    TreeTraversal
+)
 from typing import Optional, List, Tuple, Union
-from pydantic import BaseModel
-from enum import Enum
 from pyfiles.double_linked_list import DLinkedList
 from pyfiles.utils.utils import measure_time
-
-
-class ListOptions(Enum):
-    DLINKEDLIST = 'double_linked_list'
-    ARRAY = 'array'
-
-
-class TreeTraversal(Enum):
-    INORDER: str = 'inorder'
-    PREORDER: str = 'preorder'
-    POSTORDER: str = 'postorder'
-
-
-class TreeNode(BaseModel):
-    item: int
-    parent: Optional['TreeNode'] = None
-    left: Optional['TreeNode'] = None
-    right: Optional['TreeNode'] = None
-
-    def __repr__(self) -> str:
-        parent_content = self.parent if not self.parent else self.parent.item
-        right_content = self.right if not self.right else self.right.item
-        left_content = self.left if not self.left else self.left.item
-        return (f'TreeNode(item={self.item}, parent={parent_content}'
-                f', left={left_content}, right={right_content})')
-
-    def __str__(self) -> str:
-        return self.__repr__()
 
 
 class RBinaryTree:
@@ -38,38 +13,38 @@ class RBinaryTree:
         self.root: Optional[TreeNode] = None
         self.n: int = 0
 
-    def insert(self, new_item: int) -> Optional[TreeNode]:
-        if type(new_item) is not int:
+    def insert(self, new_data: int) -> Optional[TreeNode]:
+        if type(new_data) is not int:
             return None
 
         self.n += 1
 
-        return self._insert_recursive(new_item=new_item, tree=self.root)
+        return self._insert_recursive(new_data=new_data, tree=self.root)
 
     def _insert_recursive(
         self,
-        new_item: int,
+        new_data: int,
         tree: Optional[TreeNode],
         parent: Optional[TreeNode] = None
     ) -> TreeNode:
         if not self.root:
-            self.root = TreeNode(item=new_item)
+            self.root = TreeNode(data=new_data)
             return self.root
 
         if not tree:
-            return TreeNode(item=new_item, parent=parent)
+            return TreeNode(data=new_data, parent=parent)
 
-        if new_item < tree.item:
-            tree.left = self._insert_recursive(new_item, tree.left, tree)
-
-        tree.right = self._insert_recursive(new_item, tree.right, tree)
+        if new_data < tree.data:
+            tree.left = self._insert_recursive(new_data, tree.left, tree)
+        else:
+            tree.right = self._insert_recursive(new_data, tree.right, tree)
 
         return tree
 
     def insert_node(self, new_node: TreeNode) -> Optional[TreeNode]:
         if type(new_node) is not TreeNode:
             return None
-        
+
         self.n += 1
 
         return self._insert_recursive_node(new_node=new_node, tree=self.root)
@@ -88,7 +63,7 @@ class RBinaryTree:
             new_node.parent = parent
             return new_node
     
-        if new_node.item < tree.item:
+        if new_node.data < tree.data:
             tree.left = self._insert_recursive_node(
                 new_node=new_node,
                 tree=tree.left,
@@ -119,20 +94,20 @@ class RBinaryTree:
     ) -> str:
         result = ''
         if tree is None:
-            return result
+            return ''
 
         if traverse == TreeTraversal.INORDER:
             result += self._traverse_tree_recursive(
                 tree=tree.left,
                 traverse=traverse
             )
-            result += '-' + str(tree.item)
+            result += '-' + str(tree.data)
             result += self._traverse_tree_recursive(
                 tree=tree.right,
                 traverse=traverse
             )
         elif traverse == TreeTraversal.PREORDER:
-            result += '-' + str(tree.item)
+            result += '-' + str(tree.data)
             result += self._traverse_tree_recursive(
                 tree=tree.left,
                 traverse=traverse
@@ -150,7 +125,7 @@ class RBinaryTree:
                 tree=tree.right,
                 traverse=traverse
             )
-            result += '-' + str(tree.item)
+            result += '-' + str(tree.data)
 
         return result
 
@@ -185,24 +160,24 @@ class RBinaryTree:
 
         return left_depth
 
-    def search(self, item: int) -> Optional[TreeNode]:
-        return self._search_recursive(tree=self.root, item=item)
+    def search(self, data: int) -> Optional[TreeNode]:
+        return self._search_recursive(tree=self.root, data=data)
 
     def _search_recursive(
         self,
         tree: Optional[TreeNode],
-        item: int
+        data: int
     ) -> Optional[TreeNode]:
-        if not tree or tree.item == item:
+        if not tree or tree.data == data:
             return tree
 
-        if item < tree.item:
-            return self._search_recursive(tree=tree.left, item=item)
+        if data < tree.data:
+            return self._search_recursive(tree=tree.left, data=data)
 
-        return self._search_recursive(tree=tree.right, item=item)
+        return self._search_recursive(tree=tree.right, data=data)
 
     def find_swapped(self) -> List[str]:
-        traverse = self.traverse(TreeTraversal.INORDER)
+        traverse = self.traverse(TreeTraversal.INORDER).replace('-', '')
         swapped: List[str] = []
         count: int = 0
 
@@ -239,7 +214,7 @@ class RBinaryTree:
             return None
 
         dlist.extend(dlist=self._to_list_recursive(tree=tree.left))
-        dlist.append(tree.item)
+        dlist.append(tree.data)
         dlist.extend(dlist=self._to_list_recursive(tree=tree.right))
 
         return dlist
@@ -254,7 +229,7 @@ class RBinaryTree:
             return array
 
         array.extend(self._to_array_recursive(tree=tree.left))
-        array.append(tree.item)
+        array.append(tree.data)
         array.extend(self._to_array_recursive(tree=tree.right))
 
         return array
@@ -288,8 +263,8 @@ class RBinaryTree:
 
         return True, height
 
-    def get_successor(self, item: int) -> Optional[TreeNode]:
-        node = self.search(item=item)
+    def get_successor(self, data: int) -> Optional[TreeNode]:
+        node = self.search(data=data)
         if not node:
             return None
 
@@ -304,8 +279,8 @@ class RBinaryTree:
 
         return parent
 
-    def get_predecessor(self, item: int) -> Optional[TreeNode]:
-        node = self.search(item=item)
+    def get_predecessor(self, data: int) -> Optional[TreeNode]:
+        node = self.search(data=data)
         if not node:
             return None
         
@@ -339,7 +314,9 @@ class RBinaryTree:
         return node
 
     def get_median(self) -> int:
-        traverse = self.traverse(traverse=TreeTraversal.INORDER)
+        traverse = self.traverse(
+            traverse=TreeTraversal.INORDER
+        ).replace('-', '')
         return int(traverse[self.n//2 - 1])
     
     def get_n(self) -> Optional[TreeNode]:
@@ -364,9 +341,9 @@ class BinaryTree:
     def __init__(self) -> None:
         self.root: Optional[TreeNode] = None
 
-    def insert(self, new_item: int) -> str:
+    def insert(self, new_data: int) -> str:
         if not self.root:
-            self.root = TreeNode(item=new_item)
+            self.root = TreeNode(data=new_data)
             return str(self.root)
 
         current: Optional[TreeNode] = self.root
@@ -374,14 +351,14 @@ class BinaryTree:
 
         while current:
             parent = current
-            if new_item < current.item:
+            if new_data < current.data:
                 current = current.left
             else:
                 current = current.right
 
-        new_node = TreeNode(item=new_item, parent=parent)
+        new_node = TreeNode(data=new_data, parent=parent)
 
-        if parent and new_item < parent.item:
+        if parent and new_data < parent.data:
             parent.left = new_node
         elif parent:
             parent.right = new_node

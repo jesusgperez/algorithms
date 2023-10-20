@@ -20,20 +20,20 @@ class TestBinaryTree(TestCase):
     def test__recursive_insertion__successful(self):
         rtree = get_basic_tree()
 
-        self.assertEqual(rtree.root.item, 5)
-        self.assertEqual(rtree.root.left.left.item, 2)
+        self.assertEqual(rtree.root.data, 5)
+        self.assertEqual(rtree.root.left.left.data, 2)
 
     def test__recursive_traverse__successful(self):
         rtree = get_basic_tree()
 
         traverse = rtree.traverse(TreeTraversal.INORDER)
-        self.assertEqual(traverse, '2345678')
+        self.assertEqual(traverse, '-2-3-4-5-6-7-8')
     
         traverse = rtree.traverse(TreeTraversal.PREORDER)
-        self.assertEqual(traverse, '5324768')
+        self.assertEqual(traverse, '-5-3-2-4-7-6-8')
 
         traverse = rtree.traverse(TreeTraversal.POSTORDER)
-        self.assertEqual(traverse, '2436875')
+        self.assertEqual(traverse, '-2-4-3-6-8-7-5')
 
     def test__recursive_get_depth__successful(self):
         rtree = get_basic_tree()
@@ -50,17 +50,17 @@ class TestBinaryTree(TestCase):
 
     def test__recursive_search__successful(self):
         rtree = get_basic_tree()
-        SEARCH_ITEM = 6
+        SEARCH_DATA = 6
 
-        tree_node = rtree.search(item=SEARCH_ITEM)
+        tree_node = rtree.search(data=SEARCH_DATA)
 
-        self.assertEqual(tree_node.item, SEARCH_ITEM)
-        self.assertEqual(tree_node.parent.item, 7)
+        self.assertEqual(tree_node.data, SEARCH_DATA)
+        self.assertEqual(tree_node.parent.data, 7)
 
-    def test__swapped_items__successful(self):
+    def test__swapped_data__successful(self):
         rtree = get_basic_tree()
-        rtree.root.left.right.item = 6
-        rtree.root.right.left.item = 4
+        rtree.root.left.right.data = 6
+        rtree.root.right.left.data = 4
 
         swapped: List[TreeNode] = rtree.find_swapped()
 
@@ -72,8 +72,8 @@ class TestBinaryTree(TestCase):
         rtree = get_basic_tree()
         dlist = rtree.to_list()
 
-        self.assertEqual(dlist.head.item, 2)
-        self.assertEqual(dlist.tail.item, 8)
+        self.assertEqual(dlist.head.data, 2)
+        self.assertEqual(dlist.tail.data, 8)
         self.assertEqual(type(dlist), DLinkedList)
 
         dlist = rtree.to_list(list_option=ListOptions.ARRAY)
@@ -100,43 +100,43 @@ class TestBinaryTree(TestCase):
 
     def test__balanced_tree(self):
         rtree = get_balanced_tree()
-        self.assertEqual(rtree.root.item, 8)
+        self.assertEqual(rtree.root.data, 8)
 
         rtree = get_balanced_tree(n=32)
-        self.assertEqual(rtree.root.item, 17)
+        self.assertEqual(rtree.root.data, 17)
 
     def test__get_successor__successful(self):
         rtree = get_balanced_tree()
-        successor10 = rtree.get_successor(item=10)
+        successor10 = rtree.get_successor(data=10)
 
-        self.assertEqual(successor10.item, 11)
+        self.assertEqual(successor10.data, 11)
 
-        successor11 = rtree.get_successor(item=11)
+        successor11 = rtree.get_successor(data=11)
 
-        self.assertEqual(successor11.item, 12)
+        self.assertEqual(successor11.data, 12)
 
     def test__get_predecessor__successful(self):
         rtree = get_balanced_tree(n=32)
 
-        predecessor20 = rtree.get_predecessor(item=20)
+        predecessor20 = rtree.get_predecessor(data=20)
 
-        self.assertEqual(predecessor20.item, 19)
+        self.assertEqual(predecessor20.data, 19)
 
     def test__insert_node__successful(self):
         rtree = get_balanced_tree(start=4, n=15)
 
-        new_node = TreeNode(item=2)
+        new_node = TreeNode(data=2)
 
         rtree.insert_node(new_node=new_node)
 
-        self.assertEqual(rtree.find_minimum().item, 2)
+        self.assertEqual(rtree.find_minimum().data, 2)
 
-        new_node = TreeNode(item=1)
-        new_node.left = TreeNode(item=0, parent=new_node)
+        new_node = TreeNode(data=1)
+        new_node.left = TreeNode(data=0, parent=new_node)
 
         rtree.insert_node(new_node=new_node)
 
-        self.assertEqual(rtree.find_minimum().item, 0)
+        self.assertEqual(rtree.find_minimum().data, 0)
 
     def test__get_median__successful(self):
         rtree = get_balanced_tree()

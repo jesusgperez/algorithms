@@ -56,7 +56,7 @@ def _create_balance_bst_recursive(
 
     mid = len(array) // 2
 
-    root = TreeNode(item=array[mid])
+    root = TreeNode(data=array[mid])
     root.parent = parent
 
     root.left = _create_balance_bst_recursive(array=array[:mid], parent=root)

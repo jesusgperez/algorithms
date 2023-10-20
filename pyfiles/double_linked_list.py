@@ -1,11 +1,5 @@
-from pydantic import BaseModel
+from pyfiles.domain import Node
 from typing import Optional
-
-
-class Node(BaseModel):
-    item: int
-    next: Optional['Node'] = None
-    previous: Optional['Node'] = None
 
 
 class DLinkedList:
@@ -14,14 +8,14 @@ class DLinkedList:
         self.tail: Optional[Node] = None
         self.n: int = 0
 
-    def append(self, item: int) -> None:
+    def append(self, data: int) -> None:
         if not self.head or not self.tail:
-            self.head = Node(item=item)
+            self.head = Node(data=data)
             self.tail = self.head
             self.n += 1
             return
 
-        self.tail.next = Node(item=item, previous=self.tail)
+        self.tail.next = Node(data=data, previous=self.tail)
         self.tail = self.tail.next
         self.n += 1
         return
@@ -39,7 +33,7 @@ class DLinkedList:
         current = dlist.head
 
         while current:
-            self.append(current.item)
+            self.append(current.data)
             current = current.next
 
         return
@@ -49,7 +43,7 @@ class DLinkedList:
         response = ''
 
         while current:
-            response += str(current.item)
+            response += str(current.data)
             current = current.next
 
         return response
