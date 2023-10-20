@@ -126,13 +126,13 @@ class RBinaryTree:
                 tree=tree.left,
                 traverse=traverse
             )
-            result += str(tree.item)
+            result += '-' + str(tree.item)
             result += self._traverse_tree_recursive(
                 tree=tree.right,
                 traverse=traverse
             )
         elif traverse == TreeTraversal.PREORDER:
-            result += str(tree.item)
+            result += '-' + str(tree.item)
             result += self._traverse_tree_recursive(
                 tree=tree.left,
                 traverse=traverse
@@ -150,7 +150,7 @@ class RBinaryTree:
                 tree=tree.right,
                 traverse=traverse
             )
-            result += str(tree.item)
+            result += '-' + str(tree.item)
 
         return result
 
@@ -341,6 +341,23 @@ class RBinaryTree:
     def get_median(self) -> int:
         traverse = self.traverse(traverse=TreeTraversal.INORDER)
         return int(traverse[self.n//2 - 1])
+    
+    def get_n(self) -> Optional[TreeNode]:
+        return self._get_n_recursive(tree=self.root)
+
+    def _get_n_recursive(
+        self,
+        tree: Optional[TreeNode]
+    ) -> int:
+        response = 0
+        if not tree:
+            return 0
+
+        response += self._get_n_recursive(tree=tree.left)
+        response += 1
+        response += self._get_n_recursive(tree=tree.right)
+
+        return response
 
 
 class BinaryTree:

@@ -144,3 +144,10 @@ class TestBinaryTree(TestCase):
         median = rtree.get_median()
 
         self.assertEqual(median, 7)
+
+    def test__get_n_recursive__sucessful(self):
+        rtree = get_balanced_tree()
+        self.assertEqual(rtree.get_n(), 15)
+
+        rtree = get_balanced_tree(start=1, n=7)
+        self.assertEqual(rtree.get_n(), 7)
