@@ -1,4 +1,6 @@
+from pyfiles.domain import TreeNode
 from pyfiles.binary_tree import RBinaryTree
+from pyfiles.avl_binary_tree import AVLBinaryTree
 from pyfiles.interaction import _create_balance_bst_recursive
 
 
@@ -59,3 +61,30 @@ def get_balanced_tree(start: int = 1, n: int = 15) -> RBinaryTree:
     balanced_tree.n = n
 
     return balanced_tree
+
+
+def get_avl_tree_wo_insertion(
+        skip_level_right: bool = False,
+        skip_level_left: bool = False
+    ) -> AVLBinaryTree:
+    root = TreeNode(data=4)
+    rl = TreeNode(data=2)
+    root.left = rl
+    rl.parent = root
+    rr = TreeNode(data=5)
+    root.right = rr
+    rr.parent = root
+    if not skip_level_left:
+        rll = TreeNode(data=1)
+        rl.left = rll
+        rll.parent = rl
+        rlr = TreeNode(data=3)
+        rl.right = rlr
+        rlr.parent = rl
+    if not skip_level_right:
+        rrr = TreeNode(data=6)
+        rr.right = rrr
+        rrr.parent = rr
+    AVLTree = AVLBinaryTree()
+    AVLTree.root = root
+    return AVLTree
