@@ -20,11 +20,11 @@ def merge_two_binary_search_trees(
     second_current = second_list.head
 
     while first_current and second_current:
-        if first_current.item < second_current.item:
-            linked_list.append(first_current.item)
+        if first_current.data < second_current.data:
+            linked_list.append(first_current.data)
             first_current = first_current.next
         else:
-            linked_list.append(second_current.item)
+            linked_list.append(second_current.data)
             second_current = second_current.next
 
     if not first_current and not second_current:
@@ -33,7 +33,7 @@ def merge_two_binary_search_trees(
     current = first_current if first_current else second_current
 
     while current:
-        linked_list.append(current.item)
+        linked_list.append(current.data)
         current = current.next
 
     return linked_list

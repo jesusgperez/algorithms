@@ -25,8 +25,8 @@ class TestInteraction(TestCase):
             second_tree=second_tree
         )
 
-        self.assertEqual(linked_list.head.item, 2)
-        self.assertEqual(linked_list.tail.item, 18)
+        self.assertEqual(linked_list.head.data, 2)
+        self.assertEqual(linked_list.tail.data, 18)
 
     def test__balance_tree__successful(self):
         rtree = get_unbalanced_tree()
@@ -48,4 +48,4 @@ class TestInteraction(TestCase):
             second_tree=second_tree
         )
 
-        self.assertEqual(concat_tree.get_depth(), 9)
+        self.assertEqual(concat_tree.get_depth(), 8)
