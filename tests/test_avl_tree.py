@@ -3,7 +3,8 @@ from pyfiles.domain import AVLTreeNode
 from pyfiles.avl_binary_tree import AVLBinaryTree
 from utils import (
     get_avl_tree_wo_insertion,
-    get_right_skewd_avl_tree
+    get_right_skewd_avl_tree,
+    get_left_skewd_avl_tree
 )
 
 
@@ -61,4 +62,12 @@ class TestAvlTree(TestCase):
         self.assertEqual(adj_root.right.data, 8)
 
     def test__right_rotate__success(self):
-        pass
+        avl_tree = get_left_skewd_avl_tree()
+
+        self.assertEqual(avl_tree.get_balance(), 2)
+
+        adj_root = avl_tree.right_rotate(z=avl_tree.root)
+
+        self.assertEqual(adj_root.data, 5)
+        self.assertEqual(adj_root.left.data, 4)
+        self.assertEqual(adj_root.right.data, 7)
