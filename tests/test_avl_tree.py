@@ -8,7 +8,7 @@ class TestAvlTree(TestCase):
         self.assertEqual(avl_tree.get_balance(), 0)
 
         avl_tree = get_avl_tree_wo_insertion(skip_level_left=True)
-        self.assertEqual(avl_tree.get_balance(), 1)
+        self.assertEqual(avl_tree.get_balance(), -1)
 
         avl_tree = get_avl_tree_wo_insertion(skip_level_right=True)
         self.assertEqual(avl_tree.get_balance(), 1)

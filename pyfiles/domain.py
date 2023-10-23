@@ -35,3 +35,10 @@ class TreeNode(BaseModel):
 
     def __str__(self) -> str:
         return self.__repr__()
+    
+
+class AVLTreeNode(TreeNode):
+    parent: Optional['AVLTreeNode'] = None
+    left: Optional['AVLTreeNode'] = None
+    right: Optional['AVLTreeNode'] = None
+    height: int = 1
