@@ -71,3 +71,13 @@ class TestAvlTree(TestCase):
         self.assertEqual(adj_root.data, 5)
         self.assertEqual(adj_root.left.data, 4)
         self.assertEqual(adj_root.right.data, 7)
+
+    def test__insertion__success(self):
+        avl_tree = AVLBinaryTree()
+
+        for i in range(1,11):
+            avl_tree.insert(i)
+
+        balance = avl_tree.get_balance()
+
+        self.assertTrue(abs(balance) < 2)

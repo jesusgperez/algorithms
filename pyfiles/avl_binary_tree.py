@@ -7,50 +7,70 @@ class AVLBinaryTree:
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0
 
-    def insert(self, data: int) -> None:
+    def insert(self, data: int) -> Optional[AVLTreeNode]:
         return self._insert_recursive(tree=self.root, data=data)
 
     def _insert_recursive(
         self,
         tree: Optional[AVLTreeNode],
         data: int
-    ) -> AVLTreeNode:
+    ) -> Optional[AVLTreeNode]:
         if not self.root:
             self.root = AVLTreeNode(data=data)
-        
+            return self.root
+
+        if not tree:
+            return AVLTreeNode(data=data)
+
         if data < tree.data:
-            self._insert_recursive(tree=tree.left, data=data)
+            tree.left = self._insert_recursive(
+                tree=tree.left,
+                data=data
+            )
         else:
-            self._insert_recursive(tree=tree.right, data=data)
-        
+            tree.right = self._insert_recursive(
+                tree=tree.right,
+                data=data
+            )
+
         tree.height = 1 + max(
-            self.get_height(tree=tree.left), 
+            self.get_height(tree=tree.left),
             self.get_height(tree=tree.right)
         )
 
-        balance = self._get_depth_recursive(tree=tree)
+        balance = self.get_node_balance(tree=tree)
 
-        ## Left-left case
+        # Left-left case
         if balance > 1 and data < tree.left.data:
-            return self.right_rotate(z=tree)
-        
-        ## Right-right case
+            tree = self.right_rotate(z=tree)
+            return tree
+
+        # Right-right case
         if balance < -1 and data > tree.right.data:
-            return self.left_rotate(z=tree)
-    
-        ## Left-right case
+            tree = self.left_rotate(z=tree)
+            return tree
+
+        # Left-right case
         if balance > 1 and data > tree.left.data:
             tree.left = self.left_rotate(z=tree.left)
-            return self.right_rotate(z=tree)
-        
-        ##Right-left case
+            tree = self.right_rotate(z=tree)
+            return tree
+
+        # Right-left case
         if balance < -1 and data < tree.right.data:
             tree.right = self.right_rotate(z=tree.right)
-            return self.left_rotate(z=tree)
+            tree = self.left_rotate(z=tree)
+            return tree
 
         return tree
 
-    def left_rotate(self, z: AVLTreeNode) -> AVLTreeNode:
+    def left_rotate(
+        self,
+        z: Optional[AVLTreeNode]
+    ) -> Optional[AVLTreeNode]:
+        """
+            :param z: The first unbalanced node
+        """
         y = z.right
         T2 = y.left
 
@@ -59,8 +79,14 @@ class AVLBinaryTree:
         self.adjust_rotation_heights(y=y, z=z)
 
         return y
-    
-    def right_rotate(self, z: AVLTreeNode) -> AVLTreeNode:
+
+    def right_rotate(
+        self,
+        z: Optional[AVLTreeNode]
+    ) -> Optional[AVLTreeNode]:
+        """
+            :param z: The first unbalanced node
+        """
         y = z.left
         T2 = y.right
 
@@ -72,17 +98,23 @@ class AVLBinaryTree:
 
     def adjust_rotation_heights(
         self,
-        y: AVLTreeNode,
-        z: AVLTreeNode
+        y: Optional[AVLTreeNode],
+        z: Optional[AVLTreeNode]
     ) -> None:
-        z.height = 1 + max(
-            self.get_height(z.left),
-            self.get_height(z.right)
-        )
-        y.height = 1 + max(
-            self.get_height(y.left),
-            self.get_height(y.right)
-        )
+        """
+            :param z: First unbalanced tree node
+            :param y: The z child to rotate
+        """
+        if z:
+            z.height = 1 + max(
+                self.get_height(z.left),
+                self.get_height(z.right)
+            )
+        if y:
+            y.height = 1 + max(
+                self.get_height(y.left),
+                self.get_height(y.right)
+            )
 
     def get_balance(self) -> int:
         if not self.root:
@@ -92,6 +124,15 @@ class AVLBinaryTree:
         right_depth = self._get_depth_recursive(tree=self.root.right)
 
         return left_depth - right_depth
+
+    def get_node_balance(self, tree: Optional[AVLTreeNode]) -> int:
+        if not tree:
+            return 0
+
+        balance = (self._get_depth_recursive(tree=tree.left) -
+                   self._get_depth_recursive(tree=tree.right))
+
+        return balance
 
     def get_height(self, tree: Optional[AVLTreeNode]) -> int:
         if not tree:

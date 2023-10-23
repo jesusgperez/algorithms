@@ -150,15 +150,7 @@ class RBinaryTree:
             depth=depth+1
         )
 
-        if depth > left_depth or depth > right_depth:
-            return depth
-
-        if left_depth > right_depth:
-            return left_depth
-        elif right_depth > left_depth:
-            return right_depth
-
-        return left_depth
+        return max(depth, left_depth, right_depth)
 
     def search(self, data: int) -> Optional[TreeNode]:
         return self._search_recursive(tree=self.root, data=data)
