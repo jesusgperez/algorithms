@@ -93,7 +93,7 @@ class AVLBinaryTree:
 
         return left_depth - right_depth
 
-    def get_height(self, tree: AVLTreeNode) -> int:
+    def get_height(self, tree: Optional[AVLTreeNode]) -> int:
         if not tree:
             return 0
 

@@ -1,4 +1,4 @@
-from pyfiles.domain import TreeNode
+from pyfiles.domain import TreeNode, AVLTreeNode
 from pyfiles.binary_tree import RBinaryTree
 from pyfiles.avl_binary_tree import AVLBinaryTree
 from pyfiles.interaction import _create_balance_bst_recursive
@@ -88,3 +88,33 @@ def get_avl_tree_wo_insertion(
     AVLTree = AVLBinaryTree()
     AVLTree.root = root
     return AVLTree
+
+
+def get_right_skewd_avl_tree() -> AVLBinaryTree:
+    root = AVLTreeNode(data=5, height=3)
+    r = AVLTreeNode(data=7, height=2, parent=root)
+    root.right = r
+    rr = AVLTreeNode(data=8, parent=r)
+    r.right = rr
+    rl = AVLTreeNode(data=6, parent=r)
+    r.left = rl
+
+    avl_tree = AVLBinaryTree()
+    avl_tree.root = root
+
+    return avl_tree
+
+
+def get_left_skewd_avl_tree() -> AVLBinaryTree:
+    root = AVLTreeNode(data=7, height=3)
+    l = AVLTreeNode(data=5, height=2, parent=root)
+    root.left = l
+    ll = AVLTreeNode(data=4, parent=l)
+    l.left = ll
+    lr = AVLTreeNode(data=6, parent=l)
+    l.right = lr
+
+    avl_tree = AVLBinaryTree()
+    avl_tree.root = root
+
+    return avl_tree
