@@ -2,6 +2,8 @@ from typing import Optional
 from pyfiles.domain import AVLTreeNode
 
 
+#TODO: Add the parent pointers to the solution
+
 class AVLBinaryTree:
     def __init__(self) -> None:
         self.root: Optional[AVLTreeNode] = None
@@ -100,8 +102,8 @@ class AVLBinaryTree:
 
     def adjust_rotation_heights(
         self,
-        y: Optional[AVLTreeNode],
-        z: Optional[AVLTreeNode]
+        z: Optional[AVLTreeNode],
+        y: Optional[AVLTreeNode]
     ) -> None:
         """
             :param z: First unbalanced tree node

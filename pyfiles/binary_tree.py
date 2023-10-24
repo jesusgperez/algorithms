@@ -327,35 +327,3 @@ class RBinaryTree:
         response += self._get_n_recursive(tree=tree.right)
 
         return response
-
-
-class BinaryTree:
-    def __init__(self) -> None:
-        self.root: Optional[TreeNode] = None
-
-    def insert(self, new_data: int) -> str:
-        if not self.root:
-            self.root = TreeNode(data=new_data)
-            return str(self.root)
-
-        current: Optional[TreeNode] = self.root
-        parent: Optional[TreeNode] = None
-
-        while current:
-            parent = current
-            if new_data < current.data:
-                current = current.left
-            else:
-                current = current.right
-
-        new_node = TreeNode(data=new_data, parent=parent)
-
-        if parent and new_data < parent.data:
-            parent.left = new_node
-        elif parent:
-            parent.right = new_node
-
-        return str(new_node)
-
-    def traverse(self):
-        pass
