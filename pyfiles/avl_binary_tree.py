@@ -42,25 +42,21 @@ class AVLBinaryTree:
 
         # Left-left case
         if balance > 1 and data < tree.left.data:
-            tree = self.right_rotate(z=tree)
-            return tree
+            return self.right_rotate(z=tree)
 
         # Right-right case
-        if balance < -1 and data > tree.right.data:
-            tree = self.left_rotate(z=tree)
-            return tree
+        elif balance < -1 and data > tree.right.data:
+            return self.left_rotate(z=tree)
 
         # Left-right case
-        if balance > 1 and data > tree.left.data:
+        elif balance > 1 and data > tree.left.data:
             tree.left = self.left_rotate(z=tree.left)
-            tree = self.right_rotate(z=tree)
-            return tree
+            return self.right_rotate(z=tree)
 
         # Right-left case
-        if balance < -1 and data < tree.right.data:
+        elif balance < -1 and data < tree.right.data:
             tree.right = self.right_rotate(z=tree.right)
-            tree = self.left_rotate(z=tree)
-            return tree
+            return self.left_rotate(z=tree)
 
         return tree
 
@@ -75,6 +71,9 @@ class AVLBinaryTree:
         T2 = y.left
 
         y.left, z.right = z, T2
+
+        if z == self.root:
+            self.root = y
 
         self.adjust_rotation_heights(y=y, z=z)
 
@@ -91,6 +90,9 @@ class AVLBinaryTree:
         T2 = y.right
 
         y.right, z.left = z, T2
+
+        if z == self.root:
+            self.root = y
 
         self.adjust_rotation_heights(y=y, z=z)
 
