@@ -1,10 +1,9 @@
 from typing import Optional
 from pyfiles.domain import AVLTreeNode
+from pyfiles.base_bst import BaseBST
 
 
-#TODO: Add the parent pointers to the solution
-
-class AVLBinaryTree:
+class AVLBinaryTree(BaseBST):
     def __init__(self) -> None:
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0

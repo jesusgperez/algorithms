@@ -2,9 +2,10 @@ from unittest import TestCase
 from pyfiles.domain import AVLTreeNode
 from pyfiles.avl_binary_tree import AVLBinaryTree
 from utils import (
-    get_avl_tree_wo_insertion,
+    get_fake_avl_tree,
+    get_left_skewd_avl_tree,
     get_right_skewd_avl_tree,
-    get_left_skewd_avl_tree
+    get_avl_tree_wo_insertion
 )
 
 
@@ -81,3 +82,10 @@ class TestAvlTree(TestCase):
         balance = avl_tree.get_balance()
 
         self.assertTrue(abs(balance) < 2)
+
+    def test__search__success(self):
+        avl_tree = get_fake_avl_tree()
+
+        node = avl_tree.search(data=4)
+
+        self.assertEqual(node.data, 4)

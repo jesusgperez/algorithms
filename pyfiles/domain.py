@@ -20,8 +20,13 @@ class TreeTraversal(Enum):
     POSTORDER: str = 'postorder'
 
 
-class TreeNode(BaseModel):
+class TreeNodeInterface(BaseModel):
     data: int
+    left: Optional['TreeNodeInterface'] = None
+    right: Optional['TreeNodeInterface'] = None
+
+
+class TreeNode(TreeNodeInterface):
     parent: Optional['TreeNode'] = None
     left: Optional['TreeNode'] = None
     right: Optional['TreeNode'] = None
@@ -35,10 +40,18 @@ class TreeNode(BaseModel):
 
     def __str__(self) -> str:
         return self.__repr__()
-    
 
-class AVLTreeNode(TreeNode):
-    parent: Optional['AVLTreeNode'] = None
+
+class AVLTreeNode(TreeNodeInterface):
     left: Optional['AVLTreeNode'] = None
     right: Optional['AVLTreeNode'] = None
     height: int = 1
+
+    def __repr__(self) -> str:
+        right_content = self.right if not self.right else self.right.data
+        left_content = self.left if not self.left else self.left.data
+        return (f'TreeNode(data={self.data}, height={self.height}'
+                f', left={left_content}, right={right_content})')
+
+    def __str__(self) -> str:
+        return self.__repr__()
