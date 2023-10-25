@@ -2,7 +2,7 @@ from typing import Optional
 from pyfiles.domain import AVLTreeNode
 
 
-#TODO: Add the parent pointers to the solution
+# TODO: Add the parent pointers to the solution
 
 class AVLBinaryTree:
     def __init__(self) -> None:
