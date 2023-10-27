@@ -116,3 +116,7 @@ class TestAvlTree(TestCase):
         avl_tree = get_fake_avl_tree(n=10)
 
         self.assertEqual(avl_tree.get_median(), 5.5)
+
+        avl_tree = get_fake_avl_tree(n=12)
+
+        self.assertEqual(avl_tree.get_median(), 6.5)
