@@ -130,7 +130,7 @@ class AVLBinaryTree(BaseBST):
             return 0
 
         return tree.height
-    
+
     def get_median(self) -> float:
         odd_n = self.n // 2 + 1
         if self.n % 2 == 1:
