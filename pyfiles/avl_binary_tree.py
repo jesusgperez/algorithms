@@ -9,6 +9,7 @@ class AVLBinaryTree(BaseBST):
         self.n: int = 0
 
     def insert(self, data: int) -> Optional[AVLTreeNode]:
+        self.n += 1
         return self._insert_recursive(tree=self.root, data=data)
 
     def _insert_recursive(
@@ -24,6 +25,7 @@ class AVLBinaryTree(BaseBST):
             return AVLTreeNode(data=data)
 
         if data < tree.data:
+            tree.left_count += 1
             tree.left = self._insert_recursive(
                 tree=tree.left,
                 data=data
@@ -73,6 +75,8 @@ class AVLBinaryTree(BaseBST):
 
         y.left, z.right = z, T2
 
+        y.left_count += z.left_count + 1
+
         if z == self.root:
             self.root = y
 
@@ -91,6 +95,8 @@ class AVLBinaryTree(BaseBST):
         T2 = y.right
 
         y.right, z.left = z, T2
+
+        z.left_count = z.left_count - y.left_count + T2.left_count
 
         if z == self.root:
             self.root = y
@@ -119,26 +125,33 @@ class AVLBinaryTree(BaseBST):
                 self.get_height(y.right)
             )
 
-    def get_balance(self) -> int:
-        if not self.root:
-            return 0
-
-        left_depth = self._get_depth_recursive(tree=self.root.left)
-        right_depth = self._get_depth_recursive(tree=self.root.right)
-
-        return left_depth - right_depth
-
-    def get_node_balance(self, tree: Optional[AVLTreeNode]) -> int:
-        if not tree:
-            return 0
-
-        balance = (self._get_depth_recursive(tree=tree.left) -
-                   self._get_depth_recursive(tree=tree.right))
-
-        return balance
-
     def get_height(self, tree: Optional[AVLTreeNode]) -> int:
         if not tree:
             return 0
 
         return tree.height
+    
+    def get_median(self) -> int:
+        return self._get_median_recursive(
+            tree=self.root,
+            n=self.n//2
+        )
+
+    def _get_median_recursive(
+        self,
+        tree: Optional[AVLTreeNode],
+        n: int
+    ) -> int:
+        if tree.left_count + 1 == n:
+            return tree
+        
+        if n < tree.left_count + 1:
+            return self._get_median_recursive(
+                tree=tree.left,
+                n=n
+            )
+        else:
+            return self._get_median_recursive(
+                tree=tree.right,
+                n=n
+            )

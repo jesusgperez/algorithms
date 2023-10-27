@@ -89,3 +89,22 @@ class TestAvlTree(TestCase):
         node = avl_tree.search(data=4)
 
         self.assertEqual(node.data, 4)
+
+    def test__left_count__success(self):
+        avl_tree = AVLBinaryTree()
+
+        for i in range(1,4):
+            avl_tree.insert(data=i)
+
+        self.assertEqual(avl_tree.root.left_count, 1)
+
+        for i in range(4, 7):
+            avl_tree.insert(data=i)
+
+        self.assertEqual(avl_tree.root.left_count, 3)
+
+        for i in range(7, 16):
+            avl_tree.insert(data=i)
+
+        self.assertEqual(avl_tree.root.left_count, 7)
+

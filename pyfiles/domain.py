@@ -46,6 +46,7 @@ class AVLTreeNode(TreeNodeInterface):
     left: Optional['AVLTreeNode'] = None
     right: Optional['AVLTreeNode'] = None
     height: int = 1
+    left_count: int = 0
 
     def __repr__(self) -> str:
         right_content = self.right if not self.right else self.right.data

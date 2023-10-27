@@ -40,6 +40,20 @@ class BaseBST(ABC):
 
         return max(depth, left_depth, right_depth)
 
-    @abstractmethod
-    def insert(self):
-        pass
+    def get_balance(self) -> int:
+        if not self.root:
+            return 0
+
+        left_depth = self._get_depth_recursive(tree=self.root.left)
+        right_depth = self._get_depth_recursive(tree=self.root.right)
+
+        return left_depth - right_depth
+
+    def get_node_balance(self, tree: Optional[AVLTreeNode]) -> int:
+        if not tree:
+            return 0
+
+        balance = (self._get_depth_recursive(tree=tree.left) -
+                   self._get_depth_recursive(tree=tree.right))
+
+        return balance
