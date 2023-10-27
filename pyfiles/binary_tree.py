@@ -1,14 +1,15 @@
+from typing import Optional, List, Tuple, Union
 from pyfiles.domain import (
     TreeNode,
     ListOptions,
     TreeTraversal
 )
-from typing import Optional, List, Tuple, Union
+from pyfiles.base_bst import BaseBST
 from pyfiles.double_linked_list import DLinkedList
 from pyfiles.utils.utils import measure_time
 
 
-class RBinaryTree:
+class RBinaryTree(BaseBST):
     def __init__(self) -> None:
         self.root: Optional[TreeNode] = None
         self.n: int = 0
@@ -129,45 +130,6 @@ class RBinaryTree:
 
         return result
 
-    def get_depth(self) -> int:
-        return self._get_depth_recursive(tree=self.root)
-
-    def _get_depth_recursive(
-        self,
-        tree: Optional[TreeNode],
-        depth: int = 0
-    ) -> int:
-        if not tree:
-            return depth
-
-        left_depth = self._get_depth_recursive(
-            tree=tree.left,
-            depth=depth+1
-        )
-
-        right_depth = self._get_depth_recursive(
-            tree=tree.right,
-            depth=depth+1
-        )
-
-        return max(depth, left_depth, right_depth)
-
-    def search(self, data: int) -> Optional[TreeNode]:
-        return self._search_recursive(tree=self.root, data=data)
-
-    def _search_recursive(
-        self,
-        tree: Optional[TreeNode],
-        data: int
-    ) -> Optional[TreeNode]:
-        if not tree or tree.data == data:
-            return tree
-
-        if data < tree.data:
-            return self._search_recursive(tree=tree.left, data=data)
-
-        return self._search_recursive(tree=tree.right, data=data)
-
     def find_swapped(self) -> List[str]:
         traverse = self.traverse(TreeTraversal.INORDER).replace('-', '')
         swapped: List[str] = []
@@ -238,12 +200,8 @@ class RBinaryTree:
         if not tree:
             return True, 0
 
-        left_balance, left_height = self._is_balanced_recursive(
-            tree=tree.left
-        )
-        right_balance, right_height = self._is_balanced_recursive(
-            tree=tree.right
-        )
+        left_balance, left_height = self._is_balanced_recursive(tree=tree.left)
+        right_balance, right_height = self._is_balanced_recursive(tree=tree.right)
 
         height = max(left_height, right_height) + 1
 

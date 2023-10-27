@@ -118,3 +118,12 @@ def get_left_skewd_avl_tree() -> AVLBinaryTree:
     avl_tree.root = root
 
     return avl_tree
+
+
+def get_fake_avl_tree(start: int = 1, n: int = 15) -> AVLBinaryTree:
+    avl_tree = AVLBinaryTree()
+    for i in range(start, start + n):
+        avl_tree.insert(data=i)
+
+    return avl_tree
+

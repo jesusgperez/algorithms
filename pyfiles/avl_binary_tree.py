@@ -1,10 +1,9 @@
 from typing import Optional
 from pyfiles.domain import AVLTreeNode
+from pyfiles.base_bst import BaseBST
 
 
-# TODO: Add the parent pointers to the solution
-
-class AVLBinaryTree:
+class AVLBinaryTree(BaseBST):
     def __init__(self) -> None:
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0
@@ -143,19 +142,3 @@ class AVLBinaryTree:
             return 0
 
         return tree.height
-
-    def get_depth(self) -> int:
-        return self._get_depth_recursive(tree=self.root)
-
-    def _get_depth_recursive(
-        self,
-        tree: Optional[AVLTreeNode],
-        depth: int = 0
-    ) -> int:
-        if not tree:
-            return depth
-
-        left_depth = self._get_depth_recursive(tree=tree.left, depth=depth+1)
-        right_depth = self._get_depth_recursive(tree=tree.right, depth=depth+1)
-
-        return max(depth, left_depth, right_depth)
