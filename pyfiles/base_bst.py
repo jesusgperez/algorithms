@@ -49,7 +49,7 @@ class BaseBST(ABC):
 
         return left_depth - right_depth
 
-    def get_node_balance(self, tree: Optional[AVLTreeNode]) -> int:
+    def get_node_balance(self, tree: Optional[TreeNodeInterface]) -> int:
         if not tree:
             return 0
 

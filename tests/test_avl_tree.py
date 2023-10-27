@@ -108,3 +108,11 @@ class TestAvlTree(TestCase):
 
         self.assertEqual(avl_tree.root.left_count, 7)
 
+    def test__get_median__success(self):
+        avl_tree = get_fake_avl_tree()
+
+        self.assertEqual(avl_tree.get_median(), 8)
+
+        avl_tree = get_fake_avl_tree(n=10)
+
+        self.assertEqual(avl_tree.get_median(), 5.5)

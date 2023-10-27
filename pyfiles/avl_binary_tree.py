@@ -131,27 +131,39 @@ class AVLBinaryTree(BaseBST):
 
         return tree.height
     
-    def get_median(self) -> int:
-        return self._get_median_recursive(
-            tree=self.root,
-            n=self.n//2
-        )
+    def get_median(self) -> float:
+        odd_n = self.n // 2 + 1
+        if self.n % 2 == 1:
+            return self._get_median_recursive(
+                tree=self.root,
+                n=self.n//2+1
+            )
+
+        left = self._get_median_recursive(tree=self.root, n=odd_n)
+        right = self._get_median_recursive(tree=self.root, n=odd_n-1)
+        return (left + right)/2
 
     def _get_median_recursive(
         self,
         tree: Optional[AVLTreeNode],
-        n: int
+        n: int,
+        carry_over: int = 0
     ) -> int:
-        if tree.left_count + 1 == n:
-            return tree
-        
-        if n < tree.left_count + 1:
+        if not tree:
+            return 0
+
+        if tree.left_count + carry_over + 1 == n:
+            return tree.data
+
+        if n < tree.left_count + carry_over + 1:
             return self._get_median_recursive(
                 tree=tree.left,
-                n=n
+                n=n,
+                carry_over=carry_over
             )
         else:
             return self._get_median_recursive(
                 tree=tree.right,
-                n=n
+                n=n,
+                carry_over=tree.left_count + carry_over + 1
             )
