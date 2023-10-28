@@ -151,3 +151,6 @@ class TestBinaryTree(TestCase):
 
         rtree = get_balanced_tree(start=1, n=7)
         self.assertEqual(rtree.get_n(), 7)
+
+    def test__delete_data__successful(self):
+        pass
