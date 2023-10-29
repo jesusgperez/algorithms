@@ -12,7 +12,8 @@ from utils import(
     get_basic_tree,
     get_depth_tree,
     get_balanced_tree,
-    get_unbalanced_tree
+    get_unbalanced_tree,
+    get_tree_for_deletion
 )
 
 class TestBinaryTree(TestCase):
@@ -153,4 +154,14 @@ class TestBinaryTree(TestCase):
         self.assertEqual(rtree.get_n(), 7)
 
     def test__delete_data__successful(self):
-        pass
+        rtree = get_balanced_tree()
+
+        rtree.delete(data=4)
+
+        self.assertEqual(rtree.root.left.data, 5)
+
+        rtree = get_tree_for_deletion()
+
+        rtree.delete(data=4)
+
+        self.assertEqual(rtree.root.left.data, 5)

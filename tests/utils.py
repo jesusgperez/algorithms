@@ -63,6 +63,18 @@ def get_balanced_tree(start: int = 1, n: int = 15) -> RBinaryTree:
     return balanced_tree
 
 
+def get_tree_for_deletion() -> RBinaryTree:
+    tree = RBinaryTree()
+    tree.insert(7)
+    tree.insert(8)
+    tree.insert(4)
+    tree.insert(3)
+    tree.insert(5)
+    tree.insert(6)
+
+    return tree
+
+
 def get_avl_tree_wo_insertion(
         skip_level_right: bool = False,
         skip_level_left: bool = False

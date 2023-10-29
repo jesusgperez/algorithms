@@ -319,7 +319,7 @@ class RBinaryTree(BaseBST):
                 succ_parent = succ
                 succ = succ.left
 
-            if succ != tree:
+            if succ_parent != tree:
                 succ_parent.left = succ.right
             else:
                 succ_parent.right = succ.right
