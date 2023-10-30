@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Optional
 from pyfiles.domain import TreeNodeInterface
 
@@ -57,3 +57,12 @@ class BaseBST(ABC):
                    self._get_depth_recursive(tree=tree.right))
 
         return balance
+
+    def get_min_node(
+        self,
+        tree: Optional[TreeNodeInterface]
+    ) -> Optional[TreeNodeInterface]:
+        if not tree or not tree.left:
+            return tree
+
+        return self.get_min_node(tree=tree.left)

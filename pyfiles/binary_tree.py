@@ -302,9 +302,15 @@ class RBinaryTree(BaseBST):
             return tree
 
         if tree.data > data:
-            return self._delete_recursive(tree=tree.left, data=data)
+            tree.left =  self._delete_recursive(
+                tree=tree.left,
+                data=data
+            )
         elif tree.data < data:
-            return self._delete_recursive(tree=tree.right, data=data)
+            tree.right =  self._delete_recursive(
+                tree=tree.right,
+                data=data
+            )
 
         if tree.left is None:
             temp = tree.right
@@ -314,22 +320,12 @@ class RBinaryTree(BaseBST):
             temp = tree.left
             del tree
             return temp
-        else:
-            succ_parent = tree
 
-            succ = tree.right
+        temp = self.get_min_node(tree=tree.right)
+        tree.data = temp.data
+        tree.right = self._delete_recursive(
+            tree=tree.right,
+            data=temp.data
+        )
 
-            while succ.left:
-                succ_parent = succ
-                succ = succ.left
-
-            if succ_parent != tree:
-                succ_parent.left = succ.right
-            else:
-                succ_parent.right = succ.right
-
-            tree.data = succ.data
-
-            del succ
-
-            return tree
+        return tree

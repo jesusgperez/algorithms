@@ -167,3 +167,65 @@ class AVLBinaryTree(BaseBST):
                 n=n,
                 carry_over=tree.left_count + carry_over + 1
             )
+
+    def delete(self, data: int) -> Optional[AVLTreeNode]:
+        return self._delete_recursive(tree=self.root, data=data)
+    
+    def _delete_recursive(
+        self,
+        tree: Optional[AVLTreeNode],
+        data: int
+    ) -> Optional[AVLTreeNode]:
+        if not tree:
+            return tree
+
+        if tree.data > data:
+            tree.left = self._delete_recursive(
+                tree=tree.left,
+                data=data
+            )
+        elif tree.data < data:
+            tree.right = self._delete_recursive(
+                tree=tree.right,
+                data=data
+            )
+
+        if not tree.left:
+            temp = tree.right
+            del tree
+            return temp
+        elif not tree.right:
+            temp = tree.left
+            del tree
+            return temp
+
+        temp = self.get_min_node(tree=tree.right)
+        tree.data = temp.data
+        tree.right = self._delete_recursive(
+            tree=tree.right,
+            data=temp.data
+        )
+
+        tree.height = 1 + max(
+            self.get_height(tree=tree.left),
+            self.get_height(tree=tree.right)
+        )
+
+        balance = self.get_node_balance(tree=tree)
+        left_balance = self.get_node_balance(tree=tree.left)
+        right_balance = self.get_node_balance(tree=tree.right)
+
+        if balance > 1 and left_balance >= 0:
+            return self.right_rotate(z=tree)
+        elif balance < -1 and right_balance <= 0:
+            return self.left_rotate(z=tree)
+        elif balance > 1 and left_balance < 0:
+            tree.left = self.left_rotate(z=tree.left)
+            return self.right_rotate(z=tree)
+        elif balance < -1 and right_balance > 0:
+            tree.right = self.right_rotate(z=tree.right)
+            return self.left_rotate(z=tree)
+
+        return tree
+
+
