@@ -54,7 +54,7 @@ class RBinaryTree(BaseBST):
         self,
         new_node: TreeNode,
         tree: Optional[TreeNode],
-        parent: Optional[TreeNode] = None 
+        parent: Optional[TreeNode] = None
     ) -> TreeNode:
         if not self.root:
             self.root = new_node
@@ -63,7 +63,7 @@ class RBinaryTree(BaseBST):
         if not tree:
             new_node.parent = parent
             return new_node
-    
+
         if new_node.data < tree.data:
             tree.left = self._insert_recursive_node(
                 new_node=new_node,
@@ -200,8 +200,12 @@ class RBinaryTree(BaseBST):
         if not tree:
             return True, 0
 
-        left_balance, left_height = self._is_balanced_recursive(tree=tree.left)
-        right_balance, right_height = self._is_balanced_recursive(tree=tree.right)
+        left_balance, left_height = self._is_balanced_recursive(
+            tree=tree.left
+        )
+        right_balance, right_height = self._is_balanced_recursive(
+            tree=tree.right
+        )
 
         height = max(left_height, right_height) + 1
 
@@ -220,7 +224,7 @@ class RBinaryTree(BaseBST):
 
         if node.right:
             return self.find_minimum(node=node.right)
-        
+
         parent = node.parent
 
         while parent and node == parent.right:
@@ -233,10 +237,10 @@ class RBinaryTree(BaseBST):
         node = self.search(data=data)
         if not node:
             return None
-        
+
         if node.left:
             return self.find_maximum(node=node.left)
-        
+
         parent = node.parent
 
         while parent and node == parent.left:
@@ -260,7 +264,7 @@ class RBinaryTree(BaseBST):
 
         while node.right:
             node = node.right
-        
+
         return node
 
     def get_median(self) -> int:
@@ -268,7 +272,7 @@ class RBinaryTree(BaseBST):
             traverse=TreeTraversal.INORDER
         ).replace('-', '')
         return int(traverse[self.n//2 - 1])
-    
+
     def get_n(self) -> Optional[TreeNode]:
         return self._get_n_recursive(tree=self.root)
 
@@ -288,7 +292,7 @@ class RBinaryTree(BaseBST):
 
     def delete(self, data: int):
         return self._delete_recursive(tree=self.root, data=data)
-    
+
     def _delete_recursive(
         self,
         tree: Optional[TreeNode],
@@ -301,7 +305,7 @@ class RBinaryTree(BaseBST):
             return self._delete_recursive(tree=tree.left, data=data)
         elif tree.data < data:
             return self._delete_recursive(tree=tree.right, data=data)
-        
+
         if tree.left is None:
             temp = tree.right
             del tree
