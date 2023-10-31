@@ -120,3 +120,31 @@ class TestAvlTree(TestCase):
         avl_tree = get_fake_avl_tree(n=12)
 
         self.assertEqual(avl_tree.get_median(), 6.5)
+
+    def test__delete_data__success(self):
+        avl_tree = get_fake_avl_tree(n=31)
+        self.assertEqual(avl_tree.root.left_count, 15)
+
+        avl_tree.delete(data=1)
+        self.assertEqual(avl_tree.root.left_count, 14)
+        avl_tree.delete(data=2)
+        self.assertEqual(avl_tree.root.left_count, 13)
+        avl_tree.delete(data=3)
+
+        self.assertEqual(avl_tree.root.left_count, 12)
+        self.assertEqual(avl_tree.root.left.left.data, 6)
+
+        avl_tree = get_fake_avl_tree(n=31)
+        self.assertEqual(avl_tree.root.left_count, 15)
+        avl_tree.delete(data=8)
+
+        self.assertEqual(avl_tree.root.left.data, 9)
+        self.assertEqual(avl_tree.root.left_count, 14)
+
+        avl_tree = get_fake_avl_tree(n=7)
+        node = avl_tree.delete(data=9)
+        self.assertEqual(avl_tree.root.left_count, 3)
+        self.assertIsNone(node)
+
+        avl_tree = get_fake_avl_tree(n=7)
+        node = avl_tree.delete(data=9)

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple
 from pyfiles.domain import AVLTreeNode
 from pyfiles.base_bst import BaseBST
 
@@ -169,42 +169,53 @@ class AVLBinaryTree(BaseBST):
             )
 
     def delete(self, data: int) -> Optional[AVLTreeNode]:
-        return self._delete_recursive(tree=self.root, data=data)
+        self.n -= 1
+        node, found = self._delete_recursive(tree=self.root, data=data)
+        if not found:
+            return None
+        return node
 
     def _delete_recursive(
         self,
         tree: Optional[AVLTreeNode],
         data: int
-    ) -> Optional[AVLTreeNode]:
+    ) -> Tuple[Optional[AVLTreeNode], bool]:
+        found = None
         if not tree:
-            return tree
+            return tree, False
 
         if tree.data > data:
-            tree.left = self._delete_recursive(
+            tree.left, found = self._delete_recursive(
                 tree=tree.left,
                 data=data
             )
+            if found:
+                tree.left_count -= 1
         elif tree.data < data:
-            tree.right = self._delete_recursive(
+            tree.right, found = self._delete_recursive(
                 tree=tree.right,
                 data=data
             )
+        else:
+            found = True
+            if not tree.left:
+                temp = tree.right
+                del tree
+                return temp, found
+            elif not tree.right:
+                temp = tree.left
+                del tree
+                return temp, found
 
-        if not tree.left:
-            temp = tree.right
-            del tree
-            return temp
-        elif not tree.right:
-            temp = tree.left
-            del tree
-            return temp
+            temp = self.get_min_node(tree=tree.right)
+            tree.data = temp.data
+            tree.right, found = self._delete_recursive(
+                tree=tree.right,
+                data=temp.data
+            )
 
-        temp = self.get_min_node(tree=tree.right)
-        tree.data = temp.data
-        tree.right = self._delete_recursive(
-            tree=tree.right,
-            data=temp.data
-        )
+        if not tree or not found:
+            return tree, found
 
         tree.height = 1 + max(
             self.get_height(tree=tree.left),
@@ -216,14 +227,14 @@ class AVLBinaryTree(BaseBST):
         right_balance = self.get_node_balance(tree=tree.right)
 
         if balance > 1 and left_balance >= 0:
-            return self.right_rotate(z=tree)
+            return self.right_rotate(z=tree), found
         elif balance < -1 and right_balance <= 0:
-            return self.left_rotate(z=tree)
+            return self.left_rotate(z=tree), found
         elif balance > 1 and left_balance < 0:
             tree.left = self.left_rotate(z=tree.left)
-            return self.right_rotate(z=tree)
+            return self.right_rotate(z=tree), found
         elif balance < -1 and right_balance > 0:
             tree.right = self.right_rotate(z=tree.right)
-            return self.left_rotate(z=tree)
+            return self.left_rotate(z=tree), found
 
-        return tree
+        return tree, found
