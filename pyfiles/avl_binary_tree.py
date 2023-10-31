@@ -170,7 +170,7 @@ class AVLBinaryTree(BaseBST):
 
     def delete(self, data: int) -> Optional[AVLTreeNode]:
         return self._delete_recursive(tree=self.root, data=data)
-    
+
     def _delete_recursive(
         self,
         tree: Optional[AVLTreeNode],
@@ -227,5 +227,3 @@ class AVLBinaryTree(BaseBST):
             return self.left_rotate(z=tree)
 
         return tree
-
-
