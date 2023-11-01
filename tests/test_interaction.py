@@ -1,5 +1,6 @@
 from unittest import TestCase
 from pyfiles.interaction import (
+    is_array_k_unique,
     balance_binary_search_tree,
     merge_two_binary_search_trees,
     concatenate_binary_search_tree,
@@ -49,3 +50,10 @@ class TestInteraction(TestCase):
         )
 
         self.assertEqual(concat_tree.get_depth(), 8)
+
+    def test__is_array_k_unique__success(self):
+        array = [1,2,3,4,5,6,7,1]
+
+        self.assertTrue(is_array_k_unique(array=array,k=6))
+        self.assertTrue(is_array_k_unique(array=array,k=7))
+        self.assertFalse(is_array_k_unique(array=array,k=8))

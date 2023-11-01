@@ -169,10 +169,12 @@ class AVLBinaryTree(BaseBST):
             )
 
     def delete(self, data: int) -> Optional[AVLTreeNode]:
-        self.n -= 1
         node, found = self._delete_recursive(tree=self.root, data=data)
+
         if not found:
             return None
+
+        self.n -= 1
         return node
 
     def _delete_recursive(

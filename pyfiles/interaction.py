@@ -4,6 +4,9 @@ from pyfiles.binary_tree import (
     RBinaryTree,
     ListOptions
 )
+from pyfiles.avl_binary_tree import (
+    AVLBinaryTree
+)
 from pyfiles.double_linked_list import DLinkedList
 
 
@@ -49,7 +52,7 @@ def balance_binary_search_tree(tree: RBinaryTree) -> RBinaryTree:
 
 def _create_balance_bst_recursive(
     array: List[int],
-    parent: Optional[TreeNode]=None
+    parent: Optional[TreeNode] = None
 ) -> Optional[TreeNode]:
     if not array:
         return None
@@ -59,8 +62,14 @@ def _create_balance_bst_recursive(
     root = TreeNode(data=array[mid])
     root.parent = parent
 
-    root.left = _create_balance_bst_recursive(array=array[:mid], parent=root)
-    root.right = _create_balance_bst_recursive(array=array[mid+1:], parent=root)
+    root.left = _create_balance_bst_recursive(
+        array=array[:mid],
+        parent=root
+    )
+    root.right = _create_balance_bst_recursive(
+        array=array[mid+1:],
+        parent=root
+    )
 
     return root
 
@@ -70,8 +79,8 @@ def concatenate_binary_search_tree(
     second_tree: RBinaryTree
 ) -> RBinaryTree:
     """
-        first_tree: all elements should be less than all second tree elements
-        second_tree: all elements should be greater than all first tree elements
+    first_tree: all elements should be less than all second tree elements
+    second_tree: all elements should be greater than all first tree elements
     """
     if not first_tree or not second_tree:
         return None
@@ -79,3 +88,24 @@ def concatenate_binary_search_tree(
     second_tree.insert_node(first_tree.root)
 
     return second_tree
+
+
+def is_array_k_unique(array: List[int], k: int) -> bool:
+    """
+        This function run O(nlog(k))
+        Better algorithm could be implemented with a hash table
+    """
+    avl_tree = AVLBinaryTree()
+
+    count = 0
+
+    for e in array:
+        previous = avl_tree.search(data=e)
+
+        if previous:
+            break
+
+        avl_tree.insert(data=e)
+        count += 1
+
+    return count >= k
