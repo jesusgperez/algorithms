@@ -96,7 +96,8 @@ class AVLBinaryTree(BaseBST):
 
         y.right, z.left = z, T2
 
-        z.left_count = z.left_count - y.left_count + T2.left_count
+        T2_left_count = T2.left_count if T2 else 0
+        z.left_count = z.left_count - y.left_count + T2_left_count
 
         if z == self.root:
             self.root = y

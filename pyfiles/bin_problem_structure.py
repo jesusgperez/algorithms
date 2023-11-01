@@ -22,7 +22,7 @@ class Bins(AVLBinaryTree):
         if not tree or self.capacity - tree.data >= weight:
             return tree
         
-        if weight < tree.data:
+        if weight > tree.data:
             return self._is_space_for_recursive(
                 tree=tree.left,
                 weight=weight

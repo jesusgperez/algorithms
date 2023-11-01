@@ -21,7 +21,7 @@ class TreeTraversal(Enum):
 
 
 class TreeNodeInterface(BaseModel):
-    data: int
+    data: float
     left: Optional['TreeNodeInterface'] = None
     right: Optional['TreeNodeInterface'] = None
 
