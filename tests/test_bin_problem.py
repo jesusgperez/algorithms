@@ -1,17 +1,24 @@
-from random import random
 from unittest import TestCase
 from pyfiles.bin_problem_structure import Bins
+from tests.utils import get_fake_bins_tree
 
 
 class TestBinProblem(TestCase):
     def test__is_there_space_for__successful(self):
-        bins = Bins(capacity=1)
+        bins = get_fake_bins_tree()
 
-        for _ in range(10):
-            bins.insert(data=round(random(), ndigits=2))
+        self.assertEqual(bins.n, 5)
 
-        self.assertEqual(bins.n, 10)
+        to_insert = [0.2,0.3,0.4,0.5]
 
-        tree = bins.is_space_for(weight=0.8)
+        for weight in to_insert:
+            tree = bins.is_space_for(weight=weight)
+
+            if tree:
+                data = tree.data
+                bins.delete(data=data)
+                bins.insert(data=round(data+weight,2))
+            else:
+                bins.insert(data=weight)
 
         self.assertTrue(True)

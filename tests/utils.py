@@ -1,6 +1,7 @@
 from pyfiles.domain import TreeNode, AVLTreeNode
 from pyfiles.binary_tree import RBinaryTree
 from pyfiles.avl_binary_tree import AVLBinaryTree
+from pyfiles.bin_problem_structure import Bins
 from pyfiles.interaction import _create_balance_bst_recursive
 
 
@@ -139,3 +140,13 @@ def get_fake_avl_tree(start: int = 1, n: int = 15) -> AVLBinaryTree:
 
     return avl_tree
 
+
+def get_fake_bins_tree() -> Bins:
+    bins = Bins(capacity=1)
+    bins.insert(0.8)
+    bins.insert(0.6)
+    bins.insert(0.9)
+    bins.insert(0.5)
+    bins.insert(0.7)
+
+    return bins
