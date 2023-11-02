@@ -12,7 +12,7 @@ class TestBinProblem(TestCase):
         to_insert = [0.2,0.3,0.4,0.5]
 
         for weight in to_insert:
-            tree = bins.is_space_for(weight=weight)
+            tree = bins.get_best_fit(weight=weight)
 
             if tree:
                 data = tree.data
@@ -21,4 +21,20 @@ class TestBinProblem(TestCase):
             else:
                 bins.insert(data=weight)
 
-        self.assertTrue(True)
+        self.assertEqual(bins.n, 6)
+
+        to_insert = [0.2,0.8,0.4,0.7,0.5,0.6,0.9,0.5,0.1,0.2]
+
+        bins = Bins(capacity=1)
+
+        for weight in to_insert:
+            tree = bins.get_best_fit(weight=weight)
+
+            if tree:
+                data = tree.data
+                bins.delete(data=data)
+                bins.insert(data=round(data+weight,2))
+            else:
+                bins.insert(data=weight)
+
+        self.assertEqual(bins.n, 5)

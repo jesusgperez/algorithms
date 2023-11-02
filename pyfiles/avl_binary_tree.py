@@ -175,6 +175,8 @@ class AVLBinaryTree(BaseBST):
         if not found:
             return None
 
+        self.root = node
+
         self.n -= 1
         return node
 

@@ -8,7 +8,7 @@ class Bins(AVLBinaryTree):
         super().__init__()
         self.capacity = capacity
 
-    def is_space_for(self, weight: float) -> Optional[AVLTreeNode]:
+    def get_best_fit(self, weight: float) -> Optional[AVLTreeNode]:
         return self._is_space_for_recursive(
             tree=self.root,
             weight=weight
@@ -22,7 +22,18 @@ class Bins(AVLBinaryTree):
         """
             Running log(n)
         """
-        if not tree or round(self.capacity - tree.data, 2) >= weight:
+        if not tree:
+            return tree
+
+        if self.capacity >= tree.data + weight:
+            best_fit = self._is_space_for_recursive(
+                tree=tree.right,
+                weight=weight
+            )
+
+            if best_fit:
+                return best_fit
+
             return tree
 
         return self._is_space_for_recursive(
