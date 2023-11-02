@@ -20,22 +20,12 @@ class Bins(AVLBinaryTree):
         weight: float
     ) -> Optional[AVLTreeNode]:
         """
-            Currently running O(n) worst case
+            Running log(n)
         """
         if not tree or round(self.capacity - tree.data, 2) >= weight:
             return tree
 
-        left_space = self._is_space_for_recursive(
+        return self._is_space_for_recursive(
             tree=tree.left,
             weight=weight
         )
-
-        if left_space:
-            return left_space
-
-        right_space = self._is_space_for_recursive(
-            tree=tree.right,
-            weight=weight
-        )
-
-        return right_space
