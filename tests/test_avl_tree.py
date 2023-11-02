@@ -76,7 +76,7 @@ class TestAvlTree(TestCase):
     def test__insertion__success(self):
         avl_tree = AVLBinaryTree()
 
-        for i in range(1,11):
+        for i in range(1,1000):
             avl_tree.insert(i)
 
         balance = avl_tree.get_balance()
