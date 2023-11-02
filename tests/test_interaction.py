@@ -61,3 +61,5 @@ class TestInteraction(TestCase):
 
     def test__is_tree_valid__failed(self):
         rtree = get_tree_of_failing_test_case()
+
+        self.assertFalse(rtree.is_valid())
