@@ -1,7 +1,8 @@
-from pyfiles.domain import TreeNode, AVLTreeNode
+from typing import List, Optional
 from pyfiles.binary_tree import RBinaryTree
-from pyfiles.avl_binary_tree import AVLBinaryTree
 from pyfiles.bin_problem_structure import Bins
+from pyfiles.domain import TreeNode, AVLTreeNode
+from pyfiles.avl_binary_tree import AVLBinaryTree
 from pyfiles.interaction import _create_balance_bst_recursive
 
 
@@ -150,3 +151,22 @@ def get_fake_bins_tree() -> Bins:
     bins.insert(0.7)
 
     return bins
+
+
+def get_tree_of_failing_test_case():
+    rtree = RBinaryTree()
+
+    root = TreeNode(data=32)
+    rl = TreeNode(data=26)
+    root.left = rl
+    rr = TreeNode(data=47)
+    root.right = rr
+    rll = TreeNode(data=19)
+    root.left.left = rll
+    rllr = TreeNode(data=27)
+    root.left.left.right = rllr
+    rrr = TreeNode(data=56)
+    root.right.right = rrr
+
+    rtree.root = root
+    return rtree

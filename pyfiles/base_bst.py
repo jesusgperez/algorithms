@@ -66,3 +66,44 @@ class BaseBST(ABC):
             return tree
 
         return self.get_min_node(tree=tree.left)
+    
+    def is_valid(self) -> bool:
+        return self.is_valid_recursive(tree=self.root)
+    
+    def _is_valid_recursive(self, tree: Optional[TreeNodeInterface]) -> bool:
+        if not tree:
+            return True
+
+        if not tree.left and not tree.right:
+            return True
+
+        if not tree.left:
+            if tree.val >= tree.right.val:
+                return False
+            return True
+
+        if not tree.right:
+            if tree.val <= tree.left.val:
+                return False
+            return True
+
+        if tree.val <= tree.left.val or tree.val >= tree.right.val:
+            return False
+
+        left_valid = self.isValidBST(tree=tree.left)
+        right_valid = self.isValidBST(tree=tree.right)
+
+        if not left_valid or not right_valid:
+            return False
+
+        min_node = self.find_min(tree=tree.right)
+
+        if min_node and tree.val >= min_node.val:
+            return False
+
+        max_node = self.find_max(tree=tree.left)
+
+        if max_node and tree.val <= max_node.val:
+            return False
+
+        return True

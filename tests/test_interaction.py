@@ -10,7 +10,8 @@ from utils import (
     get_depth_tree,
     get_balanced_tree,
     get_unbalanced_tree,
-    get_second_basic_tree
+    get_second_basic_tree,
+    get_tree_of_failing_test_case
 )
 
 
@@ -57,3 +58,6 @@ class TestInteraction(TestCase):
         self.assertTrue(is_array_k_unique(array=array,k=6))
         self.assertTrue(is_array_k_unique(array=array,k=7))
         self.assertFalse(is_array_k_unique(array=array,k=8))
+
+    def test__is_tree_valid__failed(self):
+        rtree = get_tree_of_failing_test_case()
