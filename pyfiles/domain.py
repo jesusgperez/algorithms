@@ -56,3 +56,7 @@ class AVLTreeNode(TreeNodeInterface):
 
     def __str__(self) -> str:
         return self.__repr__()
+
+
+class CountTreeNode(TreeNode):
+    left_count: int = 0

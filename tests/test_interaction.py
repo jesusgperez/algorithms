@@ -1,4 +1,5 @@
 from unittest import TestCase
+from pyfiles.leetcode_problems.count_smaller_nums import CountTree
 from pyfiles.interaction import (
     is_array_k_unique,
     balance_binary_search_tree,
@@ -63,3 +64,52 @@ class TestInteraction(TestCase):
         rtree = get_tree_of_failing_test_case()
 
         self.assertFalse(rtree.is_valid())
+
+
+    def test__count_smaller_after_self__success(self):
+        rtree = CountTree()
+
+        to_insert = [5,2,6,1]
+
+        for num in to_insert:
+            rtree.insert(num)
+
+        resp = []
+
+        for num in to_insert:
+            node = rtree.search(data=num)
+            resp.append(node.left_count)
+
+        self.assertEqual(resp, [2,1,1,0])
+
+        rtree = CountTree()
+
+        to_insert = [-1]
+
+        for num in to_insert:
+            rtree.insert(num)
+
+        resp = []
+
+        for num in to_insert:
+            node = rtree.search(data=num)
+            resp.append(node.left_count)
+
+        self.assertEqual(resp, [0])
+
+        rtree = CountTree()
+
+        to_insert = [-1, -1]
+
+        for num in to_insert:
+            rtree.insert(num)
+
+        resp = []
+
+        for num in to_insert:
+            node = rtree.search(data=num)
+            resp.append(node.left_count)
+
+        self.assertEqual(resp, [0, 0])
+
+

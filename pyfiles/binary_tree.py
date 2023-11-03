@@ -14,31 +14,31 @@ class RBinaryTree(BaseBST):
         self.root: Optional[TreeNode] = None
         self.n: int = 0
 
-    def insert(self, new_data: int) -> Optional[TreeNode]:
-        if type(new_data) is not int:
+    def insert(self, data: int) -> Optional[TreeNode]:
+        if type(data) is not int:
             return None
 
         self.n += 1
 
-        return self._insert_recursive(new_data=new_data, tree=self.root)
+        return self._insert_recursive(data=data, tree=self.root)
 
     def _insert_recursive(
         self,
-        new_data: int,
+        data: int,
         tree: Optional[TreeNode],
         parent: Optional[TreeNode] = None
     ) -> TreeNode:
         if not self.root:
-            self.root = TreeNode(data=new_data)
+            self.root = TreeNode(data=data)
             return self.root
 
         if not tree:
-            return TreeNode(data=new_data, parent=parent)
+            return TreeNode(data=data, parent=parent)
 
-        if new_data < tree.data:
-            tree.left = self._insert_recursive(new_data, tree.left, tree)
+        if data < tree.data:
+            tree.left = self._insert_recursive(data=data, tree=tree.left)
         else:
-            tree.right = self._insert_recursive(new_data, tree.right, tree)
+            tree.right = self._insert_recursive(data=data, tree=tree.right)
 
         return tree
 
