@@ -66,9 +66,18 @@ class BaseBST(ABC):
             return tree
 
         return self.get_min_node(tree=tree.left)
-    
+
+    def get_max_node(
+        self,
+        tree: Optional[TreeNodeInterface]
+    ) -> Optional[TreeNodeInterface]:
+        if not tree or not tree.right:
+            return tree
+
+        return self.get_max_node(tree=tree.right)
+
     def is_valid(self) -> bool:
-        return self.is_valid_recursive(tree=self.root)
+        return self._is_valid_recursive(tree=self.root)
     
     def _is_valid_recursive(self, tree: Optional[TreeNodeInterface]) -> bool:
         if not tree:
@@ -77,33 +86,33 @@ class BaseBST(ABC):
         if not tree.left and not tree.right:
             return True
 
+        min_node = self.get_min_node(tree=tree.right)
+
+        if min_node and tree.data >= min_node.data:
+            return False
+
+        max_node = self.get_max_node(tree=tree.left)
+
+        if max_node and tree.data <= max_node.data:
+            return False
+
         if not tree.left:
-            if tree.val >= tree.right.val:
+            if tree.data >= tree.right.data:
                 return False
-            return True
+            return self._is_valid_recursive(tree=tree.right)
 
         if not tree.right:
-            if tree.val <= tree.left.val:
+            if tree.data <= tree.left.data:
                 return False
-            return True
+            return self._is_valid_recursive(tree=tree.left)
 
-        if tree.val <= tree.left.val or tree.val >= tree.right.val:
+        if tree.data <= tree.left.data or tree.data >= tree.right.data:
             return False
 
-        left_valid = self.isValidBST(tree=tree.left)
-        right_valid = self.isValidBST(tree=tree.right)
+        left_valid = self._is_valid_recursive(tree=tree.left)
+        right_valid = self._is_valid_recursive(tree=tree.right)
 
         if not left_valid or not right_valid:
-            return False
-
-        min_node = self.find_min(tree=tree.right)
-
-        if min_node and tree.val >= min_node.val:
-            return False
-
-        max_node = self.find_max(tree=tree.left)
-
-        if max_node and tree.val <= max_node.val:
             return False
 
         return True

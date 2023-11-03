@@ -9,15 +9,14 @@ class AVLBinaryTree(BaseBST):
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0
 
-    @measure_time
-    def insert(self, data: int) -> Optional[AVLTreeNode]:
+    def insert(self, data: float) -> Optional[AVLTreeNode]:
         self.n += 1
         return self._insert_recursive(tree=self.root, data=data)
 
     def _insert_recursive(
         self,
         tree: Optional[AVLTreeNode],
-        data: int
+        data: float
     ) -> Optional[AVLTreeNode]:
         if not self.root:
             self.root = AVLTreeNode(data=data)
