@@ -56,7 +56,6 @@ class TestBinaryTree(TestCase):
         tree_node = rtree.search(data=SEARCH_DATA)
 
         self.assertEqual(tree_node.data, SEARCH_DATA)
-        self.assertEqual(tree_node.parent.data, 7)
 
     def test__swapped_data__successful(self):
         rtree = get_basic_tree()

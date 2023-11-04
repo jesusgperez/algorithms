@@ -102,13 +102,13 @@ class RBinaryTree(BaseBST):
                 tree=tree.left,
                 traverse=traverse
             )
-            result += '-' + str(tree.data)
+            result += '-' + str(int(tree.data))
             result += self._traverse_tree_recursive(
                 tree=tree.right,
                 traverse=traverse
             )
         elif traverse == TreeTraversal.PREORDER:
-            result += '-' + str(tree.data)
+            result += '-' + str(int(tree.data))
             result += self._traverse_tree_recursive(
                 tree=tree.left,
                 traverse=traverse
@@ -126,7 +126,7 @@ class RBinaryTree(BaseBST):
                 tree=tree.right,
                 traverse=traverse
             )
-            result += '-' + str(tree.data)
+            result += '-' + str(int(tree.data))
 
         return result
 

@@ -109,10 +109,3 @@ def is_array_k_unique(array: List[int], k: int) -> bool:
         count += 1
 
     return count >= k
-
-
-def bin_packing_problem(objects: List[int], capacity: int):
-    bins = Bins(capacity=capacity)
-
-    for obj in objects:
-        pass
