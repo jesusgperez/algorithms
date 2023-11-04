@@ -3,6 +3,12 @@ from pyfiles.domain import CountTreeNode
 
 
 class CountTree:
+    """
+        A tree structure to count the smaller numbers after self
+        a good way found to do this is by creating a tree structure
+        with slightly modified insertion method and an extra pointer
+        to save the left count
+    """
     def __init__(self) -> None:
         self.root = None
         self.n = 0
@@ -39,11 +45,11 @@ class CountTree:
         parent: Optional[CountTreeNode] = None
     ) -> CountTreeNode:
         if not self.root:
-            self.root = CountTreeNode(data=data, index=self.n, parent=parent)
+            self.root = CountTreeNode(data=data, parent=parent)
             return self.root
 
         if not tree:
-            return CountTreeNode(data=data, index=self.n, parent=parent)
+            return CountTreeNode(data=data, parent=parent)
 
         if data < tree.data:
             tree.left_count += 1
