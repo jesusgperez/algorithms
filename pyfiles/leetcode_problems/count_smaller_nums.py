@@ -12,30 +12,57 @@ class CountTree:
     def __init__(self) -> None:
         self.root = None
         self.n = 0
+        self.inserted = {}
 
     def search(self, data: int) -> Optional[CountTreeNode]:
         if not data:
             return None
 
-        return self._search_recursive(tree=self.root, data=data)
+        try:
+            self.inserted[data] += 1
+        except KeyError:
+            self.inserted[data] = 0
+
+        return self._search_recursive(
+            tree=self.root,
+            data=data,
+            skip=self.inserted[data]
+        )
 
     def _search_recursive(
         self,
         tree: Optional[CountTreeNode],
-        data: int
+        data: int,
+        skip: int
     ) -> Optional[CountTreeNode]:
         if not tree:
             return tree
 
         if data < tree.data:
-            return self._search_recursive(tree=tree.left, data=data)
+            return self._search_recursive(
+                tree=tree.left,
+                data=data,
+                skip=skip
+            )
         elif data > tree.data:
-            return self._search_recursive(tree=tree.right, data=data)
+            return self._search_recursive(
+                tree=tree.right,
+                data=data,
+                skip=skip
+            )
+
+        if skip:
+            return self._search_recursive(
+                tree=tree.right,
+                data=data,
+                skip=skip - 1
+            )
 
         return tree
 
     def insert(self, data: int) -> Optional[CountTreeNode]:
         self.n += 1
+
         return self._insert_recursive(data=data, tree=self.root)
 
     def _insert_recursive(
