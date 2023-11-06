@@ -1,6 +1,6 @@
 from enum import Enum
-from typing import Optional
 from pydantic import BaseModel
+from typing import Optional, Tuple
 
 
 class Node(BaseModel):
@@ -60,3 +60,8 @@ class AVLTreeNode(TreeNodeInterface):
 
 class CountTreeNode(TreeNode):
     left_count: int = 0
+
+
+class SegmentTreeNode(TreeNode):
+    data: Optional[float] = None
+    indexes: Tuple[int, int]

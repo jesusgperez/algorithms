@@ -120,5 +120,3 @@ class TestInteraction(TestCase):
             resp.append(node.left_count)
 
         self.assertEqual(resp, [0, 0])
-
-
