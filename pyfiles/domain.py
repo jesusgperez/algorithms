@@ -62,7 +62,7 @@ class CountTreeNode(TreeNode):
     left_count: int = 0
 
 
-class SegmentTreeNode:
+class SegmentTreeNode(BaseModel):
     data: Optional[float] = None
     left: Optional['SegmentTreeNode'] = None
     right: Optional['SegmentTreeNode'] = None
