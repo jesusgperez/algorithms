@@ -67,3 +67,12 @@ class SegmentTreeNode(BaseModel):
     left: Optional['SegmentTreeNode'] = None
     right: Optional['SegmentTreeNode'] = None
     indexes: Tuple[int, int]
+
+    def __repr__(self) -> str:
+        left_content = self.left if not self.left else self.left.data
+        right_content = self.right if not self.right else self.right.data
+        return (f'TreeNode(data={self.data}, indexes={self.indexes}'
+                f', left={left_content}, right={right_content})')
+
+    def __str__(self) -> str:
+        return self.__repr__()

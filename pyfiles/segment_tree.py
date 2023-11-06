@@ -63,11 +63,12 @@ class SegmentTree(BaseBST):
         if not tree:
             return
 
-        if tree.start == tree.end:
+        start, end = tree.indexes
+
+        if start == end:
             tree.data = data
             return
 
-        start, end = tree.indexes
         mid = (end + start)/2
 
         if index < mid:
