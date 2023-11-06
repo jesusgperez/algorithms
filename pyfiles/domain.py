@@ -62,6 +62,8 @@ class CountTreeNode(TreeNode):
     left_count: int = 0
 
 
-class SegmentTreeNode(TreeNode):
+class SegmentTreeNode:
     data: Optional[float] = None
+    left: Optional['SegmentTreeNode'] = None
+    right: Optional['SegmentTreeNode'] = None
     indexes: Tuple[int, int]
