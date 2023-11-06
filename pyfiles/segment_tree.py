@@ -99,10 +99,15 @@ class SegmentTree(BaseBST):
         start: int,
         end: int
     ) -> int:
-        if tree.start == start and tree.end == end:
+        if not tree:
+            return 0
+
+        tree_start, tree_end = tree.indexes
+
+        if tree_start == start and tree_end == end:
             return tree.data
 
-        mid = (start + end)/ 2
+        mid = int((tree_start + tree_end)/ 2)
 
         if end <= mid:
             return self._get_sum_range_recursive(
