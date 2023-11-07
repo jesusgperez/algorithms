@@ -152,3 +152,56 @@ class SegmentTree(BaseBST):
         )
 
         return left_sum + right_sum
+
+
+class CountSegmentTree(SegmentTree):
+    def __init__(self, tree_type: SegmentTreeType, **kwargs) -> None:
+        super().__init__(tree_type, **kwargs)
+
+    def _update_recursive(
+        self,
+        tree: Optional[SegmentTreeNode],
+        index: int
+    ) -> None:
+        if not tree:
+            return
+        
+        start, end = tree.indexes
+
+        if start == index and end == index:
+            tree.data += 1
+            return
+
+        mid = int((start + end)/2)
+
+        if index <= mid:
+            self._update_recursive(tree=tree.left, index=index)
+        else:
+            self._update_recursive(tree=tree.right, index=index)
+
+        if not tree.left or not tree.right:
+            return
+
+        tree.data = tree.left.data + tree.right.data
+
+    def count_smaller(self, nums: Optional[List[int]]) -> List[int]:
+        if not nums or not len(nums):
+            return []
+        
+        counts = []
+        min_index = min(nums)
+        max_index = max(nums)
+        
+        self._build_tree_recursive(
+            start=min_index,
+            end=max_index
+        )
+
+        for i in range(len(nums)):
+            self._update_recursive(tree=self.root, index=nums[i])
+            counts.append(self.get_sum_range(
+                start=min_index,
+                end=nums[i]-1)
+            )
+
+        return counts
