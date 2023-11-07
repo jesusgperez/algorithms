@@ -20,6 +20,11 @@ class TreeTraversal(Enum):
     POSTORDER: str = 'postorder'
 
 
+class SegmentTreeType(Enum):
+    BASE: str = 'base'
+    SUM: str = 'sum'
+
+
 class TreeNodeInterface(BaseModel):
     data: float
     left: Optional['TreeNodeInterface'] = None

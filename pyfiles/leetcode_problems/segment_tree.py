@@ -1,21 +1,32 @@
 from typing import List, Optional
 
 from pyfiles.base_bst import BaseBST
-from pyfiles.domain import SegmentTreeNode
+from pyfiles.domain import SegmentTreeNode, SegmentTreeType
 
 
 class SegmentTree(BaseBST):
-    def __init__(self, nums: List[int]) -> None:
+    def __init__(
+        self,
+        tree_type: SegmentTreeType,
+        **kwargs
+    ) -> None:
         super().__init__()
-        self.build_tree(nums=nums)
+        self.type = tree_type
+        if self.type == SegmentTreeType.SUM:
+            nums = kwargs.get('nums', [])
+            self.build_sum_tree(nums=nums)
 
-    def build_tree(self, nums: List[int]) -> None:
+    def build_sum_tree(self, nums: List[int]) -> None:
         root = self._build_tree_recursive(nums=nums, end=len(nums)-1)
+        self.root = root
+
+    def build_base_tree(self, min_val: int, max_val: int) -> None:
+        root = self._build_tree_recursive(start=min_val, end=max_val)
         self.root = root
 
     def _build_tree_recursive(
         self,
-        nums: List[int],
+        nums: Optional[List[int]] = None,
         start: float = 0,
         end: float = 0
     ) -> Optional[SegmentTreeNode]:
@@ -25,7 +36,8 @@ class SegmentTree(BaseBST):
         node = SegmentTreeNode(indexes=(start, end))
 
         if start == end:
-            node.data = nums[start]
+            if self.type == SegmentTreeType.SUM:
+                node.data = nums[start]
             return node
 
         mid = int((end + start)/2)
@@ -39,7 +51,9 @@ class SegmentTree(BaseBST):
             start=mid+1,
             end=end
         )
-        node.data = node.left.data + node.right.data
+
+        if self.type == SegmentTreeType.SUM:
+            node.data = node.left.data + node.right.data
 
         return node
 
