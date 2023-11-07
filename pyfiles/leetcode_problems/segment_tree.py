@@ -110,7 +110,7 @@ class SegmentTree(BaseBST):
             start=start,
             end=end
         )
-    
+
     def _get_sum_range_recursive(
         self,
         tree: Optional[SegmentTreeNode],
@@ -125,7 +125,7 @@ class SegmentTree(BaseBST):
         if tree_start == start and tree_end == end:
             return tree.data
 
-        mid = int((tree_start + tree_end)/ 2)
+        mid = int((tree_start + tree_end) / 2)
 
         if end <= mid:
             return self._get_sum_range_recursive(
@@ -139,7 +139,7 @@ class SegmentTree(BaseBST):
                 start=start,
                 end=end
             )
-        
+
         left_sum = self._get_sum_range_recursive(
             tree=tree.left,
             start=start,
@@ -165,7 +165,7 @@ class CountSegmentTree(SegmentTree):
     ) -> None:
         if not tree:
             return
-        
+
         start, end = tree.indexes
 
         if start == index and end == index:
@@ -187,11 +187,11 @@ class CountSegmentTree(SegmentTree):
     def count_smaller(self, nums: Optional[List[int]]) -> List[int]:
         if not nums or not len(nums):
             return []
-        
+
         counts = []
         min_index = min(nums)
         max_index = max(nums)
-        
+
         self._build_tree_recursive(
             start=min_index,
             end=max_index
