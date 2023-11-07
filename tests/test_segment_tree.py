@@ -1,5 +1,5 @@
 from unittest import TestCase
-from pyfiles.segment_tree import SegmentTree
+from pyfiles.leetcode_problems.segment_tree import SegmentTree
 
 
 class TestSegmentTree(TestCase):
@@ -19,6 +19,6 @@ class TestSegmentTree(TestCase):
 
     def test__get_sum__success(self):
         tree = SegmentTree(nums=[2, 4, 6, 8])
-        
+
         summed = tree.get_sum_range(start=1, end=3)
         self.assertEqual(summed, 18)
