@@ -15,6 +15,10 @@ class SegmentTree(BaseBST):
         if self.type == SegmentTreeType.SUM:
             nums = kwargs.get('nums', [])
             self.build_sum_tree(nums=nums)
+        elif self.type == SegmentTreeType.BASE:
+            min_val = kwargs.get('min', 0)
+            max_val = kwargs.get('max', 0)
+            self.build_base_tree(min_val=min_val, max_val=max_val)
 
     def build_sum_tree(self, nums: List[int]) -> None:
         root = self._build_tree_recursive(nums=nums, end=len(nums)-1)

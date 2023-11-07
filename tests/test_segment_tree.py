@@ -32,3 +32,12 @@ class TestSegmentTree(TestCase):
 
         summed = tree.get_sum_range(start=1, end=3)
         self.assertEqual(summed, 18)
+
+    def test__build_base_tree__success(self):
+        tree = SegmentTree(
+            tree_type=SegmentTreeType.BASE,
+            min=1,
+            max=6
+        )
+
+        self.assertEqual(tree.root.indexes, (1,6))
