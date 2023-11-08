@@ -123,7 +123,8 @@ class SegmentTree(BaseBST):
         tree_start, tree_end = tree.indexes
 
         if tree_start == start and tree_end == end:
-            return tree.data
+            tree_data = tree.data if tree.data else 0
+            return tree_data
 
         mid = int((tree_start + tree_end) / 2)
 
@@ -155,21 +156,27 @@ class SegmentTree(BaseBST):
 
 
 class CountSegmentTree(SegmentTree):
-    def __init__(self, tree_type: SegmentTreeType, **kwargs) -> None:
-        super().__init__(tree_type, **kwargs)
+    def __init__(self, **kwargs) -> None:
+        super().__init__(SegmentTreeType.BASE, **kwargs)
+        self.min = kwargs.get('min', 0)
+        self.max = kwargs.get('max', 0)
 
     def _update_recursive(
         self,
         tree: Optional[SegmentTreeNode],
         index: int
     ) -> None:
+        """
+            This function takes O(log(n)) time complexity
+        """
         if not tree:
             return
 
         start, end = tree.indexes
 
         if start == index and end == index:
-            tree.data += 1
+            current_data = tree.data if tree.data else 0
+            tree.data = current_data + 1
             return
 
         mid = int((start + end)/2)
@@ -182,26 +189,27 @@ class CountSegmentTree(SegmentTree):
         if not tree.left or not tree.right:
             return
 
-        tree.data = tree.left.data + tree.right.data
+        left_data = tree.left.data if tree.left.data else 0
+        right_data = tree.right.data if tree.right.data else 0
+
+        tree.data = left_data + right_data
 
     def count_smaller(self, nums: Optional[List[int]]) -> List[int]:
+        """
+            This function is running nlog(n) time complexity
+            Running through all n elements times
+            2*log(n) for updating and getting the sum range
+        """
         if not nums or not len(nums):
             return []
 
         counts = []
-        min_index = min(nums)
-        max_index = max(nums)
 
-        self._build_tree_recursive(
-            start=min_index,
-            end=max_index
-        )
-
-        for i in range(len(nums)):
+        for i in range(len(nums)-1 , -1, -1):
             self._update_recursive(tree=self.root, index=nums[i])
             counts.append(self.get_sum_range(
-                start=min_index,
+                start=self.min,
                 end=nums[i]-1)
             )
 
-        return counts
+        return counts[::-1]

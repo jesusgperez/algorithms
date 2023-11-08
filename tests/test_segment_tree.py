@@ -1,6 +1,9 @@
 from unittest import TestCase
 from pyfiles.domain import SegmentTreeType
-from pyfiles.leetcode_problems.segment_tree import SegmentTree
+from pyfiles.leetcode_problems.segment_tree import (
+    SegmentTree,
+    CountSegmentTree
+)
 
 
 class TestSegmentTree(TestCase):
@@ -41,3 +44,10 @@ class TestSegmentTree(TestCase):
         )
 
         self.assertEqual(tree.root.indexes, (1,6))
+
+    def test__count_smaller__success(self):
+        tree = CountSegmentTree(min=1, max=6)
+
+        resp = tree.count_smaller(nums=[5, 2, 6, 1])
+
+        self.assertEqual(resp, [2,1,1,0])
