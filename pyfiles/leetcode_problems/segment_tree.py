@@ -161,7 +161,7 @@ class SegmentTree(BaseBST):
 class CountSegmentTree(SegmentTree):
     def __init__(self, **kwargs) -> None:
         """
-            Initialization time of a base segment tree takes O(n) time
+            Initialization time of a base segment tree takes O(log(n)) time
         """
         super().__init__(SegmentTreeType.BASE, **kwargs)
         self.min = kwargs.get('min', 0)
