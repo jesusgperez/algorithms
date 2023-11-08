@@ -105,6 +105,9 @@ class SegmentTree(BaseBST):
         tree.data = tree.left.data + tree.right.data
 
     def get_sum_range(self, start: int, end: int) -> int:
+        """
+            This function takes log(n) time complexity
+        """
         return self._get_sum_range_recursive(
             tree=self.root,
             start=start,
@@ -157,6 +160,9 @@ class SegmentTree(BaseBST):
 
 class CountSegmentTree(SegmentTree):
     def __init__(self, **kwargs) -> None:
+        """
+            Initialization time of a base segment tree takes O(n) time
+        """
         super().__init__(SegmentTreeType.BASE, **kwargs)
         self.min = kwargs.get('min', 0)
         self.max = kwargs.get('max', 0)
@@ -205,6 +211,7 @@ class CountSegmentTree(SegmentTree):
 
         counts = []
 
+        # Runs nlog(n)
         for i in range(len(nums)-1 , -1, -1):
             self._update_recursive(tree=self.root, index=nums[i])
             counts.append(self.get_sum_range(
