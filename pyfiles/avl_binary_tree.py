@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 from pyfiles.base_bst import BaseBST
-from pyfiles.domain import AVLTreeNode
+from pyfiles.domain import AVLTreeNode, TreeNodeInterface
 from pyfiles.utils.utils import measure_time
 
 
@@ -9,6 +9,7 @@ class AVLBinaryTree(BaseBST):
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0
 
+    @measure_time
     def insert(self, data: float) -> Optional[AVLTreeNode]:
         self.n += 1
         return self._insert_recursive(tree=self.root, data=data)
@@ -37,6 +38,8 @@ class AVLBinaryTree(BaseBST):
                 data=data
             )
 
+        # All the methods bellow run O(1) so insertion log(n) preserved
+
         tree.height = 1 + max(
             self.get_height(tree=tree.left),
             self.get_height(tree=tree.right)
@@ -63,6 +66,20 @@ class AVLBinaryTree(BaseBST):
             return self.left_rotate(z=tree)
 
         return tree
+
+    def get_node_balance(self, tree: Optional[AVLTreeNode]) -> int:
+        """
+            Make use of the height attribute to get
+            the balance in O(1) time complexity
+            Huge improvement with respect the base method
+        """
+        if not tree:
+            return 0
+        
+        left_height = tree.left.height if tree.left else 0
+        right_height = tree.right.height if tree.right else 0
+
+        return left_height - right_height
 
     def left_rotate(
         self,

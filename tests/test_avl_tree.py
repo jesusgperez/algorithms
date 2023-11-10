@@ -74,9 +74,13 @@ class TestAvlTree(TestCase):
         self.assertEqual(adj_root.right.data, 7)
 
     def test__insertion__success(self):
+        """
+            Add the decorator measure_time to validate
+            log(n) insertion
+        """
         avl_tree = AVLBinaryTree()
 
-        for i in range(1,10):
+        for i in range(1,1000):
             avl_tree.insert(i)
 
         balance = avl_tree.get_balance()
