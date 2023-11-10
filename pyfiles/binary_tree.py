@@ -278,3 +278,40 @@ class RBinaryTree(BaseBST):
         )
 
         return tree
+    
+    def create_from_orders(
+        self,
+        preorder: List[int],
+        inorder: List[int]
+    ) -> None:
+        stack = []
+        count = 0
+        i = 0
+        previous: Optional[TreeNode] = None
+
+        while i < len(preorder):
+            node = TreeNode(data=preorder[i])
+
+            if not previous:
+                previous = node
+                self.root = previous
+                i += 1
+                continue
+
+            previous.left = node
+            stack.append(previous)
+            previous = node
+
+            if preorder[i] == inorder[count]:
+                count = i + 1
+                for _ in range(2):
+                    if not stack:
+                        continue
+
+                    previous = stack.pop()
+                    previous.right = TreeNode(data=preorder[i+1])
+                    i += 1
+
+                previous = previous.right
+
+            i += 1

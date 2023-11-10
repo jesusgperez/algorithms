@@ -3,7 +3,8 @@ from typing import List
 from pyfiles.binary_tree import (
     TreeNode,
     ListOptions,
-    TreeTraversal
+    TreeTraversal,
+    RBinaryTree
 )
 from pyfiles.double_linked_list import (
     DLinkedList
@@ -164,3 +165,22 @@ class TestBinaryTree(TestCase):
         rtree.delete(data=4)
 
         self.assertEqual(rtree.root.left.data, 5)
+
+    def test__create_tree_from_inpre_order__success(self):
+        preorder = [8, 4, 2, 1, 3, 6, 5, 7, 12, 10, 9, 11, 14, 13, 15]
+        inorder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+        rtree = RBinaryTree()
+
+        rtree.create_from_orders(
+            preorder=preorder,
+            inorder=inorder
+        )
+
+        self.assertEqual(rtree.root.data, 8)
+        self.assertEqual(rtree.root.left.data, 4)
+        self.assertEqual(rtree.root.left.left.data, 2)
+        self.assertEqual(rtree.root.left.right.data, 6)
+        self.assertEqual(rtree.root.right.data, 12)
+        self.assertEqual(rtree.root.right.left.data, 10)
+        self.assertEqual(rtree.root.right.right.data, 14)
