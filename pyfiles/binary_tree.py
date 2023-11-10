@@ -79,57 +79,6 @@ class RBinaryTree(BaseBST):
 
         return tree
 
-    def traverse(self, traverse: TreeTraversal) -> str:
-        if traverse not in list(TreeTraversal):
-            raise ValueError('Invalid value for Tree Traversal')
-
-        return self._traverse_tree_recursive(
-            tree=self.root,
-            traverse=traverse,
-        )
-
-    def _traverse_tree_recursive(
-        self,
-        tree: Optional[TreeNode],
-        traverse: TreeTraversal
-    ) -> str:
-        result = ''
-        if tree is None:
-            return ''
-
-        if traverse == TreeTraversal.INORDER:
-            result += self._traverse_tree_recursive(
-                tree=tree.left,
-                traverse=traverse
-            )
-            result += '-' + str(int(tree.data))
-            result += self._traverse_tree_recursive(
-                tree=tree.right,
-                traverse=traverse
-            )
-        elif traverse == TreeTraversal.PREORDER:
-            result += '-' + str(int(tree.data))
-            result += self._traverse_tree_recursive(
-                tree=tree.left,
-                traverse=traverse
-            )
-            result += self._traverse_tree_recursive(
-                tree=tree.right,
-                traverse=traverse
-            )
-        elif traverse == TreeTraversal.POSTORDER:
-            result += self._traverse_tree_recursive(
-                tree=tree.left,
-                traverse=traverse
-            )
-            result += self._traverse_tree_recursive(
-                tree=tree.right,
-                traverse=traverse
-            )
-            result += '-' + str(int(tree.data))
-
-        return result
-
     def find_swapped(self) -> List[str]:
         traverse = self.traverse(TreeTraversal.INORDER).replace('-', '')
         swapped: List[str] = []
