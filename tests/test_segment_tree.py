@@ -51,3 +51,9 @@ class TestSegmentTree(TestCase):
         resp = tree.count_smaller(nums=[5, 2, 6, 1])
 
         self.assertEqual(resp, [2,1,1,0])
+
+        tree = CountSegmentTree(min=-2, max=-1)
+
+        resp = tree.count_smaller(nums=[-1, -2])
+
+        self.assertEqual(resp, [1 ,0])

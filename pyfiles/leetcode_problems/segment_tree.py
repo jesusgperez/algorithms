@@ -1,3 +1,4 @@
+import math
 from typing import List, Optional
 
 from pyfiles.base_bst import BaseBST
@@ -44,7 +45,8 @@ class SegmentTree(BaseBST):
                 node.data = nums[start]
             return node
 
-        mid = int((end + start)/2)
+        mid = math.floor((end + start)/2)
+
         node.left = self._build_tree_recursive(
             nums=nums,
             start=start,
@@ -129,7 +131,7 @@ class SegmentTree(BaseBST):
             tree_data = tree.data if tree.data else 0
             return tree_data
 
-        mid = int((tree_start + tree_end) / 2)
+        mid = math.floor((tree_start + tree_end) / 2)
 
         if end <= mid:
             return self._get_sum_range_recursive(
@@ -212,7 +214,7 @@ class CountSegmentTree(SegmentTree):
         counts = []
 
         # Runs nlog(n)
-        for i in range(len(nums)-1 , -1, -1):
+        for i in range(len(nums) - 1 , -1, -1):
             self._update_recursive(tree=self.root, index=nums[i])
             counts.append(self.get_sum_range(
                 start=self.min,
