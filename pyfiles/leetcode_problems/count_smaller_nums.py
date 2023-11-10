@@ -1,8 +1,9 @@
-from typing import Optional, List
+from typing import Optional
 from pyfiles.domain import CountTreeNode
+from pyfiles.base_bst import BaseBST
 
 
-class CountTree:
+class CountTree(BaseBST):
     """
         A tree structure to count the smaller numbers after self
         a good way found to do this is by creating a tree structure

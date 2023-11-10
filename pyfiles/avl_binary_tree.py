@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 from pyfiles.base_bst import BaseBST
-from pyfiles.domain import AVLTreeNode, TreeNodeInterface
+from pyfiles.domain import AVLTreeNode
 from pyfiles.utils.utils import measure_time
 
 
@@ -9,7 +9,6 @@ class AVLBinaryTree(BaseBST):
         self.root: Optional[AVLTreeNode] = None
         self.n: int = 0
 
-    @measure_time
     def insert(self, data: float) -> Optional[AVLTreeNode]:
         self.n += 1
         return self._insert_recursive(tree=self.root, data=data)

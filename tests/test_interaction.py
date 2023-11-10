@@ -1,5 +1,7 @@
 from unittest import TestCase
-from pyfiles.leetcode_problems.count_smaller_nums import CountTree
+from pyfiles.leetcode_problems.count_smaller_nums import (
+    CountTree
+)
 from pyfiles.interaction import (
     is_array_k_unique,
     balance_binary_search_tree,
