@@ -81,7 +81,7 @@ class BaseBST(ABC):
 
     def is_valid(self) -> bool:
         return self._is_valid_recursive(tree=self.root)
-    
+
     def _is_valid_recursive(self, tree: Optional[TreeNodeInterface]) -> bool:
         if not tree:
             return True
@@ -119,7 +119,7 @@ class BaseBST(ABC):
             return False
 
         return True
-    
+
     def traverse(self, traverse: TreeTraversal) -> str:
         if traverse not in list(TreeTraversal):
             raise ValueError('Invalid value for Tree Traversal')

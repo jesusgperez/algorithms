@@ -1,7 +1,6 @@
 from typing import Optional, Tuple
 from pyfiles.base_bst import BaseBST
 from pyfiles.domain import AVLTreeNode
-from pyfiles.utils.utils import measure_time
 
 
 class AVLBinaryTree(BaseBST):
@@ -74,7 +73,7 @@ class AVLBinaryTree(BaseBST):
         """
         if not tree:
             return 0
-        
+
         left_height = tree.left.height if tree.left else 0
         right_height = tree.right.height if tree.right else 0
 

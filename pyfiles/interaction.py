@@ -8,7 +8,7 @@ from pyfiles.avl_binary_tree import (
     AVLBinaryTree
 )
 from pyfiles.double_linked_list import DLinkedList
-from pyfiles.bin_problem_structure import Bins
+
 
 def merge_two_binary_search_trees(
     first_tree: RBinaryTree,

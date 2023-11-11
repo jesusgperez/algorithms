@@ -251,12 +251,12 @@ class RBinaryTree(BaseBST):
             return tree
 
         if tree.data > data:
-            tree.left =  self._delete_recursive(
+            tree.left = self._delete_recursive(
                 tree=tree.left,
                 data=data
             )
         elif tree.data < data:
-            tree.right =  self._delete_recursive(
+            tree.right = self._delete_recursive(
                 tree=tree.right,
                 data=data
             )
@@ -278,7 +278,7 @@ class RBinaryTree(BaseBST):
         )
 
         return tree
-    
+
     def create_from_orders(
         self,
         preorder: List[int],

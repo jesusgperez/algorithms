@@ -214,7 +214,7 @@ class CountSegmentTree(SegmentTree):
         counts = []
 
         # Runs nlog(n)
-        for i in range(len(nums) - 1 , -1, -1):
+        for i in range(len(nums) - 1, -1, -1):
             self._update_recursive(tree=self.root, index=nums[i])
             counts.append(self.get_sum_range(
                 start=self.min,
