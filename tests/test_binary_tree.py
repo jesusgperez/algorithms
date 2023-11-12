@@ -184,3 +184,19 @@ class TestBinaryTree(TestCase):
         self.assertEqual(rtree.root.right.data, 12)
         self.assertEqual(rtree.root.right.left.data, 10)
         self.assertEqual(rtree.root.right.right.data, 14)
+
+        preorder = [3, 9, 20, 15, 7]
+        inorder = [9, 3, 15, 20, 7]
+
+        rtree = RBinaryTree()
+
+        rtree.create_from_orders(
+            preorder=preorder,
+            inorder=inorder
+        )
+
+        self.assertEqual(rtree.root.data, 3)
+        self.assertEqual(rtree.root.left.data, 9)
+        self.assertEqual(rtree.root.right.data, 20)
+        self.assertEqual(rtree.root.right.right.data, 7)
+        self.assertEqual(rtree.root.right.left.data, 15)

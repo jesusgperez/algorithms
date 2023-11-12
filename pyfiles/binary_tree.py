@@ -285,16 +285,18 @@ class RBinaryTree(BaseBST):
         inorder: List[int]
     ) -> None:
         stack = []
+        settled = {}
         count = 0
         i = 0
         previous: Optional[TreeNode] = None
 
         while i < len(preorder):
             node = TreeNode(data=preorder[i])
-
+ 
             if not previous:
                 previous = node
                 self.root = previous
+                settled[preorder[i]] = 0
                 i += 1
                 continue
 
@@ -303,7 +305,13 @@ class RBinaryTree(BaseBST):
             previous = node
 
             if preorder[i] == inorder[count]:
-                count = i + 1
+                try:
+                    settled[inorder[i+1]] += 1
+                    count = i + 2
+                except KeyError:
+                    settled[inorder[i+1]] = 0
+                    count = i + 1
+
                 for _ in range(2):
                     if not stack:
                         continue
@@ -313,5 +321,7 @@ class RBinaryTree(BaseBST):
                     i += 1
 
                 previous = previous.right
+
+            settled[preorder[i]] = 0
 
             i += 1
