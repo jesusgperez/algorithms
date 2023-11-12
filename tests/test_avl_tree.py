@@ -80,7 +80,7 @@ class TestAvlTree(TestCase):
         """
         avl_tree = AVLBinaryTree()
 
-        for i in range(1,16):
+        for i in range(1,32):
             avl_tree.insert(i)
 
         balance = avl_tree.get_balance()

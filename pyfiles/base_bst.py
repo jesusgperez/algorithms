@@ -1,24 +1,24 @@
 from abc import ABC
-from typing import Optional
+from typing import Optional, List
 from pyfiles.domain import (
-    TreeNodeInterface,
+    BaseTreeNode,
     TreeTraversal
 )
 
 
 class BaseBST(ABC):
     def __init__(self) -> None:
-        self.root: Optional[TreeNodeInterface] = None
+        self.root: Optional[BaseTreeNode] = None
         self.n: int = 0
 
-    def search(self, data: int) -> Optional[TreeNodeInterface]:
+    def search(self, data: int) -> Optional[BaseTreeNode]:
         return self._search_recursive(data=data, tree=self.root)
 
     def _search_recursive(
         self,
         data: int,
-        tree: Optional[TreeNodeInterface]
-    ) -> Optional[TreeNodeInterface]:
+        tree: Optional[BaseTreeNode]
+    ) -> Optional[BaseTreeNode]:
         if not tree or tree.data == data:
             return tree
 
@@ -32,7 +32,7 @@ class BaseBST(ABC):
 
     def _get_depth_recursive(
         self,
-        tree: Optional[TreeNodeInterface],
+        tree: Optional[BaseTreeNode],
         depth: int = 0
     ) -> int:
         if not tree:
@@ -52,7 +52,7 @@ class BaseBST(ABC):
 
         return left_depth - right_depth
 
-    def get_node_balance(self, tree: Optional[TreeNodeInterface]) -> int:
+    def get_node_balance(self, tree: Optional[BaseTreeNode]) -> int:
         if not tree:
             return 0
 
@@ -63,8 +63,8 @@ class BaseBST(ABC):
 
     def get_min_node(
         self,
-        tree: Optional[TreeNodeInterface]
-    ) -> Optional[TreeNodeInterface]:
+        tree: Optional[BaseTreeNode]
+    ) -> Optional[BaseTreeNode]:
         if not tree or not tree.left:
             return tree
 
@@ -72,8 +72,8 @@ class BaseBST(ABC):
 
     def get_max_node(
         self,
-        tree: Optional[TreeNodeInterface]
-    ) -> Optional[TreeNodeInterface]:
+        tree: Optional[BaseTreeNode]
+    ) -> Optional[BaseTreeNode]:
         if not tree or not tree.right:
             return tree
 
@@ -82,7 +82,7 @@ class BaseBST(ABC):
     def is_valid(self) -> bool:
         return self._is_valid_recursive(tree=self.root)
 
-    def _is_valid_recursive(self, tree: Optional[TreeNodeInterface]) -> bool:
+    def _is_valid_recursive(self, tree: Optional[BaseTreeNode]) -> bool:
         if not tree:
             return True
 
@@ -131,7 +131,7 @@ class BaseBST(ABC):
 
     def _traverse_tree_recursive(
         self,
-        tree: Optional[TreeNodeInterface],
+        tree: Optional[BaseTreeNode],
         traverse: TreeTraversal
     ) -> str:
         result = ''
@@ -170,3 +170,37 @@ class BaseBST(ABC):
             result += '-' + str(int(tree.data))
 
         return result
+
+    def create_from_orders(
+        self,
+        preorder: List[int],
+        inorder: List[int]
+    ) -> None:
+
+        self.root = self._create_from_orders_recursive(
+            preorder=preorder,
+            inorder=inorder
+        )
+
+    def _create_from_orders_recursive(
+        self,
+        preorder: List[int],
+        inorder: List[int]
+    ) -> Optional[BaseTreeNode]:
+        if not preorder or not inorder:
+            return None
+
+        data = preorder[0]
+        root = BaseTreeNode(data=data)
+        index = inorder.index(data)
+
+        root.left = self._create_from_orders_recursive(
+            preorder=preorder[1:index+1],
+            inorder=inorder[:index]
+        )
+        root.right = self._create_from_orders_recursive(
+            preorder=preorder[index+1:],
+            inorder=inorder[index+1:]
+        )
+
+        return root

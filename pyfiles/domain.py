@@ -25,13 +25,18 @@ class SegmentTreeType(Enum):
     SUM: str = 'sum'
 
 
-class TreeNodeInterface(BaseModel):
+class BaseTreeNode(BaseModel):
     data: float
-    left: Optional['TreeNodeInterface'] = None
-    right: Optional['TreeNodeInterface'] = None
+    left: Optional['BaseTreeNode'] = None
+    right: Optional['BaseTreeNode'] = None
+
+    def __repr__(self):
+        left_data = self.left.data if self.left else None
+        right_data = self.right.data if self.right else None
+        return f"TreeNode(data={self.data}, left={left_data}, right={right_data})"
 
 
-class TreeNode(TreeNodeInterface):
+class TreeNode(BaseTreeNode):
     parent: Optional['TreeNode'] = None
     left: Optional['TreeNode'] = None
     right: Optional['TreeNode'] = None
@@ -47,7 +52,7 @@ class TreeNode(TreeNodeInterface):
         return self.__repr__()
 
 
-class AVLTreeNode(TreeNodeInterface):
+class AVLTreeNode(BaseTreeNode):
     left: Optional['AVLTreeNode'] = None
     right: Optional['AVLTreeNode'] = None
     height: int = 1

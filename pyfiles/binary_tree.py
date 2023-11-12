@@ -279,11 +279,14 @@ class RBinaryTree(BaseBST):
 
         return tree
 
-    def create_from_orders(
+    def create_from_orders_deprec(
         self,
         preorder: List[int],
         inorder: List[int]
     ) -> None:
+        """
+            This is not the solution
+        """
         stack = []
         settled = {}
         count = 0
