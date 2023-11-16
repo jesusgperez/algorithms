@@ -1,10 +1,13 @@
-from typing import List
+from typing import List, Optional
 from math import floor as math__floor
 from pyfiles.domain import HeapChild
 
+DEFAULT_HEAP_SIZE = 256
+
+
 class Heap:
-    def __init__(self) -> None:
-        self.queue: List[int] = []
+    def __init__(self, size: int = DEFAULT_HEAP_SIZE) -> None:
+        self.queue: List[Optional[int]] = [None] * size
         self.n: int = 0
 
     def insert(self, data: int) -> None:
