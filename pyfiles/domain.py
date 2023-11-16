@@ -86,3 +86,8 @@ class SegmentTreeNode(BaseModel):
 
     def __str__(self) -> str:
         return self.__repr__()
+
+
+class HeapChild(Enum):
+    LEFT: int = 10
+    RIGHT: int = 20
