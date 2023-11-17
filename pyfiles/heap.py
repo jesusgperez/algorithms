@@ -26,11 +26,13 @@ class Heap:
         if parent == -1:
             return
 
-        buffer = self.queue[parent]
-        self.queue[parent] = self.queue[position]
-        self.queue[position] = buffer
+        if self.queue[parent] > self.queue[position]:
+            # Performs a swap in the positions
+            buffer = self.queue[parent]
+            self.queue[parent] = self.queue[position]
+            self.queue[position] = buffer
 
-        self.bubble_up(position=parent)
+            self.bubble_up(position=parent)
 
     def get_parent_position(self, position: int) -> int:
         parent_position = math__floor(position / 2)
