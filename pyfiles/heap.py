@@ -9,7 +9,7 @@ class Heap:
     def __init__(self, size: int = DEFAULT_HEAP_SIZE) -> None:
         self.queue: List[Optional[int]] = [None] * size
         self.size = size
-        self.n: int = 1
+        self.n: int = 0
 
     def insert(self, data: int) -> None:
         if self.n >= self.size:

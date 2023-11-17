@@ -44,3 +44,14 @@ class TestHeap(TestCase):
         )
 
         self.assertEqual(heap.queue[right_child], None)
+
+    def test__insert__success(self):
+        heap = Heap(size=16)
+
+        heap.insert(data=5)
+        heap.insert(data=4)
+        heap.insert(data=3)
+        heap.insert(data=7)
+        heap.insert(data=8)
+
+        self.assertEqual(heap.queue[1], 3)
