@@ -1,6 +1,6 @@
 from unittest import TestCase
-from pyfiles.domain import SegmentTreeType
-from pyfiles.leetcode_problems.segment_tree import (
+from data_structures.domain import SegmentTreeType
+from data_structures.leetcode_problems.segment_tree import (
     SegmentTree,
     CountSegmentTree
 )

@@ -1,6 +1,6 @@
 from unittest import TestCase
-from pyfiles.domain import AVLTreeNode
-from pyfiles.avl_binary_tree import AVLBinaryTree
+from data_structures.domain import AVLTreeNode
+from data_structures.avl_binary_tree import AVLBinaryTree
 from utils import (
     get_fake_avl_tree,
     get_left_skewd_avl_tree,

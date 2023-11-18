@@ -1,6 +1,6 @@
 from typing import Optional
-from pyfiles.avl_binary_tree import AVLBinaryTree
-from pyfiles.domain import AVLTreeNode
+from data_structures.avl_binary_tree import AVLBinaryTree
+from data_structures.domain import AVLTreeNode
 
 
 class Bins(AVLBinaryTree):

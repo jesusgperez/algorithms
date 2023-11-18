@@ -1,4 +1,4 @@
-from pyfiles.domain import Node
+from data_structures.domain import Node
 from typing import Optional
 
 

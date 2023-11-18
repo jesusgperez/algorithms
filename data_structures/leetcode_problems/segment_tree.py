@@ -1,8 +1,8 @@
 import math
 from typing import List, Optional
 
-from pyfiles.base_bst import BaseBST
-from pyfiles.domain import SegmentTreeNode, SegmentTreeType
+from data_structures.base_bst import BaseBST
+from data_structures.domain import SegmentTreeNode, SegmentTreeType
 
 
 class SegmentTree(BaseBST):

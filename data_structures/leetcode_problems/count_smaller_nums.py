@@ -1,6 +1,6 @@
 from typing import Optional
-from pyfiles.domain import CountTreeNode
-from pyfiles.base_bst import BaseBST
+from data_structures.domain import CountTreeNode
+from data_structures.base_bst import BaseBST
 
 
 class CountTree(BaseBST):

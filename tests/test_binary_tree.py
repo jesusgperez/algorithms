@@ -1,12 +1,12 @@
 from unittest import TestCase
 from typing import List
-from pyfiles.binary_tree import (
+from data_structures.binary_tree import (
     TreeNode,
     ListOptions,
     TreeTraversal,
     RBinaryTree
 )
-from pyfiles.double_linked_list import (
+from data_structures.double_linked_list import (
     DLinkedList
 )
 from utils import(

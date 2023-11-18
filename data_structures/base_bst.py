@@ -1,6 +1,6 @@
 from abc import ABC
 from typing import Optional, List
-from pyfiles.domain import (
+from data_structures.domain import (
     BaseTreeNode,
     TreeTraversal
 )

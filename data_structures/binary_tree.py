@@ -1,12 +1,12 @@
 from typing import Optional, List, Tuple, Union
-from pyfiles.domain import (
+from data_structures.domain import (
     TreeNode,
     ListOptions,
     TreeTraversal
 )
-from pyfiles.base_bst import BaseBST
-from pyfiles.double_linked_list import DLinkedList
-from pyfiles.utils.utils import measure_time
+from data_structures.base_bst import BaseBST
+from data_structures.double_linked_list import DLinkedList
+from data_structures.utils.utils import measure_time
 
 
 class RBinaryTree(BaseBST):

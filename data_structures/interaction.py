@@ -1,13 +1,13 @@
 from typing import List, Optional
-from pyfiles.binary_tree import (
+from data_structures.binary_tree import (
     TreeNode,
     RBinaryTree,
     ListOptions
 )
-from pyfiles.avl_binary_tree import (
+from data_structures.avl_binary_tree import (
     AVLBinaryTree
 )
-from pyfiles.double_linked_list import DLinkedList
+from data_structures.double_linked_list import DLinkedList
 
 
 def merge_two_binary_search_trees(

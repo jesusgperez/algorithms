@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
-from pyfiles.base_bst import BaseBST
-from pyfiles.domain import AVLTreeNode
+from data_structures.base_bst import BaseBST
+from data_structures.domain import AVLTreeNode
 
 
 class AVLBinaryTree(BaseBST):

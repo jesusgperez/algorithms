@@ -1,9 +1,9 @@
 from typing import List, Optional
-from pyfiles.binary_tree import RBinaryTree
-from pyfiles.bin_problem_structure import Bins
-from pyfiles.domain import TreeNode, AVLTreeNode
-from pyfiles.avl_binary_tree import AVLBinaryTree
-from pyfiles.interaction import _create_balance_bst_recursive
+from data_structures.binary_tree import RBinaryTree
+from data_structures.bin_problem_structure import Bins
+from data_structures.domain import TreeNode, AVLTreeNode
+from data_structures.avl_binary_tree import AVLBinaryTree
+from data_structures.interaction import _create_balance_bst_recursive
 
 
 def get_basic_tree() -> RBinaryTree:

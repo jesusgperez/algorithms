@@ -1,6 +1,6 @@
 from unittest import TestCase
-from pyfiles.heap import Heap
-from pyfiles.domain import HeapChild
+from data_structures.heap import Heap
+from data_structures.domain import HeapChild
 
 
 class TestHeap(TestCase):

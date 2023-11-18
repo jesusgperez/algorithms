@@ -1,6 +1,6 @@
 from typing import List, Optional
 from math import floor as math__floor
-from pyfiles.domain import HeapChild
+from data_structures.domain import HeapChild
 
 DEFAULT_HEAP_SIZE = 256
 

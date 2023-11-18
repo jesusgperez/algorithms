@@ -1,5 +1,5 @@
 from unittest import TestCase
-from pyfiles.bin_problem_structure import Bins
+from data_structures.bin_problem_structure import Bins
 from tests.utils import get_fake_bins_tree
 
 
