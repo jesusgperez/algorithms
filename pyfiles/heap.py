@@ -14,7 +14,7 @@ class Heap:
     def insert(self, data: int) -> None:
         if self.n >= self.size:
             raise Exception('Queue overflow')
-        
+
         self.n += 1
 
         self.queue[self.n] = data
@@ -42,12 +42,11 @@ class Heap:
         return parent_position
 
     def get_child(self, child_type: HeapChild, position: int) -> int:
-        child = (2 * position 
-                 if child_type == HeapChild.LEFT 
+        child = (2 * position
+                 if child_type == HeapChild.LEFT
                  else 2 * position + 1)
 
         if child > self.n:
             return -1
 
         return child
-
