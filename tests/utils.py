@@ -1,9 +1,9 @@
-from typing import List, Optional
 from data_structures.binary_tree import RBinaryTree
 from data_structures.bin_problem_structure import Bins
 from data_structures.domain import TreeNode, AVLTreeNode
 from data_structures.avl_binary_tree import AVLBinaryTree
 from data_structures.interaction import _create_balance_bst_recursive
+from data_structures.heap import Heap
 
 
 def get_basic_tree() -> RBinaryTree:
@@ -170,3 +170,15 @@ def get_tree_of_failing_test_case():
 
     rtree.root = root
     return rtree
+
+
+def get_basic_heap():
+    heap = Heap(size=16)
+
+    heap.insert(data=5)
+    heap.insert(data=4)
+    heap.insert(data=3)
+    heap.insert(data=7)
+    heap.insert(data=8)
+
+    return heap

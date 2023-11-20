@@ -46,7 +46,45 @@ class Heap:
                  if child_type == HeapChild.LEFT
                  else 2 * position + 1)
 
-        if child > self.n:
-            return -1
-
         return child
+
+    def extract_min(self) -> int:
+        min_value = -1
+
+        if self.n <= 0:
+            return min_value
+
+        min_value = self.queue[1]
+
+        self.queue[1] = self.queue[self.n]
+        self.queue[self.n] = None
+
+        self.n -= 1
+
+        self.bubble_down(parent=1)
+
+        return min_value
+
+    def bubble_down(self, parent: int) -> None:
+        min_index = parent
+        left_child = self.get_child(
+            position=parent,
+            child_type=HeapChild.LEFT
+        )
+
+        for i in range(2):
+            if left_child + i > self.n:
+                break
+
+            if not self.queue[left_child + i] or not self.queue[parent]:
+                break
+
+            if self.queue[min_index] > self.queue[left_child + i]:
+                min_index = left_child + i
+        
+        if min_index != parent:
+            buffer = self.queue[parent]
+            self.queue[parent] = self.queue[min_index]
+            self.queue[min_index] = buffer
+
+            self.bubble_down(parent=min_index)

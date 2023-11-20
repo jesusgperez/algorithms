@@ -1,6 +1,9 @@
 from unittest import TestCase
 from data_structures.heap import Heap
 from data_structures.domain import HeapChild
+from tests.utils import (
+    get_basic_heap
+)
 
 
 class TestHeap(TestCase):
@@ -46,12 +49,25 @@ class TestHeap(TestCase):
         self.assertEqual(heap.queue[right_child], None)
 
     def test__insert__success(self):
-        heap = Heap(size=16)
-
-        heap.insert(data=5)
-        heap.insert(data=4)
-        heap.insert(data=3)
-        heap.insert(data=7)
-        heap.insert(data=8)
-
+        heap = get_basic_heap
         self.assertEqual(heap.queue[1], 3)
+
+    def test__extract_min__success(self):
+        heap = get_basic_heap()
+
+        min_value = heap.extract_min()
+        self.assertEqual(min_value, 3)
+        self.assertEqual(heap.queue[1], 4)
+
+        min_value = heap.extract_min()
+        self.assertEqual(min_value, 4)
+        self.assertEqual(heap.queue[1], 5)
+
+        min_value = heap.extract_min()
+        self.assertEqual(min_value, 5)
+        self.assertEqual(heap.queue[1], 7)
+
+        min_value = heap.extract_min()
+        self.assertEqual(min_value, 7)
+        self.assertEqual(heap.queue[1], 8)
+
