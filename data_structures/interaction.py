@@ -8,6 +8,7 @@ from data_structures.avl_binary_tree import (
     AVLBinaryTree
 )
 from data_structures.double_linked_list import DLinkedList
+from data_structures.heap import Heap
 
 
 def merge_two_binary_search_trees(
@@ -109,3 +110,15 @@ def is_array_k_unique(array: List[int], k: int) -> bool:
         count += 1
 
     return count >= k
+
+def heap_sort(array: List[int]) -> List[int]:
+    heap = Heap()
+    for element in array:
+        heap.insert(element)
+
+    response: List[int] = []
+
+    for _ in range(heap.n):
+        response.append(heap.extract_min())
+
+    return response

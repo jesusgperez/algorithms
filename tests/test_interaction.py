@@ -3,6 +3,7 @@ from data_structures.leetcode_problems.count_smaller_nums import (
     CountTree
 )
 from data_structures.interaction import (
+    heap_sort,
     is_array_k_unique,
     balance_binary_search_tree,
     merge_two_binary_search_trees,
@@ -12,9 +13,10 @@ from utils import (
     get_basic_tree,
     get_depth_tree,
     get_balanced_tree,
+    get_unsorted_array,
     get_unbalanced_tree,
     get_second_basic_tree,
-    get_tree_of_failing_test_case
+    get_tree_of_failing_test_case,
 )
 
 
@@ -122,3 +124,16 @@ class TestInteraction(TestCase):
             resp.append(node.left_count)
 
         self.assertEqual(resp, [0, 0])
+
+    def test__heap_sort__success(self):
+        test_n = 10
+        array = get_unsorted_array(n=test_n)
+        sorted_array = heap_sort(array=array)
+        self.assertEqual(sorted_array, list(range(1,test_n+1)))
+
+        test_n = 30
+        array = get_unsorted_array(n=test_n)
+        sorted_array = heap_sort(array=array)
+        self.assertEqual(sorted_array, list(range(1,test_n+1)))
+
+
