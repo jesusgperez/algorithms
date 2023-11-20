@@ -2,7 +2,8 @@ from unittest import TestCase
 from data_structures.heap import Heap
 from data_structures.domain import HeapChild
 from tests.utils import (
-    get_basic_heap
+    get_basic_heap,
+    get_unsorted_array
 )
 
 
@@ -71,3 +72,10 @@ class TestHeap(TestCase):
         self.assertEqual(min_value, 7)
         self.assertEqual(heap.queue[1], 8)
 
+    def test__make_heap__success(self):
+        array = get_unsorted_array(n=15)
+        heap = Heap()
+
+        heap.make_heap(array=array)
+
+        self.assertEqual(heap.queue[1], 1)

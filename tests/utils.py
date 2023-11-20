@@ -33,6 +33,7 @@ def get_depth_tree() -> RBinaryTree:
 
     return rtree
 
+
 def get_second_basic_tree() -> RBinaryTree:
     rtree = RBinaryTree()
     rtree.insert(15)
@@ -80,9 +81,9 @@ def get_tree_for_deletion() -> RBinaryTree:
 
 
 def get_avl_tree_wo_insertion(
-        skip_level_right: bool = False,
-        skip_level_left: bool = False
-    ) -> AVLBinaryTree:
+    skip_level_right: bool = False,
+    skip_level_left: bool = False
+) -> AVLBinaryTree:
     root = TreeNode(data=4)
     rl = TreeNode(data=2)
     root.left = rl
@@ -184,6 +185,7 @@ def get_basic_heap():
     heap.insert(data=8)
 
     return heap
+
 
 def get_unsorted_array(n: int) -> List[int]:
     lista = list(range(1, n + 1))

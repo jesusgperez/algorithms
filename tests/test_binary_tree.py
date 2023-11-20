@@ -9,13 +9,14 @@ from data_structures.binary_tree import (
 from data_structures.double_linked_list import (
     DLinkedList
 )
-from utils import(
+from utils import (
     get_basic_tree,
     get_depth_tree,
     get_balanced_tree,
     get_unbalanced_tree,
     get_tree_for_deletion
 )
+
 
 class TestBinaryTree(TestCase):
 
@@ -30,7 +31,7 @@ class TestBinaryTree(TestCase):
 
         traverse = rtree.traverse(TreeTraversal.INORDER)
         self.assertEqual(traverse, '-2-3-4-5-6-7-8')
-    
+
         traverse = rtree.traverse(TreeTraversal.PREORDER)
         self.assertEqual(traverse, '-5-3-2-4-7-6-8')
 

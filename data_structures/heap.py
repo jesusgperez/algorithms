@@ -81,10 +81,24 @@ class Heap:
 
             if self.queue[min_index] > self.queue[left_child + i]:
                 min_index = left_child + i
-        
+
         if min_index != parent:
             buffer = self.queue[parent]
             self.queue[parent] = self.queue[min_index]
             self.queue[min_index] = buffer
 
             self.bubble_down(parent=min_index)
+
+    def make_heap(self, array: List[int]) -> None:
+        """
+            This algorithm is going to build the heap in linear time
+            as for large n then it converges to a O(n) time complexity
+        """
+        array.insert(0, None)
+        self.queue = array
+        self.n = len(array) - 1
+
+        mid = math__floor(self.n/2)
+
+        for i in range(mid, 0, -1):
+            self.bubble_down(parent=i)

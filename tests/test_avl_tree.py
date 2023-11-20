@@ -80,7 +80,7 @@ class TestAvlTree(TestCase):
         """
         avl_tree = AVLBinaryTree()
 
-        for i in range(1,32):
+        for i in range(1, 32):
             avl_tree.insert(i)
 
         balance = avl_tree.get_balance()
@@ -97,7 +97,7 @@ class TestAvlTree(TestCase):
     def test__left_count__success(self):
         avl_tree = AVLBinaryTree()
 
-        for i in range(1,4):
+        for i in range(1, 4):
             avl_tree.insert(data=i)
 
         self.assertEqual(avl_tree.root.left_count, 1)

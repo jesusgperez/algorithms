@@ -43,17 +43,17 @@ class TestSegmentTree(TestCase):
             max=6
         )
 
-        self.assertEqual(tree.root.indexes, (1,6))
+        self.assertEqual(tree.root.indexes, (1, 6))
 
     def test__count_smaller__success(self):
         tree = CountSegmentTree(min=1, max=6)
 
         resp = tree.count_smaller(nums=[5, 2, 6, 1])
 
-        self.assertEqual(resp, [2,1,1,0])
+        self.assertEqual(resp, [2, 1, 1, 0])
 
         tree = CountSegmentTree(min=-2, max=-1)
 
         resp = tree.count_smaller(nums=[-1, -2])
 
-        self.assertEqual(resp, [1 ,0])
+        self.assertEqual(resp, [1, 0])
