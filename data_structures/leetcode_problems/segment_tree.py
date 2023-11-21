@@ -91,7 +91,7 @@ class SegmentTree(BaseBST):
 
         mid = (end + start)/2
 
-        if index < mid:
+        if index <= mid:
             self._update_recursive(
                 tree=tree.left,
                 index=index,
@@ -183,8 +183,7 @@ class CountSegmentTree(SegmentTree):
         start, end = tree.indexes
 
         if start == index and end == index:
-            current_data = tree.data if tree.data else 0
-            tree.data = current_data + 1
+            tree.data = self._get_tree_data(tree=tree) + 1
             return
 
         mid = int((start + end)/2)
@@ -197,10 +196,16 @@ class CountSegmentTree(SegmentTree):
         if not tree.left or not tree.right:
             return
 
-        left_data = tree.left.data if tree.left.data else 0
-        right_data = tree.right.data if tree.right.data else 0
+        left_data = self._get_tree_data(tree=tree.left)
+        right_data = self._get_tree_data(tree=tree.right)
 
         tree.data = left_data + right_data
+
+    def _get_tree_data(self, tree: Optional[SegmentTreeNode]) -> int:
+        if not tree:
+            return 0
+
+        return tree.data
 
     def count_smaller(self, nums: Optional[List[int]]) -> List[int]:
         """
