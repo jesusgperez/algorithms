@@ -128,8 +128,7 @@ class SegmentTree(BaseBST):
         tree_start, tree_end = tree.indexes
 
         if tree_start == start and tree_end == end:
-            tree_data = tree.data if tree.data else 0
-            return tree_data
+            return self._get_tree_data(tree=tree)
 
         mid = math.floor((tree_start + tree_end) / 2)
 
@@ -158,6 +157,12 @@ class SegmentTree(BaseBST):
         )
 
         return left_sum + right_sum
+
+    def _get_tree_data(self, tree: Optional[SegmentTreeNode]) -> int:
+        if not tree:
+            return 0
+
+        return tree.data
 
 
 class CountSegmentTree(SegmentTree):
@@ -200,12 +205,6 @@ class CountSegmentTree(SegmentTree):
         right_data = self._get_tree_data(tree=tree.right)
 
         tree.data = left_data + right_data
-
-    def _get_tree_data(self, tree: Optional[SegmentTreeNode]) -> int:
-        if not tree:
-            return 0
-
-        return tree.data
 
     def count_smaller(self, nums: Optional[List[int]]) -> List[int]:
         """
