@@ -102,3 +102,15 @@ class Heap:
 
         for i in range(mid, 0, -1):
             self.bubble_down(parent=i)
+
+    def heap_compare(self, index: int, count: int, x: int) -> int:
+        if count <= 0 or index > self.n:
+            return count
+
+        if self.queue[index] <= x:
+            left_child = self.get_child(child_type=HeapChild.LEFT)
+            right_child = self.get_child(child_type=HeapChild.RIGHT)
+            count = self.heap_compare(index=left_child, count=count-1, x=x)
+            count = self.heap_compare(index=right_child, count=count, x=x)
+
+        return count
