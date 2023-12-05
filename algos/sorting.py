@@ -37,8 +37,8 @@ def merge(array: List[int], low: int, mid: int, high: int) -> None:
 def quick_sort(array: List[int], low: int, high: int) -> List[int]:
     if low < high:
         partition = get_partition(array=array, low=low, high=high)
-        quick_sort(array=array, low=low, high=partition)
-        quick_sort(array=array, low=partition+1, high=high)
+        quick_sort(array=array, low=low, high=partition - 1)
+        quick_sort(array=array, low=partition + 1, high=high)
 
 
 def get_partition(array: List[int], low: int, high: int) -> int:
