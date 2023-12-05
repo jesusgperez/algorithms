@@ -12,23 +12,26 @@ def merge_sort(array: List[int], low: int, high: int) -> None:
 
 
 def merge(array: List[int], low: int, mid: int, high: int) -> None:
-    left_buffer = [array[i] for i in range(low, mid)]
-    right_buffer = [array[i] for i in range(mid + 1, high)]
+    left_buffer = [array[i] for i in range(low, mid + 1)]
+    right_buffer = [array[i] for i in range(mid + 1, high + 1)]
 
     i = low
 
     while left_buffer and right_buffer:
-        if left_buffer[0] < right_buffer[0]:
+        if left_buffer[0] <= right_buffer[0]:
             array[i] = left_buffer.pop(0)
         else:
             array[i] = right_buffer.pop(0)
-        
+
         i += 1
 
-    if left_buffer:
-        array.extend(left_buffer)
-    elif right_buffer:
-        array.extend(right_buffer)
+    while left_buffer:
+        array[i] = left_buffer.pop(0)
+        i += 1
+
+    while right_buffer:
+        array[i] = right_buffer.pop(0)
+        i += 1
 
 
 def quick_sort(array: List[int], low: int, high: int) -> List[int]:
@@ -51,7 +54,7 @@ def get_partition(array: List[int], low: int, high: int) -> int:
             )
 
             first_high += 1
-    
+
     array_swap(
         array=array,
         left_position=p,
