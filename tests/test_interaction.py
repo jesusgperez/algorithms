@@ -124,14 +124,3 @@ class TestInteraction(TestCase):
             resp.append(node.left_count)
 
         self.assertEqual(resp, [0, 0])
-
-    def test__heap_sort__success(self):
-        test_n = 10
-        array = get_unsorted_array(n=test_n)
-        sorted_array = heap_sort(array=array)
-        self.assertEqual(sorted_array, list(range(1, test_n+1)))
-
-        test_n = 30
-        array = get_unsorted_array(n=test_n)
-        sorted_array = heap_sort(array=array)
-        self.assertEqual(sorted_array, list(range(1, test_n+1)))

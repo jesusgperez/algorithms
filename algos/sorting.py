@@ -1,5 +1,7 @@
 from typing import List
 from math import floor as math__floor
+from data_structures.heap import Heap
+from data_structures.utils.utils import measure_time
 
 
 def merge_sort(array: List[int], low: int, high: int) -> None:
@@ -72,3 +74,15 @@ def array_swap(
     buffer = array[left_position]
     array[left_position] = array[right_position]
     array[right_position] = buffer
+
+
+def heap_sort(array: List[int]) -> List[int]:
+    heap = Heap()
+    heap.make_heap(array=array)
+
+    response: List[int] = []
+
+    for _ in range(heap.n):
+        response.append(heap.extract_min())
+
+    return response

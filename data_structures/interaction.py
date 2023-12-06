@@ -110,15 +110,3 @@ def is_array_k_unique(array: List[int], k: int) -> bool:
         count += 1
 
     return count >= k
-
-def heap_sort(array: List[int]) -> List[int]:
-    heap = Heap()
-    for element in array:
-        heap.insert(element)
-
-    response: List[int] = []
-
-    for _ in range(heap.n):
-        response.append(heap.extract_min())
-
-    return response
