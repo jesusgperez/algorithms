@@ -1,7 +1,8 @@
 from unittest import TestCase
 from algos.exercises import (
+    binary_search,
     k_element_sum,
-    binary_search
+    unique_elements_array
 )
 
 
@@ -22,3 +23,11 @@ class TestExercises(TestCase):
             self.assertTrue(binary_search(array=array, element=i))
         self.assertFalse(binary_search(array=array, element=51))
         self.assertFalse(binary_search(array=array, element=-1))
+
+    def test__unique_elements_array__success(self):
+        array1 = [5, 6, 7, 8, 10, 12, 13]
+        array2 = [1, 2, 3, 5, 8, 12]
+
+        unique = unique_elements_array(array1=array1, array2=array2)
+
+        self.assertEqual(unique, [1,2,3,5,6,7,8,10,12,13])
