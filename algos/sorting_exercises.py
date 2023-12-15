@@ -110,3 +110,31 @@ def most_people_at_party(array: List[Tuple[int, int]]) -> Tuple[int, int]:
     return ((starts[-1], ends[j])
             if start_errased < end_errased 
             else (starts[i], ends[0]))
+
+
+def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]:
+    if not array:
+        return array
+
+    quick_sort(array=array, low=0, high=len(array)-1)
+
+    response = []
+
+    least_end, least_index = array[0][1], 0
+    highest_start, highest_index = array[0][0], 0
+
+    for i in range(len(array)):
+        if array[i][0] > highest_start:
+            highest_start = array[i][0]
+            highest_index = i
+
+        if least_end < highest_start:
+            response.append((array[least_index][0], array[highest_index - 1][1]))
+            highest_start = array[i][0]
+            least_end = array[i][1]
+            least_index, highest_index = i, i
+
+    if not response or response[-1][1] != array[highest_index][1]:
+        response.append((array[least_index][0], array[-1][1]))
+
+    return response

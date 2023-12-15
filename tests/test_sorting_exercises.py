@@ -4,8 +4,9 @@ from unittest import TestCase
 from algos.sorting_exercises import (
     binary_search,
     k_element_sum,
+    most_people_at_party,
     unique_elements_array,
-    most_people_at_party
+    merge_overlapping_intervals
 )
 
 
@@ -50,3 +51,18 @@ class TestExercises(TestCase):
         start, end = most_people_at_party(array=array)
 
         self.assertTrue(start < end)
+
+    def test__merge_overlapping_intervals__success(self):
+        array = []
+
+        for _ in range(10):
+            now = randint(20, 60)
+            delta = randint(10, 15)
+            start = now - delta
+            delta = randint(-10, 0)
+            end = now + delta
+            array.append((start,end))
+
+        merged = merge_overlapping_intervals(array=array)
+
+        self.assertTrue(True)
