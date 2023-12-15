@@ -1,7 +1,7 @@
 from random import randint
 from datetime import datetime, timedelta
 from unittest import TestCase
-from algos.exercises import (
+from algos.sorting_exercises import (
     binary_search,
     k_element_sum,
     unique_elements_array,
