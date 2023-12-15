@@ -1,8 +1,11 @@
+from random import randint
+from datetime import datetime, timedelta
 from unittest import TestCase
 from algos.exercises import (
     binary_search,
     k_element_sum,
-    unique_elements_array
+    unique_elements_array,
+    most_people_at_party
 )
 
 
@@ -31,3 +34,19 @@ class TestExercises(TestCase):
         unique = unique_elements_array(array1=array1, array2=array2)
 
         self.assertEqual(unique, [1,2,3,5,6,7,8,10,12,13])
+
+    def test__most_people_at_party__success(self):
+        array = []
+
+        for _ in range(10):
+            delta = randint(-10, 10)
+            now = datetime.now() + timedelta(minutes=delta)
+            delta = randint(0, 10)
+            start = now - timedelta(minutes=delta)
+            delta = randint(0, 10)
+            end = now + timedelta(minutes=delta)
+            array.append((start,end))
+
+        start, end = most_people_at_party(array=array)
+
+        self.assertTrue(start < end)

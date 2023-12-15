@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from algos.sorting import quick_sort
 from math import floor as math__floor
 
 
@@ -83,3 +84,29 @@ def unique_elements_array(array1: List[int], array2: List[int]) -> List[int]:
             j += 1
 
     return response
+
+
+def most_people_at_party(array: List[Tuple[int, int]]) -> Tuple[int, int]:
+    starts = [entrance[0] for entrance in array]
+    ends = [entrance[1] for entrance in array]
+
+    quick_sort(starts, low=0, high=len(array)-1)
+    quick_sort(ends, low=0, high=len(array)-1)
+
+    j = 0
+    start_errased = 0
+
+    while starts[-1] > ends[j] and j < len(array):
+        j += 1
+        start_errased += 1
+    
+    i = len(array) - 1
+    end_errased = 0
+
+    while starts[i] > ends[0] and i >= 0:
+        i -= 1
+        end_errased += 1
+
+    return ((starts[-1], ends[j])
+            if start_errased < end_errased 
+            else (starts[i], ends[0]))
