@@ -1,5 +1,5 @@
-from random import choice
 from typing import List
+from random import choice, randint
 from data_structures.binary_tree import RBinaryTree
 from data_structures.bin_problem_structure import Bins
 from data_structures.domain import TreeNode, AVLTreeNode
@@ -197,3 +197,17 @@ def get_unsorted_array(n: int) -> List[int]:
         lista.remove(element)
 
     return unsorted
+
+
+def intervals_generator(n: int = 10):
+    array = []
+
+    for _ in range(10):
+        now = randint(20, 60)
+        delta = randint(10, 15)
+        start = now - delta
+        delta = randint(-10, 0)
+        end = now + delta
+        array.append((start,end))
+    
+    return array

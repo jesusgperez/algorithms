@@ -53,16 +53,10 @@ class TestExercises(TestCase):
         self.assertTrue(start < end)
 
     def test__merge_overlapping_intervals__success(self):
-        array = []
-
-        for _ in range(10):
-            now = randint(20, 60)
-            delta = randint(10, 15)
-            start = now - delta
-            delta = randint(-10, 0)
-            end = now + delta
-            array.append((start,end))
-
+        array = [(13, 19), (15, 26), (17, 27), (18, 18), (19, 21), (22, 28), (31, 35), (32, 36), (33, 42), (41, 54)]
         merged = merge_overlapping_intervals(array=array)
+        self.assertEqual(len(merged), 2)
 
-        self.assertTrue(True)
+        array = [(9, 20), (13, 13), (22, 29), (23, 30), (27, 35), (33, 40), (44, 48), (44, 53), (45, 48), (45, 57)]
+        merged = merge_overlapping_intervals(array=array)
+        self.assertEqual(len(merged), 3)

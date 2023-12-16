@@ -119,22 +119,18 @@ def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]
     quick_sort(array=array, low=0, high=len(array)-1)
 
     response = []
+    begin_index = 0
+    max_end = 0
 
-    least_end, least_index = array[0][1], 0
-    highest_start, highest_index = array[0][0], 0
+    for i in range(1, len(array)):
+        if array[max_end][1] < array[i][0]:
+            response.append((array[begin_index][0], array[max_end][1]))
+            begin_index = i
 
-    for i in range(len(array)):
-        if array[i][0] > highest_start:
-            highest_start = array[i][0]
-            highest_index = i
+        if array[max_end][1] < array[i][1]:
+            max_end = i
 
-        if least_end < highest_start:
-            response.append((array[least_index][0], array[highest_index - 1][1]))
-            highest_start = array[i][0]
-            least_end = array[i][1]
-            least_index, highest_index = i, i
-
-    if not response or response[-1][1] != array[highest_index][1]:
-        response.append((array[least_index][0], array[-1][1]))
+    if not response or response[-1][1] != array[begin_index][1]:
+        response.append((array[begin_index][0], array[-1][1]))
 
     return response
