@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from algos.sorting import quick_sort
+from algos.sorting import quick_sort, merge_sort
 from math import floor as math__floor
 
 
@@ -87,29 +87,33 @@ def unique_elements_array(array1: List[int], array2: List[int]) -> List[int]:
 
 
 def most_people_at_party(array: List[Tuple[int, int]]) -> Tuple[int, int]:
-    starts = [entrance[0] for entrance in array]
-    ends = [entrance[1] for entrance in array]
+    n = len(array)
+    starts = [i[0] for i in array]
+    ends = [i[1] for i in array]
 
-    quick_sort(starts, low=0, high=len(array)-1)
-    quick_sort(ends, low=0, high=len(array)-1)
+    merge_sort(starts, low=0, high=n-1)
+    merge_sort(ends, low=0, high=n-1)
 
-    j = 0
-    start_errased = 0
+    total_in, max_in = 0, 0
+    highest_start, lowest_end = 0, 0
+    i, j = 0, 0
 
-    while starts[-1] > ends[j] and j < len(array):
-        j += 1
-        start_errased += 1
-    
-    i = len(array) - 1
-    end_errased = 0
+    while i < n and j < n:
+        if starts[i] > ends[j]:
+            total_in -= 1
+            j += 1
+            continue
 
-    while starts[i] > ends[0] and i >= 0:
-        i -= 1
-        end_errased += 1
+        total_in += 1
 
-    return ((starts[-1], ends[j])
-            if start_errased < end_errased 
-            else (starts[i], ends[0]))
+        if total_in > max_in:
+            max_in = total_in
+            highest_start = starts[i]
+            lowest_end = ends[j]
+        
+        i += 1
+
+    return  highest_start, lowest_end
 
 
 def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]:
@@ -134,3 +138,7 @@ def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]
         response.append((array[begin_index][0], array[-1][1]))
 
     return response
+
+
+def max_intervals_points(array: List[Tuple[int, int]]) -> Tuple[int, int]:
+    return most_people_at_party(array=array)

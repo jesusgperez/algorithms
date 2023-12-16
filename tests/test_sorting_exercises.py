@@ -5,8 +5,9 @@ from algos.sorting_exercises import (
     binary_search,
     k_element_sum,
     most_people_at_party,
+    max_intervals_points,
     unique_elements_array,
-    merge_overlapping_intervals
+    merge_overlapping_intervals,
 )
 
 
@@ -60,3 +61,13 @@ class TestExercises(TestCase):
         array = [(9, 20), (13, 13), (22, 29), (23, 30), (27, 35), (33, 40), (44, 48), (44, 53), (45, 48), (45, 57)]
         merged = merge_overlapping_intervals(array=array)
         self.assertEqual(len(merged), 3)
+
+    def test__max_intervals_points(self):
+        array = [(13, 19), (15, 26), (17, 27), (18, 18), (19, 21), (22, 28), (31, 35), (32, 36), (33, 42), (41, 54)]
+        interval = max_intervals_points(array=array)
+        self.assertEqual(interval, (18, 18))
+
+        array = [(9, 20), (13, 13), (22, 29), (23, 30), (27, 35), (33, 40), (44, 48), (44, 53), (45, 48), (45, 57)]
+        interval = max_intervals_points(array=array)
+        self.assertEqual(interval, (45, 48))
+
