@@ -1,7 +1,9 @@
 from random import randint
 from datetime import datetime, timedelta
 from unittest import TestCase
+from utils import get_unsorted_array
 from algos.sorting_exercises import (
+    find_median,
     binary_search,
     k_element_sum,
     most_people_at_party,
@@ -70,4 +72,13 @@ class TestExercises(TestCase):
         array = [(9, 20), (13, 13), (22, 29), (23, 30), (27, 35), (33, 40), (44, 48), (44, 53), (45, 48), (45, 57)]
         interval = max_intervals_points(array=array)
         self.assertEqual(interval, (45, 48))
+
+    def test__find_median_by_partition__success(self):
+        array = [4,2,9,7,6,34,10,33,24,8]
+        median = find_median(array=array)
+        self.assertEqual(median, 9)
+
+        array = get_unsorted_array(n=21)
+        median = find_median(array=array)
+        self.assertEqual(median, 11)
 

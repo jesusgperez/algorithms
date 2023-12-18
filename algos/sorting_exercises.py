@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from algos.sorting import quick_sort, merge_sort
+from algos.sorting import quick_sort, merge_sort, get_partition
 from math import floor as math__floor
 
 
@@ -142,3 +142,43 @@ def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]
 
 def max_intervals_points(array: List[Tuple[int, int]]) -> Tuple[int, int]:
     return most_people_at_party(array=array)
+
+
+def find_median(array: List[int]) -> int:
+    median = math__floor(len(array)/2)
+    return find_media_by_partition(
+        array=array,
+        low=0,
+        high=len(array) - 1,
+        median=median
+    )
+
+
+# Use partition logic to find median in linear time
+def find_media_by_partition(
+    array: List[int],
+    low: int,
+    high: int,
+    median: int
+) -> int:
+    if low > high:
+        return -1
+
+    partition = get_partition(array, low, high)
+
+    if partition > median:
+        return find_media_by_partition(
+            array=array,
+            low=low,
+            high=partition - 1,
+            median=median
+        )
+    elif partition < median:
+        return find_media_by_partition(
+            array=array,
+            low=partition + 1,
+            high=high,
+            median=median
+        )
+
+    return array[partition]
