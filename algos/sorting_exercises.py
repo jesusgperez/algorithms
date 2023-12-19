@@ -182,3 +182,31 @@ def find_media_by_partition(
         )
 
     return array[partition]
+
+
+def divide_negatives_and_positives(array: List[int]) -> List[int]:
+    return divide_negatives_and_positives_recursive(
+        array=array,
+        low=0,
+        high=len(array) - 1
+    )
+
+
+def divide_negatives_and_positives_recursive(
+    array: List[int],
+    low: int,
+    high: int
+) -> List[int]:
+    partition = get_partition(array=array, low=low, high=high)
+
+    if partition < 0:
+        return divide_negatives_and_positives_recursive(
+            array=array, low=partition + 1, high=high
+        )
+    elif partition > 0:
+        return divide_negatives_and_positives_recursive(
+            array=array, low=low, high=partition - 1
+        )
+
+    return array
+
