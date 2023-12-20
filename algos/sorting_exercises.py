@@ -7,12 +7,15 @@ from math import floor as math__floor
     Checks if k elements sum t in a array
     Time complexity O(n^klog(n))
 """
+
+
 def k_element_sum(array: List[int], k: int, t: int) -> bool:
     array = sorted(array)
 
     _, found = k_sum_recursive(array=array, k=k, t=t)
 
     return found
+
 
 def k_sum_recursive(array: List[int], k: int, t: int) -> Tuple[int, bool]:
     if k == 0:
@@ -32,7 +35,7 @@ def k_sum_recursive(array: List[int], k: int, t: int) -> Tuple[int, bool]:
 def binary_search(array: List[int], element: int) -> bool:
     if not array:
         return False
-    
+
     if len(array) < 2:
         return element in array
 
@@ -80,8 +83,8 @@ def unique_elements_array(array1: List[int], array2: List[int]) -> List[int]:
         i += 1
 
     while j < len(other):
-            response.append(other[j])
-            j += 1
+        response.append(other[j])
+        j += 1
 
     return response
 
@@ -110,13 +113,15 @@ def most_people_at_party(array: List[Tuple[int, int]]) -> Tuple[int, int]:
             max_in = total_in
             highest_start = starts[i]
             lowest_end = ends[j]
-        
+
         i += 1
 
-    return  highest_start, lowest_end
+    return highest_start, lowest_end
 
 
-def merge_overlapping_intervals(array: List[Tuple[int, int]]) -> Tuple[int, int]:
+def merge_overlapping_intervals(
+    array: List[Tuple[int, int]]
+) -> Tuple[int, int]:
     if not array:
         return array
 
@@ -209,4 +214,3 @@ def divide_negatives_and_positives_recursive(
         )
 
     return array
-
