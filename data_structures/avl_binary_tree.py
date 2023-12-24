@@ -74,7 +74,8 @@ class AVLBinaryTree(BaseBST):
         if not tree:
             return 0
 
-        return self.get_height(tree=tree.left) - self.get_height(tree=tree.right)
+        return (self.get_height(tree=tree.left) -
+                self.get_height(tree=tree.right))
 
     def left_rotate(
         self,

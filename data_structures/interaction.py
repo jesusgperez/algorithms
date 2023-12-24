@@ -8,7 +8,6 @@ from data_structures.avl_binary_tree import (
     AVLBinaryTree
 )
 from data_structures.double_linked_list import DLinkedList
-from data_structures.heap import Heap
 
 
 def merge_two_binary_search_trees(

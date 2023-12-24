@@ -295,7 +295,7 @@ class RBinaryTree(BaseBST):
 
         while i < len(preorder):
             node = TreeNode(data=preorder[i])
- 
+
             if not previous:
                 previous = node
                 self.root = previous

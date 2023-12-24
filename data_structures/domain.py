@@ -33,7 +33,8 @@ class BaseTreeNode(BaseModel):
     def __repr__(self):
         left_data = self.left.data if self.left else None
         right_data = self.right.data if self.right else None
-        return f"TreeNode(data={self.data}, left={left_data}, right={right_data})"
+        return (f"TreeNode(data={self.data}, "
+                f"left={left_data}, right={right_data})")
 
 
 class TreeNode(BaseTreeNode):
