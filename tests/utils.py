@@ -1,5 +1,5 @@
 from typing import List
-from random import choice, randint
+from random import randint, shuffle
 from data_structures.binary_tree import RBinaryTree
 from data_structures.bin_problem_structure import Bins
 from data_structures.domain import TreeNode, AVLTreeNode
@@ -189,14 +189,8 @@ def get_basic_heap():
 
 def get_unsorted_array(n: int) -> List[int]:
     lista = list(range(1, n + 1))
-    unsorted = []
-
-    for _ in range(n):
-        element = choice(lista)
-        unsorted.append(element)
-        lista.remove(element)
-
-    return unsorted
+    shuffle(lista)
+    return lista
 
 
 def intervals_generator(n: int = 10):

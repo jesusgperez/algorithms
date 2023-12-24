@@ -1,7 +1,7 @@
 from typing import List
 from math import floor as math__floor
 from data_structures.heap import Heap
-from data_structures.utils.utils import measure_time
+# from data_structures.utils.utils import measure_time
 
 
 def merge_sort(array: List[int], low: int, high: int) -> None:
