@@ -50,8 +50,21 @@ class TestHeap(TestCase):
         self.assertEqual(heap.queue[right_child], None)
 
     def test__insert__success(self):
-        heap = get_basic_heap
+        heap = get_basic_heap()
         self.assertEqual(heap.queue[1], 3)
+
+        array = [-1, 5, 3, 4, 0]
+        heap = Heap()
+
+        for element in array:
+            heap.insert(element)
+
+        self.assertEqual(heap.extract_min(), -1)
+        self.assertEqual(heap.extract_min(), 0)
+        self.assertEqual(heap.extract_min(), 3)
+        self.assertEqual(heap.extract_min(), 4)
+        self.assertEqual(heap.extract_min(), 5)
+
 
     def test__extract_min__success(self):
         heap = get_basic_heap()

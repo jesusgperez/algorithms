@@ -81,4 +81,3 @@ class TestExercises(TestCase):
         array = get_unsorted_array(n=21)
         median = find_median(array=array)
         self.assertEqual(median, 11)
-
