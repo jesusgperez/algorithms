@@ -77,7 +77,7 @@ class Heap:
                 break
 
             if (self.queue[left_child + i] is None or
-                self.queue[parent] is None):
+                    self.queue[parent] is None):
                 break
 
             if self.queue[min_index] > self.queue[left_child + i]:

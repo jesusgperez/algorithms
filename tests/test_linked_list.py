@@ -2,6 +2,7 @@ from unittest import TestCase
 from data_structures.double_linked_list import (
     DLinkedList
 )
+from utils import get_unsorted_array
 
 
 class TestLinkedList(TestCase):
@@ -38,3 +39,25 @@ class TestLinkedList(TestCase):
 
         self.assertEqual(first_list.tail.data, 20)
         self.assertEqual(first_list.n, 20)
+
+    def test__get_middle__success(self):
+        slist = DLinkedList()
+
+        for i in range(10):
+            slist.append(data=i)
+
+        middle = slist.get_middle()
+
+        self.assertEqual(middle.data, 5)
+
+    def test__merge_sort__success(self):
+        slist = DLinkedList()
+        array = get_unsorted_array(n=20)
+
+        for element in array:
+            slist.append(data=element)
+        
+        slist.merge_sort()
+
+        self.assertEqual(slist.print(), '1234567891011121314151617181920')
+
