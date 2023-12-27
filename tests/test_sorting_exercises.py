@@ -10,6 +10,7 @@ from algos.sorting_exercises import (
     max_intervals_points,
     unique_elements_array,
     merge_overlapping_intervals,
+    reconstruct_queue_by_height
 )
 
 
@@ -81,3 +82,9 @@ class TestExercises(TestCase):
         array = get_unsorted_array(n=21)
         median = find_median(array=array)
         self.assertEqual(median, 11)
+
+    def test__reconstruct_queue_by_height__success(self):
+        array = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]
+        resp = [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+
+        self.assertEqual(reconstruct_queue_by_height(array=array), resp)

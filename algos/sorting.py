@@ -51,16 +51,16 @@ def get_partition(array: List[int], low: int, high: int) -> int:
         if array[i] < array[p]:
             array_swap(
                 array=array,
-                left_position=i,
-                right_position=first_high
+                left=i,
+                right=first_high
             )
 
             first_high += 1
 
     array_swap(
         array=array,
-        left_position=p,
-        right_position=first_high
+        left=p,
+        right=first_high
     )
 
     return first_high
@@ -68,12 +68,12 @@ def get_partition(array: List[int], low: int, high: int) -> int:
 
 def array_swap(
     array: List[int],
-    left_position: int,
-    right_position: int
+    left: int,
+    right: int
 ) -> None:
-    buffer = array[left_position]
-    array[left_position] = array[right_position]
-    array[right_position] = buffer
+    buffer = array[left]
+    array[left] = array[right]
+    array[right] = buffer
 
 
 def heap_sort(array: List[int]) -> List[int]:

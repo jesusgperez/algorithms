@@ -1,5 +1,10 @@
 from typing import List, Tuple
-from algos.sorting import quick_sort, merge_sort, get_partition
+from algos.sorting import (
+    quick_sort,
+    merge_sort,
+    array_swap,
+    get_partition,
+)
 from math import floor as math__floor
 
 
@@ -214,3 +219,17 @@ def divide_negatives_and_positives_recursive(
         )
 
     return array
+
+
+def reconstruct_queue_by_height(
+    array: List[List[int]]
+) -> List[List[int]]:
+    n = len(array)
+    new_array = sorted(array, key=lambda x: (-x[0], x[1]))
+
+    response = []
+
+    for i in range(n):
+        response.insert(new_array[i][1], new_array[i])
+
+    return response

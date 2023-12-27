@@ -60,4 +60,3 @@ class TestLinkedList(TestCase):
         slist.merge_sort()
 
         self.assertEqual(slist.print(), '1234567891011121314151617181920')
-
