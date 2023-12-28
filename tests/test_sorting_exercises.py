@@ -2,6 +2,9 @@ from random import randint
 from datetime import datetime, timedelta
 from unittest import TestCase
 from utils import get_unsorted_array
+from data_structures.double_linked_list import(
+    DLinkedList
+)
 from algos.sorting_exercises import (
     find_median,
     binary_search,
@@ -10,7 +13,8 @@ from algos.sorting_exercises import (
     max_intervals_points,
     unique_elements_array,
     merge_overlapping_intervals,
-    reconstruct_queue_by_height
+    reconstruct_queue_by_height,
+    merge_sorted_lists
 )
 
 
@@ -88,3 +92,18 @@ class TestExercises(TestCase):
         resp = [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
 
         self.assertEqual(reconstruct_queue_by_height(array=array), resp)
+
+
+    def test__merge_sorted_lists__success(self):
+        lists = []
+        max_num = 5
+        for i in range(0, max_num, 2):
+            llist = DLinkedList()
+            ilist = list(range(i, max_num))
+            for element in ilist:
+                llist.append(element)
+            lists.append(llist.head)
+
+        final = merge_sorted_lists(lists=lists, low=0, high=len(lists)-1)
+
+        self.assertEqual(final.data, 0)

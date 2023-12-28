@@ -1,8 +1,10 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+from data_structures.domain import (
+    Node
+)
 from algos.sorting import (
     quick_sort,
     merge_sort,
-    array_swap,
     get_partition,
 )
 from math import floor as math__floor
@@ -231,5 +233,41 @@ def reconstruct_queue_by_height(
 
     for i in range(n):
         response.insert(new_array[i][1], new_array[i])
+
+    return response
+
+
+def merge_sorted_lists(
+    lists: List[Optional[Node]],
+    low: int,
+    high: int
+):
+    if low > high:
+        return
+    
+    if low == high:
+        return lists[low]
+
+    mid = math__floor((low + high)/2)
+
+    left = merge_sorted_lists(lists=lists, low=low, high=mid)
+    right = merge_sorted_lists(lists=lists, low=mid + 1, high=high)
+
+    return merge_lists(left=left, right=right)
+
+def merge_lists(left: Optional[Node], right: Optional[Node]):
+    if not left:
+        return right
+    if not right:
+        return left
+    
+    response = None
+
+    if left.data <= right.data:
+        response = Node(data=left.data)
+        response.next = merge_lists(left=left.next, right=right)
+    else:
+        response = Node(data=right.data)
+        response.next = merge_lists(left=left, right=right.next)
 
     return response
