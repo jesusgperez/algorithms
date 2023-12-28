@@ -244,7 +244,7 @@ def merge_sorted_lists(
 ):
     if low > high:
         return
-    
+
     if low == high:
         return lists[low]
 
@@ -255,12 +255,13 @@ def merge_sorted_lists(
 
     return merge_lists(left=left, right=right)
 
+
 def merge_lists(left: Optional[Node], right: Optional[Node]):
     if not left:
         return right
     if not right:
         return left
-    
+
     response = None
 
     if left.data <= right.data:
