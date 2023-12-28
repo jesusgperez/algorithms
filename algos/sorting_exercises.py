@@ -272,3 +272,35 @@ def merge_lists(left: Optional[Node], right: Optional[Node]):
         response.next = merge_lists(left=left, right=right.next)
 
     return response
+
+
+def k_smallest_pairs(
+    nums1: List[int],
+    nums2: List[int],
+    k: int
+) -> List[Tuple[int, int]]:
+    i = 0
+    j = 0
+    count = 0
+
+    response = []
+
+    while count < 2*k:
+        max_array = nums1 if nums1[i] > nums2[j] else nums2
+
+        if nums1[i] <= nums2[j]:
+            min_index, min_array = i, nums1
+            i += 1
+        else:
+            min_index, min_array = j, nums2
+            j += 1
+
+        inner_count = 0
+
+        while count + inner_count < 2*k and inner_count < len(max_array):
+            response.append((min_array[min_index], max_array[inner_count]))
+            inner_count += 1
+
+        count += inner_count
+
+    return sorted(response)[:k]

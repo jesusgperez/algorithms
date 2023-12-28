@@ -14,7 +14,8 @@ from algos.sorting_exercises import (
     unique_elements_array,
     merge_overlapping_intervals,
     reconstruct_queue_by_height,
-    merge_sorted_lists
+    merge_sorted_lists,
+    k_smallest_pairs
 )
 
 
@@ -93,7 +94,6 @@ class TestExercises(TestCase):
 
         self.assertEqual(reconstruct_queue_by_height(array=array), resp)
 
-
     def test__merge_sorted_lists__success(self):
         lists = []
         max_num = 5
@@ -107,3 +107,24 @@ class TestExercises(TestCase):
         final = merge_sorted_lists(lists=lists, low=0, high=len(lists)-1)
 
         self.assertEqual(final.data, 0)
+
+    def test__k_smallest_pairs__success(self):
+        left, right = [1,7,11], [2,4,6]
+        k = 3
+        self.assertEqual(
+            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            [(1,2),(1,4),(1,6)]
+        )
+
+        k = 4
+        self.assertEqual(
+            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            [(1,2),(1,4),(1,6),(2,1)]
+        )
+
+        left, right = [1,1,2], [1,2,3]
+        k = 2
+        self.assertEqual(
+            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            [(1,1),(1,1)]
+        )
