@@ -279,28 +279,31 @@ def k_smallest_pairs(
     nums2: List[int],
     k: int
 ) -> List[Tuple[int, int]]:
-    i = 0
-    j = 0
+    indexes = {i: 0 for i in range(len(nums1))}
     count = 0
+    n2 = len(nums2)
 
     response = []
 
-    while count < 2*k:
-        max_array = nums1 if nums1[i] > nums2[j] else nums2
+    while count < k:
+        min_value, min_index = float('inf'), -1
+        for index, element in enumerate(nums1):
+            if indexes[index] >= n2:
+                continue
 
-        if nums1[i] <= nums2[j]:
-            min_index, min_array = i, nums1
-            i += 1
-        else:
-            min_index, min_array = j, nums2
-            j += 1
+            if element + nums2[indexes[index]] > min_value:
+                break
 
-        inner_count = 0
+            if element + nums2[indexes[index]] < min_value:
+                min_value = element + nums2[indexes[index]]
+                min_index = index
 
-        while count + inner_count < 2*k and inner_count < len(max_array):
-            response.append((min_array[min_index], max_array[inner_count]))
-            inner_count += 1
+        if min_index == -1:
+            break
 
-        count += inner_count
+        response.append((nums1[min_index], nums2[indexes[min_index]]))
 
-    return sorted(response)[:k]
+        indexes[min_index] += 1
+        count += 1
+
+    return response

@@ -119,7 +119,7 @@ class TestExercises(TestCase):
         k = 4
         self.assertEqual(
             k_smallest_pairs(nums1=left, nums2=right,k=k),
-            [(1,2),(1,4),(1,6),(2,1)]
+            [(1,2),(1,4),(1,6),(7,2)]
         )
 
         left, right = [1,1,2], [1,2,3]
@@ -128,3 +128,11 @@ class TestExercises(TestCase):
             k_smallest_pairs(nums1=left, nums2=right,k=k),
             [(1,1),(1,1)]
         )
+
+        left, right = [1,2], [3]
+        k = 3
+        self.assertEqual(
+            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            [(1,3),(2,3)]
+        )
+
