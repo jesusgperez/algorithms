@@ -279,6 +279,7 @@ def k_smallest_pairs(
     nums2: List[int],
     k: int
 ) -> List[Tuple[int, int]]:
+    # TODO: Add a heap to speed this up
     indexes = {i: 0 for i in range(len(nums1))}
     count = 0
     n2 = len(nums2)
@@ -291,8 +292,8 @@ def k_smallest_pairs(
             if indexes[index] >= n2:
                 continue
 
-            if element + nums2[indexes[index]] > min_value:
-                break
+            # if element + nums2[indexes[index]] > min_value:
+            #     break
 
             if element + nums2[indexes[index]] < min_value:
                 min_value = element + nums2[indexes[index]]
