@@ -287,7 +287,6 @@ def k_smallest_pairs(
     inserted = set()
     n, m = len(nums1), len(nums2)
 
-
     for _ in range(k):
         tmp = heap.extract_min()
         i, j = tmp[1][0], tmp[1][1]

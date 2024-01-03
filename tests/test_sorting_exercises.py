@@ -2,7 +2,7 @@ from random import randint
 from datetime import datetime, timedelta
 from unittest import TestCase
 from utils import get_unsorted_array
-from data_structures.double_linked_list import(
+from data_structures.double_linked_list import (
     DLinkedList
 )
 from algos.sorting_exercises import (
@@ -25,7 +25,6 @@ class TestExercises(TestCase):
         self.assertTrue(k_element_sum(array=array, k=2, t=3))
         self.assertFalse(k_element_sum(array=array, k=3, t=3))
         self.assertTrue(k_element_sum(array=array, k=2, t=6))
-
 
     def test__binary_search__success(self):
         array = [1,2,3,4,5,6]

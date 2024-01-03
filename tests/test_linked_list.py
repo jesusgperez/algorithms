@@ -56,7 +56,7 @@ class TestLinkedList(TestCase):
 
         for element in array:
             slist.append(data=element)
-        
+
         slist.merge_sort()
 
         self.assertEqual(slist.print(), '1234567891011121314151617181920')
