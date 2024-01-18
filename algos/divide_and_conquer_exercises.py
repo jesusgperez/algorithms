@@ -1,0 +1,46 @@
+from typing import List, Tuple
+
+
+def max_crossing_sum(
+    array: List[int],
+    low: int,
+    mid: int,
+    high: int
+):
+    sm = 0
+    left_sum = float('-inf')
+
+    for i in range(mid, low - 1, -1):
+        sm = sm + array[i]
+        if sm > left_sum:
+            left_sum = sm
+    
+    sm = 0
+    right_sum = float('-inf')
+
+    for i in range(mid, high + 1):
+        sm = sm + array[i]
+        if sm > right_sum:
+            right_sum = sm
+    
+    return max(left_sum + right_sum - array[mid], left_sum, right_sum)
+
+
+def largest_subrange(
+    array: List[int],
+    low: int,
+    high: int
+) -> Tuple[int, List]:
+    if low > high:
+        return float('-inf')
+    
+    if low == high:
+        return array[low]
+    
+    mid = (low + high) // 2
+
+    left_subarray = largest_subrange(array=array, low=low, high=mid - 1)
+    right_subarray = largest_subrange(array=array, low=mid + 1, high=high)
+    mid_subarray = max_crossing_sum(array=array, low=low, mid=mid, high=high)
+
+    return max(left_subarray, right_subarray, mid_subarray)
