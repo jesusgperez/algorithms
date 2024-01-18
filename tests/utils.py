@@ -202,6 +202,6 @@ def intervals_generator(n: int = 10):
         start = now - delta
         delta = randint(-10, 0)
         end = now + delta
-        array.append((start,end))
-    
+        array.append((start, end))
+
     return array

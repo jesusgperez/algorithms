@@ -31,7 +31,6 @@ class TestSorting(TestCase):
         for i in range(len(array)-1):
             self.assertTrue(array[i] < array[i+1])
 
-
     def test__heap_sort__success(self):
         test_n = 10
         array = get_unsorted_array(n=test_n)
@@ -42,7 +41,6 @@ class TestSorting(TestCase):
         array = get_unsorted_array(n=test_n)
         sorted_array = heap_sort(array=array)
         self.assertEqual(sorted_array, list(range(1, test_n+1)))
-
 
     def test__compare_running_time__success(self):
         RUNNING_TIMES, ARRAY_SIZE = 100, 20

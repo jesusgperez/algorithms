@@ -2,6 +2,7 @@ from typing import List, Tuple, Optional
 from data_structures.domain import (
     Node
 )
+from data_structures.heap import Heap
 from algos.sorting import (
     quick_sort,
     merge_sort,
@@ -279,31 +280,32 @@ def k_smallest_pairs(
     nums2: List[int],
     k: int
 ) -> List[Tuple[int, int]]:
-    indexes = {i: 0 for i in range(len(nums1))}
-    count = 0
-    n2 = len(nums2)
-
+    i, j = 0, 0
     response = []
+    heap = Heap()
+    heap.insert((nums1[i] + nums2[j], (i, j)))
+    inserted = set()
+    n, m = len(nums1), len(nums2)
 
-    while count < k:
-        min_value, min_index = float('inf'), -1
-        for index, element in enumerate(nums1):
-            if indexes[index] >= n2:
-                continue
+    for _ in range(k):
+        tmp = heap.extract_min()
+        i, j = tmp[1][0], tmp[1][1]
+        response.append((nums1[i], nums2[j]))
+        flag = False
 
-            if element + nums2[indexes[index]] > min_value:
-                break
+        i1, j1 = i + 1, j
+        i2, j2 = i, j + 1
 
-            if element + nums2[indexes[index]] < min_value:
-                min_value = element + nums2[indexes[index]]
-                min_index = index
+        if i1 < n and (i1, j1) not in inserted:
+            heap.insert(data=(nums1[i1] + nums2[j1], (i1, j1)))
+            inserted.add((i1, j1))
+            flag = True
+        if j2 < m and (i2, j2) not in inserted:
+            heap.insert(data=(nums1[i2] + nums2[j2], (i2, j2)))
+            inserted.add((i2, j2))
+            flag = True
 
-        if min_index == -1:
+        if not flag:
             break
-
-        response.append((nums1[min_index], nums2[indexes[min_index]]))
-
-        indexes[min_index] += 1
-        count += 1
 
     return response

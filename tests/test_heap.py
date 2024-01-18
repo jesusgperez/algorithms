@@ -65,7 +65,6 @@ class TestHeap(TestCase):
         self.assertEqual(heap.extract_min(), 4)
         self.assertEqual(heap.extract_min(), 5)
 
-
     def test__extract_min__success(self):
         heap = get_basic_heap()
 
