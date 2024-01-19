@@ -44,3 +44,26 @@ def largest_subrange(
     mid_subarray = max_crossing_sum(array=array, low=low, mid=mid, high=high)
 
     return max(left_subarray, right_subarray, mid_subarray)
+
+
+def kadane_max_subarray_sum(
+    array: List[int]
+) -> Tuple[int, List[int]]:
+    size = len(array)
+    max_so_far = float('-inf')
+    max_ending_here = 0
+    start, end, s = 0, 0, 0
+
+    for i in range(0, size):
+        max_ending_here += array[i]
+
+        if max_so_far < max_ending_here:
+            max_so_far = max_ending_here
+            start = s
+            end = i
+
+        if max_ending_here < 0:
+            max_ending_here = 0
+            s = i + 1
+
+    return max_so_far, array[start:end]
