@@ -14,7 +14,7 @@ def max_crossing_sum(
         sm = sm + array[i]
         if sm > left_sum:
             left_sum = sm
-    
+
     sm = 0
     right_sum = float('-inf')
 
@@ -22,7 +22,7 @@ def max_crossing_sum(
         sm = sm + array[i]
         if sm > right_sum:
             right_sum = sm
-    
+
     return max(left_sum + right_sum - array[mid], left_sum, right_sum)
 
 
@@ -33,10 +33,10 @@ def largest_subrange(
 ) -> Tuple[int, List]:
     if low > high:
         return float('-inf')
-    
+
     if low == high:
         return array[low]
-    
+
     mid = (low + high) // 2
 
     left_subarray = largest_subrange(array=array, low=low, high=mid - 1)
