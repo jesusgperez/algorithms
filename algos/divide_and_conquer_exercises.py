@@ -30,7 +30,7 @@ def largest_subrange(
     array: List[int],
     low: int,
     high: int
-) -> Tuple[int, List]:
+) -> int:
     if low > high:
         return float('-inf')
 
@@ -66,4 +66,4 @@ def kadane_max_subarray_sum(
             max_ending_here = 0
             s = i + 1
 
-    return max_so_far, array[start:end]
+    return max_so_far, array[start:max_so_far]
