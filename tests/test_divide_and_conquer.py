@@ -1,6 +1,7 @@
 from unittest import TestCase
 from algos.divide_and_conquer_exercises import (
     largest_subrange,
+    maximum_wood_cut,
     kadane_max_subarray_sum
 )
 
@@ -22,3 +23,18 @@ class TestDivideConquer(TestCase):
             array=array
         )
         self.assertEqual(lsum, 7)
+
+    def test__maximum_wood_cut__success(self):
+        array = [5, 9, 7]
+        self.assertEqual(maximum_wood_cut(
+            wood=array,
+            n=len(array),
+            k=4
+        ), 4)
+
+        array = [10, 6, 5, 3]
+        self.assertEqual(maximum_wood_cut(
+            wood=array,
+            n=len(array),
+            k=4
+        ), 5)
