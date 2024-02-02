@@ -2,7 +2,8 @@ from unittest import TestCase
 from algos.divide_and_conquer_exercises import (
     largest_subrange,
     maximum_wood_cut,
-    kadane_max_subarray_sum
+    kadane_max_subarray_sum,
+    median_sorted_arrays
 )
 
 
@@ -38,3 +39,9 @@ class TestDivideConquer(TestCase):
             n=len(array),
             k=4
         ), 5)
+
+    def test__median_sorted_arrays__success(self):
+        nums1 = [1,2]
+        nums2 = [3,4]
+        median = median_sorted_arrays(nums1=nums1,nums2=nums2)
+        assert median == 2.5

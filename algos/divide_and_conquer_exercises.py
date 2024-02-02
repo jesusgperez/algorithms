@@ -91,3 +91,59 @@ def maximum_wood_cut(wood: List[int], n: int, k: int) -> int:
             right = mid - 1
 
     return right
+
+
+def find_median_recursive(
+    min_arr: List[int],
+    max_arr: List[int],
+    min_l: int,
+    min_h: int,
+    max_l: int,
+    max_h: int,
+    previous: int
+) -> int:
+    m = (min_l + min_h) // 2
+    n = (max_l + max_h) // 2
+
+    if min_l >= min_h:
+        return max_arr[min_h]
+
+    if max_l >= max_h:
+        return min_arr[max_h]
+
+    if min_arr[n] > max_arr[m]:
+        return min_arr[n]
+
+    if not previous % 2:
+        return find_median_recursive(
+            min_arr=min_arr,
+            max_arr=max_arr,
+            min_l=m,
+            min_h=min_h,
+            max_l=max_l,
+            max_h=max_h,
+            previous=previous+1
+        )
+    return find_median_recursive(
+        min_arr=min_arr,
+        max_arr=max_arr,
+        min_l=min_l,
+        min_h=min_h,
+        max_l=max_l,
+        max_h=n,
+        previous=previous+1
+    )
+
+
+def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> int:
+    min_arr = nums1 if nums1[0] < nums2[0] else nums2
+    max_arr = nums1 if nums1[0] > nums2[0] else nums2
+    return find_median_recursive(
+        min_arr=min_arr,
+        max_arr=max_arr,
+        min_l=0,
+        min_h=len(min_arr)-1,
+        max_l=0,
+        max_h=len(max_arr)-1,
+        previous=0
+    )
