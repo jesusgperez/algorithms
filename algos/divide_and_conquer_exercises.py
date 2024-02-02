@@ -52,7 +52,7 @@ def kadane_max_subarray_sum(
     size = len(array)
     max_so_far = float('-inf')
     max_ending_here = 0
-    start, end, s = 0, 0, 0
+    start, s = 0, 0
 
     for i in range(0, size):
         max_ending_here += array[i]
@@ -60,7 +60,6 @@ def kadane_max_subarray_sum(
         if max_so_far < max_ending_here:
             max_so_far = max_ending_here
             start = s
-            end = i
 
         if max_ending_here < 0:
             max_ending_here = 0
@@ -74,7 +73,7 @@ def cut_is_valid(wood: List[int], n: int, curr: int, k: int) -> bool:
 
     for i in range(n):
         count += wood[i] // curr
-    
+
     return count >= k
 
 
