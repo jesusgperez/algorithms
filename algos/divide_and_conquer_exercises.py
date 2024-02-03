@@ -92,57 +92,31 @@ def maximum_wood_cut(wood: List[int], n: int, k: int) -> int:
     return right
 
 
-def find_median_recursive(
-    min_arr: List[int],
-    max_arr: List[int],
-    min_l: int,
-    min_h: int,
-    max_l: int,
-    max_h: int,
-    previous: int
-) -> int:
-    m = (min_l + min_h) // 2
-    n = (max_l + max_h) // 2
-
-    if min_l >= min_h:
-        return max_arr[min_h]
-
-    if max_l >= max_h:
-        return min_arr[max_h]
-
-    if min_arr[n] > max_arr[m]:
-        return min_arr[n]
-
-    if not previous % 2:
-        return find_median_recursive(
-            min_arr=min_arr,
-            max_arr=max_arr,
-            min_l=m,
-            min_h=min_h,
-            max_l=max_l,
-            max_h=max_h,
-            previous=previous+1
-        )
-    return find_median_recursive(
-        min_arr=min_arr,
-        max_arr=max_arr,
-        min_l=min_l,
-        min_h=min_h,
-        max_l=max_l,
-        max_h=n,
-        previous=previous+1
-    )
-
-
 def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> int:
-    min_arr = nums1 if nums1[0] < nums2[0] else nums2
-    max_arr = nums1 if nums1[0] > nums2[0] else nums2
-    return find_median_recursive(
-        min_arr=min_arr,
-        max_arr=max_arr,
-        min_l=0,
-        min_h=len(min_arr)-1,
-        max_l=0,
-        max_h=len(max_arr)-1,
-        previous=0
-    )
+    A, B = nums1, nums2
+    total = len(nums1) + len(nums2)
+    half = total // 2
+
+    if len(B) < len(A):
+        A, B = B, A
+
+    l, r = 0, len(A) - 1
+
+    while True:
+        i = (l + r) // 2
+        j = half - i - 2
+
+        A_left = A[i] if i >= 0 else float('-inf')
+        A_right = A[i + 1] if (i + 1) < len(A) else float('inf')
+        B_left = B[j] if j >= 0 else float('-inf')
+        B_right = B[j + 1] if (j + 1) < len(B) else float('inf')
+
+        if A_left <= B_right and B_left <= A_right:
+            if total % 2:
+                return min(A_right, B_right)
+            
+            return (max(A_left, B_left) + min(A_right, B_right)) / 2
+        elif A_left > B_right:
+            r = i - 1
+        else:
+            l = i + 1
