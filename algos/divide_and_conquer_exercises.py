@@ -147,8 +147,8 @@ def merge_sort_count(
 ) -> int:
     if low >= high:
         return 0
-    
-    mid = (high + low) // 2
+
+    mid = (high + low + 1) // 2
 
     left_count = merge_sort_count(
         array=array, low=low, high=mid - 1, lower=lower, upper=upper
@@ -168,9 +168,9 @@ def merge_sort_count(
 
         while end_ix <= high and array[end_ix] - array[i] <= upper:
             end_ix += 1
-        
+
         count += (end_ix - start_ix)
-    
+
     merge_count(array=array, low=low, mid=mid, high=high)
 
     return count
@@ -188,11 +188,11 @@ def merge_count(
     i = low
 
     while left_arr and right_arr:
-        if left_arr[0] < right_arr[0]:
+        if left_arr[0] <= right_arr[0]:
             array[i] = left_arr.pop(0)
         else:
             array[i] = right_arr.pop(0)
-        
+
         i += 1
 
     while left_arr:
