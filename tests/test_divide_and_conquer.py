@@ -3,7 +3,8 @@ from algos.divide_and_conquer_exercises import (
     largest_subrange,
     maximum_wood_cut,
     kadane_max_subarray_sum,
-    median_sorted_arrays
+    median_sorted_arrays,
+    count_range_sum
 )
 
 
@@ -45,3 +46,8 @@ class TestDivideConquer(TestCase):
         nums2 = [3,4]
         median = median_sorted_arrays(nums1=nums1,nums2=nums2)
         assert median == 2.5
+
+    def test__count_range_sum__success(self):
+        array = [-2, 5, -1]
+        current_sum = count_range_sum(array=array, lower=-2, upper=2)
+        assert current_sum == 3

@@ -120,3 +120,85 @@ def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> int:
             r = i - 1
         else:
             l = i + 1
+
+
+def count_range_sum(array: List[int], lower: int, upper: int) -> int:
+    n = len(array)
+    sums = [0]
+
+    for i in range(n):
+        sums.append(sums[i] + array[i])
+
+    return merge_sort_count(
+        array=sums,
+        low=0,
+        high=n,
+        lower=lower,
+        upper=upper
+    )
+
+
+def merge_sort_count(
+    array: List[int],
+    low: int,
+    high: int,
+    lower: int,
+    upper: int
+) -> int:
+    if low >= high:
+        return 0
+    
+    mid = (high + low) // 2
+
+    left_count = merge_sort_count(
+        array=array, low=low, high=mid - 1, lower=lower, upper=upper
+    )
+
+    right_count = merge_sort_count(
+        array=array, low=mid, high=high, lower=lower, upper=upper
+    )
+
+    count = left_count + right_count
+
+    start_ix, end_ix = mid, mid
+
+    for i in range(low, mid):
+        while start_ix <= high and array[start_ix] - array[i] < lower:
+            start_ix += 1
+
+        while end_ix <= high and array[end_ix] - array[i] <= upper:
+            end_ix += 1
+        
+        count += (end_ix - start_ix)
+    
+    merge_count(array=array, low=low, mid=mid, high=high)
+
+    return count
+
+
+def merge_count(
+    array: List[int],
+    low: int,
+    mid: int,
+    high: int
+) -> None:
+    left_arr = [array[i] for i in range(low, mid)]
+    right_arr = [array[i] for i in range(mid, high)]
+
+    i = low
+
+    while left_arr and right_arr:
+        if left_arr[0] < right_arr[0]:
+            array[i] = left_arr.pop(0)
+        else:
+            array[i] = right_arr.pop(0)
+        
+        i += 1
+
+    while left_arr:
+        array[i] = left_arr.pop(0)
+        i += 1
+
+    while right_arr:
+        array[i] = right_arr.pop(0)
+        i += 1
