@@ -92,8 +92,8 @@ class TestExercises(TestCase):
         self.assertEqual(median, 11)
 
     def test__reconstruct_queue_by_height__success(self):
-        array = [[7, 0],[4, 4],[7, 1],[5, 0],[6, 1],[5, 2]]
-        resp = [[5, 0],[7, 0],[5, 2],[6, 1],[4, 4],[7, 1]]
+        array = [[7, 0], [4, 4], [7, 1], [5, 0], [6, 1], [5, 2]]
+        resp = [[5, 0], [7, 0], [5, 2], [6, 1], [4, 4], [7, 1]]
 
         self.assertEqual(reconstruct_queue_by_height(array=array), resp)
 
@@ -112,30 +112,30 @@ class TestExercises(TestCase):
         self.assertEqual(final.data, 0)
 
     def test__k_smallest_pairs__success(self):
-        left, right = [1,7,11], [2,4,6]
+        left, right = [1, 7, 11], [2, 4, 6]
         k = 3
         self.assertEqual(
-            k_smallest_pairs(nums1=left, nums2=right,k=k),
-            [(1,2),(1,4),(1,6)]
+            k_smallest_pairs(nums1=left, nums2=right, k=k),
+            [(1, 2), (1, 4), (1, 6)]
         )
 
         k = 4
         self.assertEqual(
-            k_smallest_pairs(nums1=left, nums2=right,k=k),
-            [(1,2),(1,4),(1,6),(7,2)]
+            k_smallest_pairs(nums1=left, nums2=right, k=k),
+            [(1, 2), (1, 4), (1, 6), (7, 2)]
         )
 
-        left, right = [1,1,2], [1,2,3]
+        left, right = [1, 1, 2], [1, 2, 3]
         k = 2
         self.assertEqual(
-            k_smallest_pairs(nums1=left, nums2=right,k=k),
-            [(1,1),(1,1)]
+            k_smallest_pairs(nums1=left, nums2=right, k=k),
+            [(1, 1),(1, 1)]
         )
 
-        left, right = [1,2], [3]
+        left, right = [1, 2], [3]
         k = 3
         self.assertEqual(
-            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            k_smallest_pairs(nums1=left, nums2=right, k=k),
             [(1,3),(2,3)]
         )
 
@@ -143,7 +143,7 @@ class TestExercises(TestCase):
         right = [-3,22,35,56,76]
         k = 22
         self.assertEqual(
-            k_smallest_pairs(nums1=left, nums2=right,k=k),
+            k_smallest_pairs(nums1=left, nums2=right, k=k),
             [
                 (0,-3),(0,-3),(0,-3),(0,-3),(0,-3),(2,-3),(2,-3),(2,-3),
                 (2,-3),(0,22),(0,22),(0,22),(0,22),(0,22),(2,22),(2,22),

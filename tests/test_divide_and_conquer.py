@@ -42,9 +42,9 @@ class TestDivideConquer(TestCase):
         ), 5)
 
     def test__median_sorted_arrays__success(self):
-        nums1 = [1,2]
-        nums2 = [3,4]
-        median = median_sorted_arrays(nums1=nums1,nums2=nums2)
+        nums1 = [1, 2]
+        nums2 = [3, 4]
+        median = median_sorted_arrays(nums1=nums1, nums2=nums2)
         assert median == 2.5
 
     def test__count_range_sum__success(self):
