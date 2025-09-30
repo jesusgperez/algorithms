@@ -1,3 +1,5 @@
+from typing import List
+
 class EdgeNode:
     def __init__(self, y: int, weight: int, next: 'EdgeNode'):
         self.y = y
@@ -8,11 +10,11 @@ class EdgeNode:
 class Graph:
     def __init__(
         self,
-        edges: 'EdgeNode',
-        degree: int,
+        edges: List['EdgeNode'],
+        degree: List[int],
         nvertices: int,
         nedges: int,
-        directed: int
+        directed: bool
     ):
         self.edges = edges
         self.degree = degree
