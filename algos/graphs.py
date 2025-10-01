@@ -52,29 +52,30 @@ def print_graph(graph: Graph):
             current = current.next
         print('')
 
-g = read_graph([[6, 6],[1,2],[2,3],[3,4],[4,5],[5,3],[1, 4]], True)
+g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
 
 print_graph(g)
 
 
 def bfs(graph: Graph, start: int):
-    queue = deque([start])
-
+    # Could be a pair of sets and adding the vertices to those (pythonic)
     discovered = [False for _ in range(graph.nvertices)]
     processed = [False for _ in range(graph.nvertices)]
     parents = [-1 for _ in range(graph.nvertices)]
 
+    queue = deque([start])
+    discovered[start] = True
     while queue:
         vertex = queue.popleft()
-
         ## process vertex early
-
+        print(vertex)
         processed[vertex] = True
         current = graph.edges[vertex]
         while current:
             value = current.val
-            if not processed[value] or not graph.directed:
+            if not processed[value] or graph.directed:
                 ## process the edge (vertex, value)
+                print(vertex, value)
                 pass
             if not discovered[value]:
                 queue.append(value)
@@ -83,3 +84,8 @@ def bfs(graph: Graph, start: int):
             current = current.next
 
         ## process vertex late
+
+    pass
+
+bfs(g, 1)
+
