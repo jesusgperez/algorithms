@@ -1,4 +1,5 @@
-from typing import List
+from collections import deque
+from typing import List, Optional
 
 class EdgeNode:
     def __init__(self, val: int, weight: int = 0, next: 'EdgeNode' = None):
@@ -14,8 +15,8 @@ class Graph:
         nedges: int = 0,
         directed: bool = True
     ):
-        self.edges = [None for _ in range(nvertices)]
-        self.degree = [0 for _ in range(nvertices)]
+        self.edges: List[Optional[EdgeNode]] = [None for _ in range(nvertices)]
+        self.degree: List[int] = [0 for _ in range(nvertices)]
         self.nvertices = nvertices
         self.nedges = nedges
         self.directed = directed
@@ -55,3 +56,30 @@ g = read_graph([[6, 6],[1,2],[2,3],[3,4],[4,5],[5,3],[1, 4]], True)
 
 print_graph(g)
 
+
+def bfs(graph: Graph, start: int):
+    queue = deque([start])
+
+    discovered = [False for _ in range(graph.nvertices)]
+    processed = [False for _ in range(graph.nvertices)]
+    parents = [-1 for _ in range(graph.nvertices)]
+
+    while queue:
+        vertex = queue.popleft()
+
+        ## process vertex early
+
+        processed[vertex] = True
+        current = graph.edges[vertex]
+        while current:
+            value = current.val
+            if not processed[value] or not graph.directed:
+                ## process the edge (vertex, value)
+                pass
+            if not discovered[value]:
+                queue.append(value)
+                discovered[value] = True
+                parents[value] = vertex
+            current = current.next
+
+        ## process vertex late
