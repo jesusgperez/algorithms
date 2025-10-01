@@ -57,6 +57,9 @@ g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
 print_graph(g)
 
 
+# bfs: shortest path for unweighted graphs
+# parents: gives the paths
+
 def bfs(graph: Graph, start: int):
     # Could be a pair of sets and adding the vertices to those (pythonic)
     discovered = [False for _ in range(graph.nvertices)]
@@ -85,7 +88,16 @@ def bfs(graph: Graph, start: int):
 
         ## process vertex late
 
-    pass
+    return parents
 
-bfs(g, 1)
+parents = bfs(g, 1)
 
+def find_path(start: int, end: int, parents: List[int]):
+    if start == end or end == -1:
+        print(start)
+    else:
+        find_path(start, parents[end], parents)
+        print(end)
+
+
+pass
