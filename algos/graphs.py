@@ -1,5 +1,6 @@
+from enum import Enum, auto
 from collections import deque
-from typing import List, Optional
+from typing import List, Optional, Callable
 
 class EdgeNode:
     def __init__(self, val: int, weight: int = 0, next: 'EdgeNode' = None):
@@ -52,52 +53,102 @@ def print_graph(graph: Graph):
             current = current.next
         print('')
 
-g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
+# g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
+g = read_graph([[6,2],[1,2],[1,4],[2,3],[4,5],[4,6]], True)
 
 print_graph(g)
 
+class Color(Enum):
+    BLACK = auto()
+    WHITE = auto()
+    UNCOLORED = auto
 
-# bfs: shortest path for unweighted graphs
-# parents: gives the paths
+    @classmethod
+    def complement(cls, color):
+        if color == cls.BLACK:
+            return cls.WHITE
+        elif color == cls.WHITE:
+            return cls.BLACK
+        return cls.UNCOLORED
 
-def bfs(graph: Graph, start: int):
-    # Could be a pair of sets and adding the vertices to those (pythonic)
-    discovered = [False for _ in range(graph.nvertices)]
-    processed = [False for _ in range(graph.nvertices)]
-    parents = [-1 for _ in range(graph.nvertices)]
+# bfs: shortest path for unweighted graphs from root to ith node
+# parents: gives the paths from root to ith node
+# discovered and processed could be a pair of sets and adding the vertices to those (pythonic)
+class BFS:
+    def __init__(
+            self,
+            graph: Graph,
+            preprocess: Callable = None,
+            edge_process: Callable = None,
+            postprocess: Callable = None
+        ):
+        self.graph = graph
+        self.parents = [-1 for _ in range(graph.nvertices)]
+        self.discovered = [False for _ in range(graph.nvertices)]
+        self.processed = [False for _ in range(graph.nvertices)]
+        self.preprocess = preprocess
+        self.edge_process = edge_process
+        self.postprocess = postprocess
+        self.is_bipartite = True
 
-    queue = deque([start])
-    discovered[start] = True
-    while queue:
-        vertex = queue.popleft()
-        ## process vertex early
-        print(vertex)
-        processed[vertex] = True
-        current = graph.edges[vertex]
-        while current:
-            value = current.val
-            if not processed[value] or graph.directed:
-                ## process the edge (vertex, value)
-                print(vertex, value)
-                pass
-            if not discovered[value]:
-                queue.append(value)
-                discovered[value] = True
-                parents[value] = vertex
-            current = current.next
+    def search(self, start: int):
+        queue = deque([start])
+        self.discovered[start] = True
 
-        ## process vertex late
+        while queue:
+            vertex = queue.popleft()
 
-    return parents
+            if self.preprocess:
+                self.preprocess(vertex)
 
-parents = bfs(g, 1)
+            self.processed[vertex] = True
 
-def find_path(start: int, end: int, parents: List[int]):
-    if start == end or end == -1:
-        print(start)
-    else:
-        find_path(start, parents[end], parents)
-        print(end)
+            current = self.graph.edges[vertex]
+            while current:
+                value = current.val
+                if (not self.processed[value] or self.graph.directed) and self.edge_process:
+                    self.edge_process(vertex, value)
+                if not self.discovered[value]:
+                    queue.append(value)
+                    self.discovered[value] = True
+                    self.parents[value] = vertex
 
+                current = current.next
 
-pass
+            if self.postprocess:
+                self.postprocess(vertex)
+
+    def check_color(self, x, y):
+        if self.colors[x] == self.colors[y]:
+            self.is_bipartite = False
+
+        self.colors[y] = Color.complement(self.colors[x])
+
+    def check_bipartite(self):
+        self.colors = [Color.UNCOLORED for _ in range(self.graph.nvertices)]
+        self.edge_process = self.check_color
+
+        for i in range(self.graph.nvertices):
+            if not self.discovered[i]:
+                self.colors[i] = Color.WHITE
+                self.search(i)
+
+        print(self.is_bipartite)
+
+    def restart_search(self):
+        self.discovered = [False for _ in range(self.graph.nvertices)]
+        self.processed = [False for _ in range(self.graph.nvertices)]
+
+    # Shortest path to the root node
+    def find_path(self, start: int, end: int):
+        if start == end or end == -1:
+            print(start)
+        else:
+            self.find_path(start , self.parents[end])
+            print(end)
+
+bfs = BFS(graph=g, edge_process=lambda x, y: print(x, y))
+bfs.search(1)
+bfs.find_path(1, 5)
+bfs.restart_search()
+bfs.check_bipartite()
