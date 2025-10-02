@@ -53,10 +53,10 @@ def print_graph(graph: Graph):
             current = current.next
         print('')
 
-# g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
-g = read_graph([[6,2],[1,2],[1,4],[2,3],[4,5],[4,6]], True)
+g = read_graph([[6,6],[1,2],[2,3],[3,4],[4,5],[5,3],[1,4]], True)
+# g = read_graph([[7,5],[1,2],[1,4],[2,3],[4,5],[4,6]], True)
 
-print_graph(g)
+# print_graph(g)
 
 class Color(Enum):
     BLACK = auto()
@@ -71,10 +71,7 @@ class Color(Enum):
             return cls.BLACK
         return cls.UNCOLORED
 
-# bfs: shortest path for unweighted graphs from root to ith node
-# parents: gives the paths from root to ith node
-# discovered and processed could be a pair of sets and adding the vertices to those (pythonic)
-class BFS:
+class GraphTraversal:
     def __init__(
             self,
             graph: Graph,
@@ -89,6 +86,19 @@ class BFS:
         self.preprocess = preprocess
         self.edge_process = edge_process
         self.postprocess = postprocess
+
+# bfs: shortest path for unweighted graphs from root to ith node
+# parents: gives the paths from root to ith node
+# discovered and processed could be a pair of sets and adding the vertices to those (pythonic)
+class BFS(GraphTraversal):
+    def __init__(
+            self,
+            graph: Graph,
+            preprocess: Callable = None,
+            edge_process: Callable = None,
+            postprocess: Callable = None
+        ):
+        super().__init__(graph, preprocess, edge_process, postprocess)
         self.is_bipartite = True
 
     def search(self, start: int):
@@ -147,8 +157,49 @@ class BFS:
             self.find_path(start , self.parents[end])
             print(end)
 
-bfs = BFS(graph=g, edge_process=lambda x, y: print(x, y))
+bfs = BFS(graph=g, preprocess=lambda x: print(x), edge_process=lambda x, y: print(x, ' -> ', y))
 bfs.search(1)
-bfs.find_path(1, 5)
-bfs.restart_search()
-bfs.check_bipartite()
+# bfs.find_path(1, 5)
+# bfs.restart_search()
+# bfs.check_bipartite()
+
+print('-------------------------------------------------------')
+
+class DFS(GraphTraversal):
+    def __init__(self, graph, preprocess = None, edge_process = None, postprocess = None):
+        super().__init__(graph, preprocess, edge_process, postprocess)
+        self.entry_time = [0 for _ in range(graph.nvertices)]
+        self.exit_time = [0 for _ in range(graph.nvertices)]
+        self.time = 0
+
+    def search(self, vertex):
+        self.discovered[vertex] = True
+        self.time += 1
+        self.entry_time[vertex] = self.time
+
+        if self.preprocess:
+            self.preprocess(vertex)
+
+        current = self.graph.edges[vertex]
+        while current:
+            sibling = current.val
+            if not self.discovered[sibling]:
+                self.parents[sibling] = vertex
+                if self.edge_process:
+                    self.edge_process(vertex, sibling)
+                self.search(sibling)
+            elif ((not self.processed[sibling] and self.parents[vertex] != sibling) or self.graph.directed) and self.edge_process:
+                self.edge_process(vertex, sibling)
+
+            current = current.next
+
+        if self.postprocess:
+            self.postprocess(vertex)
+        self.time += 1
+        self.exit_time = self.time
+        self.processed[vertex] = True
+
+dfs = DFS(graph=g, preprocess=lambda x: print(x), edge_process=lambda x, y: print(x, '->', y))
+dfs.search(1)
+pass
+
