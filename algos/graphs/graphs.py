@@ -161,6 +161,8 @@ bfs = BFS(graph=g, preprocess=lambda x: print(x), edge_process=lambda x, y: prin
 bfs.search(1)
 # bfs.find_path(1, 5)
 # bfs.restart_search()
+# Connected components
+# Connected: exists a path the unites any two nodes
 # bfs.check_bipartite()
 
 print('-------------------------------------------------------')
