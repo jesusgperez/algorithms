@@ -72,29 +72,37 @@ def create_undirected(n_vertices, edges):
 
     return adj
 
+n_vertex = 9
 
-adj = create_undirected(6, [[1,2],[2,5],[1,3],[3,4],[2,3],[4,5],[3,5]])
-
-queue = deque((1,))
+adj = create_undirected(n_vertex, [[1,2],[2,5],[1,3],[3,4],[2,3],[4,5],[3,5],[6,7],[7,8],[8,6]])
 
 vertex_info = defaultdict(Info)
-vertex_info[1].discovered = True
 
 process_edge = lambda x, y: print(x, ' -> ', y)
 
-while queue:
-    vertex = queue.popleft()
+def bfs(start):
+    queue = deque((start,))
+    vertex_info[start].discovered = True
 
-    for child in adj[vertex]:
-        if not vertex_info[child].processed:
-            process_edge(vertex, child)
-        
-        if not vertex_info[child].discovered:
-            vertex_info[child].discovered = True
-            queue.append(child)
-            vertex_info[child].parent = vertex
+    while queue:
+        vertex = queue.popleft()
 
-    vertex_info[vertex].processed = True
+        for child in adj[vertex]:
+            if not vertex_info[child].processed:
+                process_edge(vertex, child)
+            
+            if not vertex_info[child].discovered:
+                vertex_info[child].discovered = True
+                queue.append(child)
+                vertex_info[child].parent = vertex
 
+        vertex_info[vertex].processed = True
 
-pass
+components = 0
+
+for i in range(n_vertex):
+    if not vertex_info[i].discovered:
+        components += 1
+        bfs(i)
+
+print(components)
