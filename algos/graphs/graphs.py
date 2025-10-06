@@ -184,14 +184,14 @@ class DFS(GraphTraversal):
 
         current = self.graph.edges[vertex]
         while current:
-            sibling = current.val
-            if not self.discovered[sibling]:
-                self.parents[sibling] = vertex
+            child = current.val
+            if not self.discovered[child]:
+                self.parents[child] = vertex
                 if self.edge_process:
-                    self.edge_process(vertex, sibling)
-                self.search(sibling)
-            elif ((not self.processed[sibling] and self.parents[vertex] != sibling) or self.graph.directed) and self.edge_process:
-                self.edge_process(vertex, sibling)
+                    self.edge_process(vertex, child)
+                self.search(child)
+            elif ((not self.processed[child] and self.parents[vertex] != child) or self.graph.directed) and self.edge_process:
+                self.edge_process(vertex, child)
 
             current = current.next
 
