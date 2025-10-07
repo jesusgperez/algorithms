@@ -1,3 +1,4 @@
+from enum import Enum, auto
 from typing import List, Dict
 from pydantic import BaseModel
 from collections import defaultdict
@@ -102,4 +103,80 @@ def dfs(vertex: int, adj: List[List]): # undirected search
 
 dfs(1, undirected)
 
-pass
+class ArticulationVertexInfo(VertexInfo):
+    tree_out_degree: int = 0
+    reachable_ancestor: int = -1
+
+vertex_info = defaultdict(ArticulationVertexInfo)
+
+undirected = create_undirected(10, [[0,1],[1,2],[2,3],[3,4],[3,5],[4,5],[2,0],[0,6],[6,7],[7,8],[8,9],[9,10],[10,8],[9,7],[7,0]])
+
+class EdgeClass(Enum):
+    BACK = auto()
+    TREE = auto()
+
+    @classmethod
+    def clasify(cls, x: int, y: int):
+        if vertex_info[y].parent == x:
+            return cls.TREE
+        elif vertex_info[y].discovered and not vertex_info[y].processed:
+            return cls.BACK
+
+def preprocess(v: int):
+    vertex_info[v].reachable_ancestor = v
+
+def process_edge(x: int, y: int):
+    e_class = EdgeClass.clasify(x, y)
+
+    if e_class == EdgeClass.TREE:
+        vertex_info[x].tree_out_degree += 1
+
+    if ((e_class == EdgeClass.BACK and vertex_info[y].parent != x) and
+        vertex_info[y].entry < vertex_info[vertex_info[x].reachable_ancestor].entry):
+            vertex_info[x].reachable_ancestor = y
+
+def postprocess(v: int):
+    parent = vertex_info[v].parent
+
+    if parent == -1 and vertex_info[v].tree_out_degree > 1:
+        print(f'Root articulation vertex: {v}')
+        return
+
+    if vertext_info[parent].parent == -1:
+        return
+
+    if vertex_info[v].reachable_ancestor == parent:
+        print(f'Parent articulation vertex: {parent}')
+    
+    if vertex_info[v].reachable_ancestor == v:
+        print(f'Bridge articulation vertex: {parent}')
+
+        if vertex_info[v].tree_out_degree > 0:
+            print(f'Bridge articulation vertex: {v}')
+
+time = 0
+
+def dfs(v: int, adj: List[List[int]]):
+    global time
+    time += 1
+    vertex_info[v].discovered = True
+    vertex_info[v].entry = time
+
+    preprocess(v)
+
+    for child in adj[v]:
+        if not vertex_info[child].discovered:
+            vertex_info[child].parent = v
+            process_edge(v, child)
+            dfs(child, adj)
+        elif not vertex_info[child].processed and vertex_info[v].parent != child:
+            process_edge(v, child)
+
+    postprocess(v)
+
+    time += 1
+    vertex_info[v].processed = True
+    vertex_info[v].exit = time
+
+
+dfs(0, undirected)
