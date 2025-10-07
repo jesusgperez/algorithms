@@ -57,7 +57,7 @@ def create_undirected(n_vertices, edges):
 
 undirected = create_undirected(6, [[1,3],[1,2],[2,5],[3,4],[4,5],[2,3],[3,5]])
 
-vertext_info, time = defaultdict(VertexInfo), 0
+vertex_info, time = defaultdict(VertexInfo), 0
 
 finished = False
 
@@ -101,7 +101,7 @@ def dfs(vertex: int, adj: List[List]): # undirected search
     vertex_info[vertex].processed = True
     vertex_info[vertex].exit = time
 
-dfs(1, undirected)
+# dfs(1, undirected)
 
 class ArticulationVertexInfo(VertexInfo):
     tree_out_degree: int = 0
@@ -109,11 +109,13 @@ class ArticulationVertexInfo(VertexInfo):
 
 vertex_info = defaultdict(ArticulationVertexInfo)
 
-undirected = create_undirected(10, [[0,1],[1,2],[2,3],[3,4],[3,5],[4,5],[2,0],[0,6],[6,7],[7,8],[8,9],[9,10],[10,8],[9,7],[7,0]])
+undirected = create_undirected(11, [[0,1],[1,2],[2,3],[3,4],[3,5],[4,5],[2,0],[0,6],[6,7],[7,8],[8,9],[9,10],[10,8],[9,7],[7,0]])
 
 class EdgeClass(Enum):
-    BACK = auto()
     TREE = auto()
+    BACK = auto()
+    FORWARD = auto()
+    CROSS = auto()
 
     @classmethod
     def clasify(cls, x: int, y: int):
@@ -121,6 +123,14 @@ class EdgeClass(Enum):
             return cls.TREE
         elif vertex_info[y].discovered and not vertex_info[y].processed:
             return cls.BACK
+        elif vertex_info[y].processed: #X just for directed graphs
+            if vertex_info[y].entry > vertex_info[x].entry:
+                return cls.FORWARD
+            elif vertex_info[y].entry < vertex_info[x].entry:
+                return cls.CROSS
+
+        print(f'Warning, self loop {x}, {y}')
+        return -1
 
 def preprocess(v: int):
     vertex_info[v].reachable_ancestor = v
@@ -136,23 +146,26 @@ def process_edge(x: int, y: int):
             vertex_info[x].reachable_ancestor = y
 
 def postprocess(v: int):
-    parent = vertex_info[v].parent
+    parent, ancestor = vertex_info[v].parent, vertex_info[v].reachable_ancestor
 
     if parent == -1 and vertex_info[v].tree_out_degree > 1:
         print(f'Root articulation vertex: {v}')
         return
 
-    if vertext_info[parent].parent == -1:
+    if vertex_info[parent].parent == -1:
         return
 
-    if vertex_info[v].reachable_ancestor == parent:
+    if ancestor == parent:
         print(f'Parent articulation vertex: {parent}')
     
-    if vertex_info[v].reachable_ancestor == v:
+    if ancestor == v:
         print(f'Bridge articulation vertex: {parent}')
 
         if vertex_info[v].tree_out_degree > 0:
             print(f'Bridge articulation vertex: {v}')
+
+    if vertex_info[ancestor].entry < vertex_info[vertex_info[parent].reachable_ancestor].entry:
+        vertex_info[parent].reachable_ancestor = ancestor
 
 time = 0
 
@@ -178,5 +191,6 @@ def dfs(v: int, adj: List[List[int]]):
     vertex_info[v].processed = True
     vertex_info[v].exit = time
 
-
 dfs(0, undirected)
+
+pass
