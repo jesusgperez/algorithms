@@ -3,7 +3,7 @@ from typing import List, Dict
 from pydantic import BaseModel
 from collections import defaultdict
 
-# Undirected analysis
+# Directed analysis
 
 def create_directed(n_vertices: int, edges: List[List]):
     adj = [[] for i in range(n_vertices)]
@@ -33,12 +33,11 @@ def dfs(vertex: int, adj: List[List]):
     vertex_info[vertex].entry = time
 
     for child in adj[vertex]:
+        process_edge(vertex, child)
+
         if not vertex_info[child].discovered:
             vertex_info[child].parent = vertex
-            process_edge(vertex, child)
             dfs(child, adj)
-        else: # Not much else validated, 
-            process_edge(vertex, child)
 
     vertex_info[vertex].processed = True
     time += 1
@@ -191,6 +190,62 @@ def dfs(v: int, adj: List[List[int]]):
     vertex_info[v].processed = True
     vertex_info[v].exit = time
 
-dfs(0, undirected)
+# dfs(0, undirected)
 
-pass
+
+# Directed analysis: strongly conected components
+
+def get_transpose(graph: List[List[int]]):
+    t_adj = [[] for _ in range(len(graph))]
+
+    for v in range(len(graph)):
+        for child in graph[v]:
+            t_adj[child].append(v)
+
+    return t_adj
+
+time = 0
+
+info = defaultdict(VertexInfo)
+order = []
+process_edge = lambda x, y: print(x, ' -> ', y)
+
+def dfs(v: int, adj: List[List[int]]):
+    global time
+    time += 1
+    info[v].entry = time
+    info[v].discovered = True
+
+    for u in adj[v]:
+        process_edge(v, u)
+
+        if not info[u].discovered:
+            info[u].discovered = True
+            info[u].parent = v
+            dfs(u, adj)
+
+    order.append(v)
+
+    time += 1
+    info[v].processed = True
+    info[v].exit = time
+
+graph = create_directed(9, [[1,2],[2,3],[3,1],[2,4],[4,1],[4,8],[8,6],[4,6],[2,5],[5,6],[6,7],[7,5]])
+
+dfs(1, graph)
+
+transpose = get_transpose(graph)
+
+info = defaultdict(VertexInfo)
+
+components = 0
+
+new_order = order.copy()
+
+while new_order:
+    v = new_order.pop()
+    if not info[v].discovered:
+        components += 1
+        dfs(v, transpose)
+
+print(components)
