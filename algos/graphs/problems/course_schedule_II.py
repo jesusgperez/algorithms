@@ -1,5 +1,5 @@
 n = 3
-edges = [[1,0],[1,2]]
+edges = [[1,0],[1,2],[0,1]]
 
 adj = [[] for _ in range(n)]
 dependencies = [0 for _ in range(n)]
@@ -40,4 +40,7 @@ for v in range(n):
         dfs(v)
 
 
-print(schedule)
+if has_cycle or not all(processed):
+    print([])
+else:
+    print(schedule)
