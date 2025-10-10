@@ -1,34 +1,30 @@
-from typing import List
-
-n = 8
-edges = [[1,0],[2,1],[3,2],[3,4],[5,3],[6,7],[7,6]]
+n = 3
+edges = [[1,0],[1,2]]
 
 adj = [[] for _ in range(n)]
 dependencies = [0 for _ in range(n)]
 discovered = [False for _ in range(n)]
 processed = [False for _ in range(n)]
+has_cycle = False
+schedule = []
 
 for x, y in edges:
     adj[y].append(x)
     dependencies[x] += 1
 
-has_cycle = False
 
 def dfs(v: int):
     global has_cycle
-
-    if has_cycle:
-        return
-
     discovered[v] = True
+    schedule.append(v)
 
     for u in adj[v]:
         if has_cycle:
-            return
+            break
 
         if discovered[u] and not processed[u]:
             has_cycle = True
-            return
+            break
 
         dependencies[u] -= 1
         if dependencies[u] == 0:
@@ -36,12 +32,12 @@ def dfs(v: int):
 
     processed[v] = True
 
-
-for i in range(n):
+for v in range(n):
     if has_cycle:
         break
 
-    if not discovered[i] and dependencies[i] == 0:
-        dfs(i)
+    if not discovered[v] and dependencies[v] == 0:
+        dfs(v)
 
-print(all(processed) and not has_cycle)
+
+print(schedule)
