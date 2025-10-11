@@ -1,6 +1,6 @@
 recipes = ['bread','sandwich','burger']
 ingredients = [['yeast','flour'],['bread','meat','butter'],['sandwich','meat','bread','onions']]
-supplies = ['yeast','flour','meat','butter']
+supplies = ['yeast','flour','meat','butter','onions']
 
 adj = {}
 
@@ -11,25 +11,22 @@ for recipe, ingredient in zip(recipes,ingredients):
         v.append(i)
         adj[recipe] = v
 
-prepared, cooked, response = {}, set(), []
+prepared, cooked, response = set(), set(), []
 recipe_set, supply_set = set(recipes), set(supplies)
 
 def dfs(v: str):
-    prepared[v] = True
+    prepared.add(v)
 
-    if v not in recipe_set and v not in  supply_set:
-        prepared[v] = False
+    if v not in recipe_set and v not in supply_set:
         return
 
     for u in adj[v]:
         if u not in prepared:
             dfs(u)
-
-        if not prepared[u] or u not in cooked:
-            prepared[v] = False
+        if u not in cooked:
             return
 
-    if v in recipe_set and prepared[v]:
+    if v in recipe_set:
         response.append(v)
 
     cooked.add(v)
