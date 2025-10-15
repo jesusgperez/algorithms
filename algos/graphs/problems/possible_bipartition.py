@@ -1,8 +1,17 @@
 from typing import List
-
+from pydantic import BaseModel
+from collections import defaultdict
 
 dislikes = [[4,7],[4,8],[5,6],[1,6],[3,7],[2,5],[5,8],[1,2],[4,9],[6,10],[8,10],[3,6],[2,10],[9,10],[3,9],[2,3],[1,9],[4,6],[5,7],[3,8],[1,8],[1,7],[2,4]]
 n = 10
+
+class Info(BaseModel):
+    discovered: bool = False
+    processed: bool = False
+    parent: int = -1
+    entry: int = 0
+    exit: int = 0
+
 
 adj = [[] for _ in range(n + 1)]
 parents = [-1 for _ in range(n + 1)]
@@ -10,9 +19,6 @@ parents = [-1 for _ in range(n + 1)]
 for x, y in dislikes:
     adj[x].append(y)
     adj[y].append(x)
-
-discovered, processed = set(), set()
-cycles = []
 
 
 def find_path(start: int, end: int, cycle: List[int]):
@@ -42,6 +48,5 @@ def dfs(v: int):
 for v in range(n + 1):
     if v not in discovered:
         dfs(v)
-
 
 pass
