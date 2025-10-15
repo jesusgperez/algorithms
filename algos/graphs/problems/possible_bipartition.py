@@ -22,6 +22,7 @@ for x, y in dislikes:
 time_delta = []
 time = 0
 
+# If there are cycles of odd length, then bipartition cannot be reached
 def dfs(v: int):
     global time
     time += 1
