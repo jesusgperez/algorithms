@@ -10,43 +10,38 @@ class Info(BaseModel):
     processed: bool = False
     parent: int = -1
     entry: int = 0
-    exit: int = 0
 
+info = defaultdict(Info)
 
 adj = [[] for _ in range(n + 1)]
-parents = [-1 for _ in range(n + 1)]
 
 for x, y in dislikes:
     adj[x].append(y)
     adj[y].append(x)
 
-
-def find_path(start: int, end: int, cycle: List[int]):
-    if start == end or end == -1:
-        cycle.append(end)
-    else:
-        find_path(start, parents[end], cycle)
-        cycle.append(end)
-
+time_delta = []
+time = 0
 
 def dfs(v: int):
-    discovered.add(v)
+    global time
+    time += 1
+    info[v].discovered = True
+    info[v].entry = time
 
     for u in adj[v]:
-        if u not in discovered:
-            discovered.add(u)
-            parents[u] = v
+        if not info[u].discovered:
+            info[u].discovered = True
+            info[u].parent = v
             dfs(u)
-        elif u not in processed and parents[v] != u:
-            cycle = []
-            find_path(u, v, cycle)
-            cycles.append(cycle)
+        elif not info[u].processed and info[v].parent != u:
+            time_delta.append(info[v].entry - info[u].entry)
 
-    processed.add(v)
+    time += 1
+    info[v].processed = True
 
 
 for v in range(n + 1):
-    if v not in discovered:
+    if not info[v].discovered:
         dfs(v)
 
 pass
