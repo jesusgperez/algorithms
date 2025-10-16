@@ -2,7 +2,8 @@ from collections import defaultdict
 from typing import Dict, List, Tuple
 
 # stones = [[0,0],[0,1],[1,0],[2,0],[0,2],[2,2]]
-stones = [[0,1],[1,0],[1,1]]
+# stones = [[0,1],[1,0],[1,1]]
+stones = [[3,2],[3,1],[4,4],[1,1],[0,2],[4,0]]
 
 adj, x_coords, y_coords = defaultdict(list), defaultdict(list), defaultdict(list)
 deps = defaultdict(int)
@@ -25,26 +26,27 @@ def load_adj(coords: Dict[Tuple, List]):
 load_adj(x_coords)
 load_adj(y_coords)
 
-discovered, processed = set(), set()
-times, parents = defaultdict(int), defaultdict(lambda: -1)
+discovered= set()
+entry, exit = defaultdict(int), defaultdict(int)
 time, max_stones = 0, 0
 
-def dfs(v: Tuple, root: Tuple):
+def dfs(v: Tuple):
     global time, max_stones
     time += 1
     discovered.add(v)
-    times[v] = time
+    entry[v] = time
 
     for u in adj[v]:
         if u not in discovered:
-            parents[u] = v
-            dfs(u, root)
+            dfs(u)
 
-    max_stones = max(max_stones, times[v] - times[root])
+    time += 1
+    exit[v] = time
 
 for stone in stones:
     current = tuple(stone)
     if current not in discovered:
-        dfs(current, current)
+        dfs(current)
+        max_stones += int(exit[current]/2 - entry[current]/2)
 
-pass
+print(max_stones)
