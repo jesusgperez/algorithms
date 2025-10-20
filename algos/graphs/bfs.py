@@ -90,7 +90,7 @@ def bfs(start):
         for child in adj[vertex]:
             if not vertex_info[child].processed:
                 process_edge(vertex, child)
-            
+
             if not vertex_info[child].discovered:
                 vertex_info[child].discovered = True
                 queue.append(child)
