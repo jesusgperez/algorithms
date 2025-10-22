@@ -31,8 +31,7 @@ paths = [-1 if i != 0 else i for i in range(n)]
 def dfs(v: int, color: str, length: int):
     for u in adj[v][color]:
         if u not in discovered[color] or length < discovered[color][u]:
-            min_length = length if paths[u] == -1  else min(paths[u], length)
-            paths[u] = min_length
+            paths[u] = length if paths[u] == -1  else min(paths[u], length)
             discovered[color][u] = length
             dfs(u, pick_color(color), length + 1)
 
