@@ -19,24 +19,4 @@ for v in sorted(range(n + 1), key=lambda x: len(adj[x]), reverse=True):
     weight[v] = current
     current -= 1
 
-parents = defaultdict(lambda: -1)
-discovered, processed = set(), set()
-def dfsw(v: int):
-    discovered.add(v)
-    current = 0
-    for u in adj[v]:
-        if u not in discovered:
-            current += (weight[v] + weight[u])
-            parents[u] = v
-            current += dfsw(u)
-        elif u not in processed and parents[v] != u:
-            current += (weight[v] + weight[u])
-    processed.add(v)
-    return current
-
-total = 0
-for v in range(n):
-    if v not in discovered:
-        total += dfsw(v)
-
-print(total)
+print(sum((weight[v] * len(adj[v]) for v in range(n + 1))))
