@@ -1,9 +1,11 @@
 from typing import List
-from collections import defaultdict
+from collections import defaultdict, deque
 from algos.graphs.utils import visualize_undirected
 
 edges = [[0,18],[18,1],[1,19],[21,20],[20,7],[7,8],[3,22],[22,13],[13,1],[13,9],[9,16],[16,7],[24,17],[17,3],[3,21],[22,6],[6,11],[11,7],[23,4],[4,15],[15,12],[5,7],[7,21],[21,1]]
-visualize_undirected(edges)
+# edges = [[0,1],[1,2],[2,3],[0,2],[1,3],[2,4]]
+
+# visualize_undirected(edges)
 n = max((v for edge in edges for v in edge))
 adj = defaultdict(list)
 weight = {}
@@ -29,10 +31,20 @@ for v in range(n):
 components.sort(key= lambda x: len(x), reverse=True)
 current = n + 1
 for component in components:
-    component.sort(key=lambda x: len(adj[x]), reverse=True)
-    for v in component:
-        weight[v] = current
-        current -= 1
+    root = max(component, key=lambda x: len(adj[x]))
+    weight[root] = current
+    current -= 1
+    q = deque((root,))
+    discovered = set((root,))
+    while q:
+        v = q.popleft()
+        adj[v].sort(key=lambda x: len(adj[x]),reverse=True)
+        for u in adj[v]:
+            if u not in discovered:
+                weight[u] = current
+                current -= 1
+                discovered.add(u)
+                q.append(u)
 
 parents = defaultdict(lambda: -1)
 discovered, processed = set(), set()
