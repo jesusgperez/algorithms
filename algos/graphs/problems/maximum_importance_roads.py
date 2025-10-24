@@ -14,37 +14,10 @@ for x,y in edges:
     adj[x].append(y)
     adj[y].append(x)
 
-discovered = set()
-def dfs(v: int, component: List):
-    discovered.add(v)
-    component.append(v)
-    for u in adj[v]:
-        if u not in discovered:
-            dfs(u, component)
-    return component
-
-components: List[List[int]] = []
-for v in range(n):
-    if v not in discovered:
-        components.append(dfs(v, []))
-
-components.sort(key= lambda x: len(x), reverse=True)
 current = n + 1
-for component in components:
-    root = max(component, key=lambda x: len(adj[x]))
-    weight[root] = current
+for v in sorted(range(n + 1), key=lambda x: len(adj[x]), reverse=True):
+    weight[v] = current
     current -= 1
-    q = deque((root,))
-    discovered = set((root,))
-    while q:
-        v = q.popleft()
-        adj[v].sort(key=lambda x: len(adj[x]),reverse=True)
-        for u in adj[v]:
-            if u not in discovered:
-                weight[u] = current
-                current -= 1
-                discovered.add(u)
-                q.append(u)
 
 parents = defaultdict(lambda: -1)
 discovered, processed = set(), set()
