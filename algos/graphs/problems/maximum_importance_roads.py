@@ -7,16 +7,12 @@ edges = [[0,18],[18,1],[1,19],[21,20],[20,7],[7,8],[3,22],[22,13],[13,1],[13,9],
 
 # visualize_undirected(edges)
 n = max((v for edge in edges for v in edge))
-adj = defaultdict(list)
+degree = [0 for _ in range(n + 1)]
 weight = {}
 
 for x,y in edges:
-    adj[x].append(y)
-    adj[y].append(x)
+    degree[x] += 1
+    degree[y] += 1
 
-current = n + 1
-for v in sorted(range(n + 1), key=lambda x: len(adj[x]), reverse=True):
-    weight[v] = current
-    current -= 1
-
-print(sum((weight[v] * len(adj[v]) for v in range(n + 1))))
+degree.sort()
+print(sum((weight * deg for weight, deg in enumerate(degree, start=1))))
