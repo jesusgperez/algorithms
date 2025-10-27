@@ -12,7 +12,7 @@ weight = {}
 
 for x,y in edges:
     degree[x] += 1
-    degree[y] += 1
+degree[y] += 1
 
 degree.sort()
 print(sum((weight * deg for weight, deg in enumerate(degree, start=1))))
