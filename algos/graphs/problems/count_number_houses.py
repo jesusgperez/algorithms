@@ -1,6 +1,6 @@
 from collections import defaultdict, deque
 
-x, y = 2, 4
+x, y = 1, 5
 n = 5
 
 adj = defaultdict(list)
@@ -18,23 +18,21 @@ def bfs(start: int, root: int):
     
     while q:
         u, length = q.popleft()
-
-        for v in adj[u]:
+        for v in adj[u]:    
             if v not in distance[root]:
                 distance[root][v] = length + 1
                 q.append((v, length + 1))
-            else:
-                distance[root][v] = min(length + 1, distance[root][v])
 
 
 for u in range(1, n + 1):
     bfs(u, u)
 
+print(distance)
 response = [0 for _ in range(n)]
 
 for i in range(1, n + 1):
-    for j in range(1, n + 1):
+    for j in range(i + 1, n + 1):
         if distance[i][j] > 0:
-            response[distance[i][j] - 1] += 1
+            response[distance[i][j] - 1] += 2
 
 print(response)
