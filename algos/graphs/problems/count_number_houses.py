@@ -32,10 +32,9 @@ for u in range(1, n + 1):
 
 response = [0 for _ in range(n)]
 
-for k in range(1, n + 1):
-    for i in range(1, n + 1):
-        for j in range(1, n + 1):
-            if distance[i][j] == k:
-                response[k-1] += 1
+for i in range(1, n + 1):
+    for j in range(1, n + 1):
+        if distance[i][j] > 0:
+            response[distance[i][j] - 1] += 1
 
 print(response)
