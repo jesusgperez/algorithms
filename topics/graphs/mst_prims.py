@@ -3,6 +3,7 @@ from typing import List, Tuple
 from math import inf
 from collections import defaultdict
 from heapq import heappush, heappop
+from topics.utils import measure_time
 
 
 class Edge(BaseModel):
@@ -52,7 +53,7 @@ def prims(g: Graph, start: int):
 
     return weight
 
-
+@measure_time
 def prim(start: int, adj: List[Tuple[int, int]], n: int):
     distance = defaultdict(lambda: inf)
     parent = defaultdict(lambda: -1)
@@ -94,7 +95,7 @@ for u,v,w in edges:
 
 print(prim(0, adj, n))
 
-
+@measure_time
 def prim_heap(start: int, adj: List[Tuple[int, int]], n):
     parent = defaultdict(lambda: -1)
     distance = defaultdict(lambda: inf)
