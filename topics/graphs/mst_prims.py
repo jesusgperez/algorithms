@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Tuple
 from math import inf
+from collections import defaultdict
 
 
 class Edge(BaseModel):
@@ -49,3 +50,36 @@ def prims(g: Graph, start: int):
                 dist = distance[w]
 
     return weight
+
+
+def prim(start: int, adj: List[Tuple[int, int]]):
+    distance = defaultdict(lambda: inf)
+    parent = defaultdict(lambda: -1)
+    tree = set()
+
+    distance[start] = 0
+    v = start
+    weight = 0
+
+    while v not in tree:
+        tree.add(v)
+
+        if v != start:
+            print(parent[v], '->', v)
+            weight += dist
+
+        for w, weight in adj[v]:
+            if weight < distance[w] and w not in tree:
+                distance[w] = weight
+                parent[w] = v
+
+        dist = inf
+        for w in range(len(adj)):
+            if distance[w] < dist and not w in tree:
+                dist = distance[w]
+                v = w
+
+    return weight
+
+
+
