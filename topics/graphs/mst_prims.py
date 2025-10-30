@@ -17,7 +17,7 @@ class Graph(BaseModel):
     n_vertices: int
 
 
-g = Graph()
+# g = Graph()
 
 
 def prims(g: Graph, start: int):
@@ -52,21 +52,21 @@ def prims(g: Graph, start: int):
     return weight
 
 
-def prim(start: int, adj: List[Tuple[int, int]]):
+def prim(start: int, adj: List[Tuple[int, int]], n: int):
     distance = defaultdict(lambda: inf)
     parent = defaultdict(lambda: -1)
     tree = set()
 
     distance[start] = 0
     v = start
-    weight = 0
+    min_weight = 0
 
     while v not in tree:
         tree.add(v)
 
         if v != start:
             print(parent[v], '->', v)
-            weight += dist
+            min_weight += dist
 
         for w, weight in adj[v]:
             if weight < distance[w] and w not in tree:
@@ -74,12 +74,23 @@ def prim(start: int, adj: List[Tuple[int, int]]):
                 parent[w] = v
 
         dist = inf
-        for w in range(len(adj)):
+        for w in range(n):
             if distance[w] < dist and not w in tree:
                 dist = distance[w]
                 v = w
 
-    return weight
+    return min_weight
 
+
+edges = [[0,1,5],[0,3,12],[0,2,7],[1,4,7],[1,2,9],[2,3,4],[2,4,4],[2,5,3],[3,5,7],[4,5,2],[4,6,5],[5,6,2]]
+adj = defaultdict(list)
+
+n = 0
+for u,v,w in edges:
+    adj[u].append((v,w))
+    adj[v].append((u,w))
+    n = max(n,u,v)
+
+print(prim(0, adj, n))
 
 
