@@ -2,12 +2,14 @@ from pydantic import BaseModel
 from typing import List, Tuple
 from math import inf
 from collections import defaultdict
+from heapq import heappush, heappop
+from topics.utils import measure_time
 
 
 class Edge(BaseModel):
     val: int
     weight: int
-    next: 'Edge'
+    next: 'Edge'    
 
 
 class Graph(BaseModel):
@@ -51,7 +53,7 @@ def prims(g: Graph, start: int):
 
     return weight
 
-
+@measure_time
 def prim(start: int, adj: List[Tuple[int, int]], n: int):
     distance = defaultdict(lambda: inf)
     parent = defaultdict(lambda: -1)
@@ -74,7 +76,7 @@ def prim(start: int, adj: List[Tuple[int, int]], n: int):
                 parent[w] = v
 
         dist = inf
-        for w in range(n):
+        for w in range(n + 1):
             if distance[w] < dist and not w in tree:
                 dist = distance[w]
                 v = w
@@ -93,4 +95,32 @@ for u,v,w in edges:
 
 print(prim(0, adj, n))
 
+@measure_time
+def prim_heap(start: int, adj: List[Tuple[int, int]], n):
+    parent = defaultdict(lambda: -1)
+    distance = defaultdict(lambda: inf)
+    tree = set()
 
+    v = start
+    distance[start] = 0
+    min_weight = 0
+    q = []
+
+    while not v in tree:
+        tree.add(v)
+        if v != start:
+            print(parent[v], '->', v)
+            min_weight += dist
+
+        for w, weight in adj[v]:
+            if weight < distance[w] and w not in tree:
+                heappush(q, (weight, w))
+                distance[w] = weight
+                parent[w] = v
+
+        while v in tree and q:
+            dist, v = heappop(q)
+
+    return min_weight
+
+print(prim_heap(0, adj, n))
