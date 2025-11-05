@@ -13,7 +13,7 @@ def kruskal(edges: List[List[int]]):
     s, weight = UnionFind(n + 1), 0
 
     while q:
-        w, u , v = heappop(q)
+        w, u, v = heappop(q)
         if not same(s, u, v):
             weight += w
             union(s, u, v)
