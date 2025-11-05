@@ -11,7 +11,9 @@ def find(s: UnionFind, u: int):
     if s.parent[u] == u:
         return u
 
-    return find(s, s.parent[u])
+    root = find(s, s.parent[u])
+    s.parent[u] = root
+    return root
 
 
 def union(s: UnionFind, u: int, w: int):
